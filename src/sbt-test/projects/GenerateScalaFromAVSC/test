@@ -1,0 +1,5 @@
+> update
+
+> avro:generate
+
+$ exists target/generated-sources/example/User.scala
