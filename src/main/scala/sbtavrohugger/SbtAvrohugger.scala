@@ -72,23 +72,18 @@ object SbtAvrohugger extends Plugin {
    * Tasks and methods for generating Scala case classes
    */ 
   private def generateCaseClasses[T <: GeneratorBase](generator: T , srcDir: File, target: File, log: Logger): Set[java.io.File] = {
-/*
-    // TODO: generate case classes from .avdl files
 
     for (idl <- (srcDir ** "*.avdl").get) {
       log.info("Compiling Avro IDL %s".format(idl))
-      val parser = new Idl(idl.asFile)
-      val protocol = Protocol.parse(parser.CompilationUnit.toString)
-    // perhaps convert to a schema?
-    
+      generator.fromFile(idl, target.getPath)
     }
-*/
 
     for (inFile <- (srcDir ** "*.avsc").get) {
       Try {
+        log.info("Compiling AVSC %s".format(inFile))
         generator.fromFile(inFile, target.getPath)
       }
-      
+
     }
 
     for (inFile <- (srcDir ** "*.avro").get) {
