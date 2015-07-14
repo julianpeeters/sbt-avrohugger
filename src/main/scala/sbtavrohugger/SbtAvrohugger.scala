@@ -88,6 +88,7 @@ object SbtAvrohugger extends Plugin {
 
     for (inFile <- (srcDir ** "*.avro").get) {
       Try {
+        log.info("Compiling Avro datafile %s".format(inFile))
         generator.fromFile(inFile, target.getPath)
       }
 
@@ -101,10 +102,11 @@ object SbtAvrohugger extends Plugin {
     (target ** "*.scala").get.toSet
   }
 
+
   private def caseClassGeneratorTask = (streams,
     sourceDirectory in avroConfig,
     scalaSource in avroConfig,
-    cacheDirectory) map {
+    target) map {
       (out, srcDir, targetDir, cache) =>
         val cachedCompile = FileFunction.cached(cache / "avro",
           inStyle = FilesInfo.lastModified,
@@ -118,7 +120,7 @@ object SbtAvrohugger extends Plugin {
   private def specificCaseClassGeneratorTask = (streams,
     sourceDirectory in avroConfig,
     scalaSource in avroConfig,
-    cacheDirectory) map {
+    target) map {
       (out, srcDir, targetDir, cache) =>
         val cachedCompile = FileFunction.cached(cache / "avro",
           inStyle = FilesInfo.lastModified,
