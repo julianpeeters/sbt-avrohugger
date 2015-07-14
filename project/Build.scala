@@ -9,12 +9,12 @@ object build extends Build {
     base = file("."),
     settings = Defaults.defaultSettings ++ scriptedSettings ++ Seq[Project.Setting[_]](
       organization := "com.julianpeeters",
-      version := "0.1.0",
+      version := "0.1.1",
       sbtPlugin := true,
       scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Ywarn-value-discard"),
       resolvers += Resolver.file("Local Ivy Repository", file("/home/julianpeeters/.ivy2/local/"))(Resolver.ivyStylePatterns),
       libraryDependencies ++= Seq(
-        "com.julianpeeters" % "avrohugger-core_2.10" % "0.2.1",
+        "com.julianpeeters" % "avrohugger-core_2.10" % "0.2.2",
         "org.apache.avro" % "avro" % "1.7.4"),
       scalaVersion := "2.10.5",
       scalacOptions in Compile ++= Seq("-deprecation"),

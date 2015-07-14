@@ -12,7 +12,7 @@ Add the plugin according to the `sbt documentation`_.
 For instance, add the following lines to the file ``hello/project/build.sbt`` in your
 project directory:
 
-    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "0.1.0")
+    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "0.1.1")
 
 
 Import the plugin settings
