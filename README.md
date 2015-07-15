@@ -90,9 +90,17 @@ Future
 * ability to specify preferred collection type to represent ARRAY
 
 
-#### Credits
+Credits
+-------
 
 `sbt-avrohugger` is based on [sbt-avro](https://github.com/cavorite/sbt-avro) by [Juan Manuel Caicedo](http://cavorite.com/) (even this README file!).
+
+#### Contributors
+
+- [Marius Soutier](https://github.com/mariussoutier)
+- [Brennan Saeta](https://github.com/saeta)
+- [Daniel Lundin](https://github.com/dln)
+- [Vince Tse](https://github.com/vtonehundred)
 
 
 #### Fork away, just make sure the tests pass before you send a pull request.
