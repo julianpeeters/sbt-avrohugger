@@ -79,24 +79,18 @@ object SbtAvrohugger extends Plugin {
     }
 
     for (inFile <- (srcDir ** "*.avsc").get) {
-      Try {
-        log.info("Compiling AVSC %s".format(inFile))
-        generator.fromFile(inFile, target.getPath)
-      }
-
+      log.info("Compiling AVSC %s".format(inFile))
+      generator.fromFile(inFile, target.getPath)
     }
 
     for (inFile <- (srcDir ** "*.avro").get) {
-      Try {
-        log.info("Compiling Avro datafile %s".format(inFile))
-        generator.fromFile(inFile, target.getPath)
-      }
-
+      log.info("Compiling Avro datafile %s".format(inFile))
+      generator.fromFile(inFile, target.getPath)
     }
 
     for (protocol <- (srcDir ** "*.avpr").get) {
       log.info("Compiling Avro protocol %s".format(protocol))
-        generator.fromFile(protocol, target.getPath)
+      generator.fromFile(protocol, target.getPath)
     }
 
     (target ** "*.scala").get.toSet

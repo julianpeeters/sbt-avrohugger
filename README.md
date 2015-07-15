@@ -12,7 +12,7 @@ Add the plugin according to the `sbt documentation`_.
 For instance, add the following lines to the file ``hello/project/build.sbt`` in your
 project directory:
 
-    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "0.1.1")
+    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "0.1.2")
 
 
 Import the plugin settings
@@ -73,8 +73,8 @@ Supports generating case classes with arbitrary fields of the following datatype
 * STRING -> String
 * BOOLEAN -> Boolean
 * NULL  -> Null
+* MAP -> Map
 * ENUM -> //TODO
-* MAP -> //TODO
 * BYTES -> //TODO
 * FIXED -> //TODO
 * ARRAY -> List
@@ -86,8 +86,8 @@ Supports generating case classes with arbitrary fields of the following datatype
 Future
 ------
 * support for more avro datatypes
-* full support for .avpr and .avdl files
 * ability to override default settings in avroConfig
+* ability to specify preferred collection type to represent ARRAY
 
 
 #### Credits
