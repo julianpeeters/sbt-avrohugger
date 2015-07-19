@@ -2,4 +2,4 @@
 
 > avro:generate-specific
 
-$ exists target/scala-2.10/src_managed/main/generated_case_classes/example/User.scala
+$ exists target/scala-2.10/src_managed/main/compiled_avro/example/User.scala

@@ -12,7 +12,7 @@ Add the plugin according to the `sbt documentation`_.
 For instance, add the following lines to the file ``hello/project/build.sbt`` in your
 project directory:
 
-    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "0.1.2")
+    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "0.1.3")
 
 
 Import the plugin settings
@@ -42,7 +42,7 @@ Settings
 | Name          | Name in shell | Default  | Description  |
 | ------------- |:-------------:| -----:| -----:|
 | sourceDirectory     | ``source-directory`` | ``src/main/avro`` | Path containing ``*.avsc``, ``*.avdl``, and/or ``*.avro`` files. |
-| scalaSource      | ``scala-source``      |   ``$sourceManaged/compiled_avro`` |   Path for the generated ``*.scala`` files. |
+| scalaSource      | ``scala-source``      |   ``$sourceManaged/compiled_avro`` |   Path for the generated ``*.scala`` or ``*.java``  files. |
 
 
 
@@ -74,7 +74,7 @@ Supports generating case classes with arbitrary fields of the following datatype
 * BOOLEAN -> Boolean
 * NULL  -> Null
 * MAP -> Map
-* ENUM -> //TODO
+* ENUM -> `generate`: scala.Enumeration, `generate-specific`: Java Enum
 * BYTES -> //TODO
 * FIXED -> //TODO
 * ARRAY -> List

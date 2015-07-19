@@ -41,7 +41,7 @@ object SbtAvrohugger extends Plugin {
 
   val inputDir = sourceDirectory <<= (sourceDirectory in Compile) { _ / "avro" }
 
-  val outputDir = scalaSource <<= (sourceManaged in Compile) { _ / "generated_case_classes" }
+  val outputDir = scalaSource <<= (sourceManaged in Compile) { _ / "compiled_avro" }
 
   val classPath = managedClasspath <<= (classpathTypes, update) map { (ct, report) =>
       Classpaths.managedJars(avroConfig, ct, report)
@@ -93,7 +93,7 @@ object SbtAvrohugger extends Plugin {
       generator.fromFile(protocol, target.getPath)
     }
 
-    (target ** "*.scala").get.toSet
+    (target ** ("*.java"|"*.scala")).get.toSet
   }
 
 
