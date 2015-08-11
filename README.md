@@ -101,7 +101,7 @@ Credits
 - [Brennan Saeta](https://github.com/saeta)
 - [Daniel Lundin](https://github.com/dln)
 - [Vince Tse](https://github.com/vtonehundred)
-
+- [Jerome Wacongne](https://github.com/ch4mpy)
 
 #### Fork away, just make sure the tests pass before you send a pull request.
 
