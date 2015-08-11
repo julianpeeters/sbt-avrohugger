@@ -83,7 +83,7 @@ object SbtAvrohugger extends Plugin {
       generator.fileToFile(inFile, target.getPath)
     }
 
-    for (inFile <- (srcDir ** "*.avro").get) {
+    for (inFile <- AVSCFileSorter.sortSchemaFiles((srcDir ** "*.avro").get)) {
       log.info("Compiling Avro datafile %s".format(inFile))
       generator.fileToFile(inFile, target.getPath)
     }

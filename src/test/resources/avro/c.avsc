@@ -1,0 +1,9 @@
+{
+    "type": "record",
+    "name": "com.c4soft.sbtavro.C",
+    "fields": [{
+            "name": "str",
+            "type": "string"
+        }
+    ]
+}
