@@ -9,7 +9,7 @@ Add the plugin according to the `sbt documentation`_.
 
 .. _`sbt documentation`: https://github.com/harrah/xsbt/wiki/Getting-Started-Using-Plugins
 
-For instance, add the following lines to the file ``hello/project/build.sbt`` in your
+For instance, add the following lines to the file ``hello/project/plugins.sbt`` in your
 project directory:
 
     addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "0.3.0")
@@ -18,8 +18,11 @@ project directory:
 Import the plugin settings
 --------------------------
 
-To activate the plugin, import its settings by adding the following lines to 
-your ``hello/build.sbt`` file. To get the 'generate' task for generating standard Scala Case Classes use:
+To activate the plugin, import its settings by adding one of the following lines to 
+your ``hello/build.sbt`` file:
+
+
+To get the 'generate' task for generating standard Scala Case Classes use:
 
     seq( sbtavrohugger.SbtAvrohugger.avroSettings : _*)
 
