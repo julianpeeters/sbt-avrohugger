@@ -1,4 +1,4 @@
-seq( sbtavrohugger.SbtAvrohugger.specificAvroSettings : _*)
+sbtavrohugger.SbtAvrohugger.specificAvroSettings
 
 organization := "com.julianpeeters"
 

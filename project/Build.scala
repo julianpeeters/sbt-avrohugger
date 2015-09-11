@@ -9,7 +9,7 @@ object build extends Build {
     base = file("."),
     settings = Defaults.defaultSettings ++ scriptedSettings ++ Seq[Project.Setting[_]](
       organization := "com.julianpeeters",
-      version := "0.3.1",
+      version := "0.4.0",
       sbtPlugin := true,
       scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Ywarn-value-discard"),
       resolvers += Resolver.file("Local Ivy Repository", file("/home/julianpeeters/.ivy2/local/"))(Resolver.ivyStylePatterns),
