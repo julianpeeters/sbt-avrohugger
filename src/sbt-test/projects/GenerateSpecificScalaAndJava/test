@@ -2,6 +2,6 @@
 
 > avro:generate-specific
 
-$ exists target/scala-2.10/src_managed/main/compiled_avro/test/Compass.scala
+$ exists target/scala-2.10/src_managed/main/main/test/Compass.scala
 
-$ exists target/scala-2.10/src_managed/main/compiled_avro/test/Direction.java
+$ exists target/scala-2.10/src_managed/main/main/test/Direction.java

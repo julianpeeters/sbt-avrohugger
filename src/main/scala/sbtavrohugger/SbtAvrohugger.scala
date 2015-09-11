@@ -11,7 +11,7 @@ import org.apache.avro.generic.GenericData.StringType
 import sbt.ConfigKey.configurationToKey
 import sbt.Keys._
 import sbt.Scoped._
-import sbt.{ 
+import sbt.{
   Classpaths,
   Compile,
   FileFunction,
@@ -26,7 +26,7 @@ import sbt.{
   inConfig,
   richFile,
   singleFileFinder,
-  toGroupID 
+  toGroupID
 }
 /**
  * Simple plugin for generating the Scala sources for Avro schemas and protocols.
@@ -41,7 +41,7 @@ object SbtAvrohugger extends Plugin {
 
   val inputDir = sourceDirectory <<= (sourceDirectory in Compile) { _ / "avro" }
 
-  val outputDir = scalaSource <<= (sourceManaged in Compile) { _ / "compiled_avro" }
+  val outputDir = scalaSource <<= (sourceManaged in Compile) { _ / "main" }
 
   val classPath = managedClasspath <<= (classpathTypes, update) map { (ct, report) =>
       Classpaths.managedJars(avroConfig, ct, report)
@@ -70,7 +70,7 @@ object SbtAvrohugger extends Plugin {
 
   /**
    * Tasks and methods for generating Scala case classes
-   */ 
+   */
   private def generateCaseClasses(generator: Generator , srcDir: File, target: File, log: Logger): Set[java.io.File] = {
 
     for (idl <- (srcDir ** "*.avdl").get) {
