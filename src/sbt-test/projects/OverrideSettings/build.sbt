@@ -1,6 +1,6 @@
 sbtavrohugger.SbtAvrohugger.specificAvroSettings
 
-(scalaSource in avroConfig) <<= sourceManaged
+(scalaSource in avroConfig) := new java.io.File("myoutputdir")
 
 organization := "com.julianpeeters"
 

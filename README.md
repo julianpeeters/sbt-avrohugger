@@ -5,21 +5,17 @@ sbt plugin for generating Scala sources for Apache Avro schemas, datafiles, and 
 Install the plugin
 ------------------
 
-Add the plugin according to the `sbt documentation`_.
-
-.. _`sbt documentation`: https://github.com/harrah/xsbt/wiki/Getting-Started-Using-Plugins
-
-For instance, add the following lines to the file ``hello/project/plugins.sbt`` in your
+Add the following lines to the file ``myproject/project/plugins.sbt`` in your
 project directory:
 
-    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "0.3.0")
+    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "0.4.0")
 
 
 Import the plugin settings
 --------------------------
 
-To activate the plugin, import its settings by adding one of the following lines to 
-your ``hello/build.sbt`` file:
+To activate the plugin, import its settings by adding one of the following lines to
+your ``myproject/build.sbt`` file:
 
 
 To get the 'generate' task for generating standard Scala Case Classes use:
@@ -45,18 +41,27 @@ Settings
 | Name          | Name in shell | Default  | Description  |
 | ------------- |:-------------:| -----:| -----:|
 | sourceDirectory     | ``source-directory`` | ``src/main/avro`` | Path containing ``*.avsc``, ``*.avdl``, and/or ``*.avro`` files. |
-| scalaSource      | ``scala-source``      |   ``$sourceManaged/compiled_avro`` |   Path for the generated ``*.scala`` or ``*.java``  files. |
+| scalaSource      | ``scala-source``      |   ``$sourceManaged/main`` |   Path for the generated ``*.scala`` or ``*.java``  files. |
+
+
+Changing Settings
+-----------------
+
+Settings can be overridden by adding a line to ``myproject/build.sbt``:
+
+    (scalaSource in avroConfig) := new java.io.File("myoutputdir")
 
 
 
 Tasks
 -----
-Each task is automatically executed everytime the project is compiled.
+Each task is automatically executed* every time the project is compiled.
+* as of Intellij IDEA 14.1.4, the task must be run manually from the integrated Terminal:  ``avro:generate``.
 
 
 | Name          | Name in shell | Description  |
 | ------------- |:-------------:| -----:|
-| generate      | ``generate`` | Compiles the Avro files into Scala case classes. | 
+| generate      | ``generate`` | Compiles the Avro files into Scala case classes. |
 | generateSpecific      | ``generate-specific``      |   Compiles the Avro files into Scala case classes implementing `SpecificRecord`. |
 
 
@@ -65,8 +70,7 @@ Each task is automatically executed everytime the project is compiled.
 
 Datatypes
 ---------
-Depends on [avrohugger](https://github.com/julianpeeters/avrohugger) to support the following datatypes:
-Supports generating case classes with arbitrary fields of the following datatypes: 
+Supports generating case classes with arbitrary fields of the following datatypes:
 
 
 * INT -> Int

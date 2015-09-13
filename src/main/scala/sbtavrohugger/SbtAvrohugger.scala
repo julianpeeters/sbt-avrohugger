@@ -41,7 +41,7 @@ object SbtAvrohugger extends Plugin {
 
   val inputDir = sourceDirectory <<= (sourceDirectory in Compile) { _ / "avro" }
 
-  val outputDir = scalaSource <<= (sourceManaged in Compile) { _ / "main" }
+  val outputDir = scalaSource <<= (sourceManaged in Compile) { _ / "" }
 
   val classPath = managedClasspath <<= (classpathTypes, update) map { (ct, report) =>
       Classpaths.managedJars(avroConfig, ct, report)
