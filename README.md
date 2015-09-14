@@ -1,5 +1,5 @@
 # sbt-avrohugger
-sbt plugin for generating Scala sources for Apache Avro schemas, datafiles, and protocols.
+sbt plugin for generating Scala case classes from Apache Avro schemas, datafiles, and protocols.
 
 
 Install the plugin
@@ -20,12 +20,12 @@ your ``myproject/build.sbt`` file:
 
 To get the 'generate' task for generating standard Scala Case Classes use:
 
-    seq( sbtavrohugger.SbtAvrohugger.avroSettings : _*)
+    sbtavrohugger.SbtAvrohugger.avroSettings
 
 
 To get the `generate-specific` task for generating Scala Case Classes that are compatible with the Avro Specific API, use:
 
-    seq( sbtavrohugger.SbtAvrohugger.specificAvroSettings : _*)
+    sbtavrohugger.SbtAvrohugger.specificAvroSettings
 
 
 
@@ -49,14 +49,14 @@ Changing Settings
 
 Settings can be overridden by adding a line to ``myproject/build.sbt``:
 
-    (scalaSource in avroConfig) := new java.io.File("myoutputdir")
+    (scalaSource in avroConfig) := new java.io.File("myscalaSource")
 
 
 
 Tasks
 -----
-Each task is automatically executed* every time the project is compiled.
-* as of Intellij IDEA 14.1.4, the task must be run manually from the integrated Terminal:  ``avro:generate``.
+Each task is automatically executed every time the project is compiled.*
+* as of Intellij IDEA 14.1.4, and possibly for other IDEs, the task must be run manually from the integrated Terminal:  ``avro:generate``.
 
 
 | Name          | Name in shell | Description  |
