@@ -1,12 +1,9 @@
 package sbtavrohugger;
 
 import avrohugger.Generator
-import avrohugger.format.{ Standard, SpecificRecord }
-
 import java.io.File
-
 import sbt.Keys._
-import sbt.{ FileFunction, FilesInfo, Logger, globFilter, richFile, singleFileFinder }
+import sbt.{ Logger, globFilter, singleFileFinder }
 
 object FileWriter {
 
@@ -38,34 +35,5 @@ object FileWriter {
 
     (target ** ("*.java"|"*.scala")).get.toSet
   }
-/*
 
-  private[sbtavrohugger] def caseClassGeneratorTask(avroConfig: sbt.Configuration) = (streams,
-    sourceDirectory in avroConfig,
-    scalaSource in avroConfig,
-    target) map {
-      (out, srcDir, targetDir, cache) =>
-        val cachedCompile = FileFunction.cached(cache / "avro",
-          inStyle = FilesInfo.lastModified,
-          outStyle = FilesInfo.exists) { (in: Set[File]) =>
-            val generator = new Generator(Standard)
-            generateCaseClasses(generator, srcDir, targetDir, out.log)
-          }
-        cachedCompile((srcDir ** "*.av*").get.toSet).toSeq
-    }
-
-  private[sbtavrohugger] def specificCaseClassGeneratorTask(avroConfig: sbt.Configuration) = (streams,
-    sourceDirectory in avroConfig,
-    scalaSource in avroConfig,
-    target) map {
-      (out, srcDir, targetDir, cache) =>
-        val cachedCompile = FileFunction.cached(cache / "avro",
-          inStyle = FilesInfo.lastModified,
-          outStyle = FilesInfo.exists) { (in: Set[File]) =>
-            val generator = new Generator(SpecificRecord)
-            generateCaseClasses(generator, srcDir, targetDir, out.log)
-          }
-        cachedCompile((srcDir ** "*.av*").get.toSet).toSeq
-    }
-*/
 }

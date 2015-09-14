@@ -29,11 +29,12 @@ object SpecificAvroSettings {
       inputDir,
       outputDir,
       classPath,
-      generateSpecific <<= specificCaseClassGeneratorTask(avroConfig))) ++ Seq[Setting[_]](
-      sourceGenerators in Compile <+= (generateSpecific in avroConfig),
-      managedSourceDirectories in Compile <+= (scalaSource in avroConfig),
-      cleanFiles <+= (scalaSource in avroConfig),
-      ivyConfigurations += avroConfig)
+      generateSpecific <<= specificCaseClassGeneratorTask(avroConfig))) ++
+        Seq[Setting[_]](
+          sourceGenerators in Compile <+= (generateSpecific in avroConfig),
+          managedSourceDirectories in Compile <+= (scalaSource in avroConfig),
+          cleanFiles <+= (scalaSource in avroConfig),
+          ivyConfigurations += avroConfig)
   }
 
 }
