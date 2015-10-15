@@ -3,7 +3,8 @@ package sbtavrohugger;
 import avrohugger.Generator
 import java.io.File
 import sbt.Keys._
-import sbt.{ Logger, globFilter, singleFileFinder }
+import sbt.{Logger, globFilter, singleFileFinder}
+import sbt.Path._
 
 object FileWriter {
 

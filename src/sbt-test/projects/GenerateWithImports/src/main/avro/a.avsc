@@ -1,0 +1,11 @@
+{
+ "namespace": "example",
+ "type": "record",
+ "name": "A",
+ "fields": [
+  {
+   "name": "user",
+   "type": "User"
+  }
+ ]
+}

@@ -1,4 +1,5 @@
 package sbtavrohugger
+
 import settings.{ AvroSettings, SpecificAvroSettings }
 
 import java.io.File

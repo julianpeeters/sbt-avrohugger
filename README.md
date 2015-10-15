@@ -8,7 +8,7 @@ Install the plugin
 Add the following lines to the file ``myproject/project/plugins.sbt`` in your
 project directory:
 
-    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "0.4.1")
+    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "0.4.2")
 
 
 Import the plugin settings
@@ -47,10 +47,12 @@ Settings
 Changing Settings
 -----------------
 
-Settings can be overridden by adding a line to ``myproject/build.sbt``:
+Settings can be overridden by adding lines to ``myproject/build.sbt``:
 
-    (scalaSource in avroConfig) := new java.io.File("myscalaSource")
-
+```scala    
+(scalaSource in avroConfig) := new java.io.File("myscalaSource")
+    
+```
 
 
 Tasks
@@ -93,7 +95,6 @@ Supports generating case classes with arbitrary fields of the following datatype
 Future
 ------
 * support for more avro datatypes
-* ability to override default settings in avroConfig
 * ability to specify preferred collection type to represent ARRAY
 
 
@@ -109,6 +110,7 @@ Credits
 - [Daniel Lundin](https://github.com/dln)
 - [Vince Tse](https://github.com/vtonehundred)
 - [Jerome Wacongne](https://github.com/ch4mpy)
+- [Ryan Koval](http://github.ryankoval.com)
 
 #### Fork away, just make sure the tests pass before you send a pull request.
 
