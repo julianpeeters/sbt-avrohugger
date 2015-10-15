@@ -42,15 +42,23 @@ Settings
 | ------------- |:-------------:| -----:| -----:|
 | sourceDirectory     | ``source-directory`` | ``src/main/avro`` | Path containing ``*.avsc``, ``*.avdl``, and/or ``*.avro`` files. |
 | scalaSource      | ``scala-source``      |   ``$sourceManaged/main`` |   Path for the generated ``*.scala`` or ``*.java``  files. |
+|sbt.SbtAvrohugger.imports|`'imports'`|`Seq.empty`|A `Seq[File]` of Avro schemas to load before all other schema files. Sometimes necessary if you are referencing types defined in other schema files.
 
 
 Changing Settings
 -----------------
 
-Settings can be overridden by adding a line to ``myproject/build.sbt``:
+Settings can be overridden by adding lines to ``myproject/build.sbt``:
 
-    (scalaSource in avroConfig) := new java.io.File("myscalaSource")
-
+```scala
+import sbt.SbtAvroHugger.imports
+    
+(scalaSource in avroConfig) := new java.io.File("myscalaSource")
+    
+(imports in avroConfig) ++= {
+  Seq((sourceDirectory in avroConfig).value / "Import.avsc")
+}
+```
 
 
 Tasks
