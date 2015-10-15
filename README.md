@@ -117,6 +117,7 @@ Credits
 - [Daniel Lundin](https://github.com/dln)
 - [Vince Tse](https://github.com/vtonehundred)
 - [Jerome Wacongne](https://github.com/ch4mpy)
+- [Ryan Koval](http://github.ryankoval.com)
 
 #### Fork away, just make sure the tests pass before you send a pull request.
 
