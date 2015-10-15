@@ -22,13 +22,11 @@ object AvroSettings  {
 
   def getSettings(
     avroConfig: Configuration,
-    imports: Setting[Seq[File]],
     inputDir: Setting[File],
     outputDir: Setting[File],
     classPath: Setting[Task[Classpath]]): Seq[Setting[_]] = {
 
     inConfig(avroConfig)(Seq[Setting[_]](
-    imports,
     inputDir,
     outputDir,
     classPath,

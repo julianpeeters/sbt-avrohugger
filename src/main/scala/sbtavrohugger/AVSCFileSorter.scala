@@ -6,25 +6,38 @@ import java.io.File
 
 object AVSCFileSorter {
 
-// Code from https://github.com/ch4mpy/sbt-avro/blob/master/src/main/scala/com/c4soft/sbtavro/SbtAvro.scala
-// by Jerome Wascongne
+  //The order in which avsc files are compiled depends on the underlying file system (i.e. under OSX its is alphabetical, under some linux distros it's not).
+  //This is an issue when you have a record type that is used in different other types. Also makes sure
+  //that dependent types are compiled in the correct order.
+  // Code adapted from https://github.com/ch4mpy/sbt-avro/blob/master/src/main/scala/com/c4soft/sbtavro/SbtAvro.scala
+  // by Jerome Wascongne
 
-def sortSchemaFiles(files: Traversable[File]): Seq[File] = {
-    val reversed = mutable.MutableList.empty[File]
+  def sortSchemaFiles(files: Traversable[File]): Seq[File] = {
+    val sortedButReversed = mutable.MutableList.empty[File]
     var used: Traversable[File] = files
     while(!used.isEmpty) {
       val usedUnused = usedUnusedSchemas(used)
-      reversed ++= usedUnused._2
+      sortedButReversed ++= usedUnused._2
       used = usedUnused._1
     }
-    reversed.reverse.toSeq
+    sortedButReversed.reverse.toSeq
   }
 
   def strContainsType(str: String, fullName: String): Boolean = {
-    val typeRegex = "\\\"type\\\"\\s*:\\s*\\\"" + fullName + "\\\""
-    typeRegex.r.findFirstIn(str).isDefined
+    val simpleTypeName = fullName.split("\\.").last
+    val namespace = fullName.split("\\.") match {
+      case x if x.length == 1 => ""
+      case x => x.dropRight(1).mkString("\\.")
+    }
+    val namespaceRegex = "\\\"namespace\\\"\\s*:\\s*\\\"" + namespace + "\\\""
+    val simpleTypeRegex = "\\\"type\\\"\\s*:\\s*\\\"" + simpleTypeName + "\\\""
+    val fullTypeRegex = "\\\"type\\\"\\s*:\\s*\\\"" + fullName + "\\\""
+    def isMatch(regex: String): Boolean = {
+      regex.r.findFirstIn(str).isDefined
+    }
+    isMatch(fullTypeRegex) || ( isMatch(namespaceRegex) && isMatch(simpleTypeRegex) )
   }
-
+  
   def usedUnusedSchemas(files: Traversable[File]): (Traversable[File], Traversable[File]) = {
     val usedUnused = files.map { f =>
       val fullName = extractFullName(f)

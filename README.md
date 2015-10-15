@@ -8,7 +8,7 @@ Install the plugin
 Add the following lines to the file ``myproject/project/plugins.sbt`` in your
 project directory:
 
-    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "0.4.1")
+    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "0.4.2")
 
 
 Import the plugin settings
@@ -42,7 +42,6 @@ Settings
 | ------------- |:-------------:| -----:| -----:|
 | sourceDirectory     | ``source-directory`` | ``src/main/avro`` | Path containing ``*.avsc``, ``*.avdl``, and/or ``*.avro`` files. |
 | scalaSource      | ``scala-source``      |   ``$sourceManaged/main`` |   Path for the generated ``*.scala`` or ``*.java``  files. |
-|sbt.SbtAvrohugger.imports|`'imports'`|`Seq.empty`|A `Seq[File]` of Avro schemas to load before all other schema files. Sometimes necessary if you are referencing types defined in other schema files.
 
 
 Changing Settings
@@ -50,14 +49,9 @@ Changing Settings
 
 Settings can be overridden by adding lines to ``myproject/build.sbt``:
 
-```scala
-import sbt.SbtAvroHugger.imports
-    
+```scala    
 (scalaSource in avroConfig) := new java.io.File("myscalaSource")
     
-(imports in avroConfig) ++= {
-  Seq((sourceDirectory in avroConfig).value / "Import.avsc")
-}
 ```
 
 
@@ -101,7 +95,6 @@ Supports generating case classes with arbitrary fields of the following datatype
 Future
 ------
 * support for more avro datatypes
-* ability to override default settings in avroConfig
 * ability to specify preferred collection type to represent ARRAY
 
 
