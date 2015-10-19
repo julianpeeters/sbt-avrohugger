@@ -2,6 +2,8 @@ package sbtavrohugger
 package settings
 
 import tasks.SpecificGeneratorTask.specificCaseClassGeneratorTask
+import AvrohuggerSettings.{ scalaCustomTypes, scalaCustomNamespace }
+
 import java.io.File
 
 import sbt.Keys._
@@ -10,6 +12,7 @@ import sbt.{
   Configuration,
   Setting,
   Task,
+  SettingKey,
   TaskKey,
   inConfig
 }
@@ -29,6 +32,8 @@ object SpecificAvroSettings {
       inputDir,
       outputDir,
       classPath,
+      scalaCustomTypes in avroConfig := Map.empty[String, String],
+      scalaCustomNamespace in avroConfig := Map.empty[String, String],
       generateSpecific <<= specificCaseClassGeneratorTask(avroConfig))) ++
         Seq[Setting[_]](
           sourceGenerators in Compile <+= (generateSpecific in avroConfig),

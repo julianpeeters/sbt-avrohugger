@@ -2,4 +2,4 @@
 
 > avro:generate-specific
 
-$ exists myoutputdir/example/User.scala
+$ exists myoutputdir/overridden/User.scala

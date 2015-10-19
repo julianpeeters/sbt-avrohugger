@@ -40,9 +40,10 @@ Settings
 
 | Name          | Name in shell | Default  | Description  |
 | ------------- |:-------------:| -----:| -----:|
-| sourceDirectory     | ``source-directory`` | ``src/main/avro`` | Path containing ``*.avsc``, ``*.avdl``, and/or ``*.avro`` files. |
-| scalaSource      | ``scala-source``      |   ``$sourceManaged/main`` |   Path for the generated ``*.scala`` or ``*.java``  files. |
-
+| sourceDirectory      | ``source-directory``  | ``src/main/avro`` | Path containing ``*.avsc``, ``*.avdl``, and/or ``*.avro`` files. |
+| scalaSource          | ``scala-source``      |   ``$sourceManaged/main`` |   Path for the generated ``*.scala`` or ``*.java``  files. |
+| scalaCustomTypes      | ``scala-custom-types`` |   ``Map.empty[String, String]`` | Map for reassigning `array` to `Array`, `List`, or `Seq`. |
+| scalaCustomNamespace | ``scala-custom-namespace`` |   ``Map.empty[String, String]`` | Map for reassigning namespaces. |
 
 Changing Settings
 -----------------
@@ -54,6 +55,16 @@ Settings can be overridden by adding lines to ``myproject/build.sbt``:
     
 ```
 
+
+`scala-custom-types` and `scala-custom-namespace` require additional imports (I'm not sure why these aren't picked up with the other settings, anybody know?):
+
+```scala
+import sbtavrohugger.settings.AvrohuggerSettings.scalaCustomTypes
+import sbtavrohugger.settings.AvrohuggerSettings.scalaCustomNamespace
+
+(scalaCustomTypes in avroConfig) := Map("array"->"Seq")
+(scalaCustomNamespace in avroConfig) := Map("example"->"overridden")
+```
 
 Tasks
 -----
@@ -86,7 +97,7 @@ Supports generating case classes with arbitrary fields of the following datatype
 * ENUM -> `generate`: scala.Enumeration, `generate-specific`: Java Enum
 * BYTES -> //TODO
 * FIXED -> //TODO
-* ARRAY -> List
+* ARRAY -> List (please see Changing Settings above)
 * UNION -> Option
 * RECORD -> case class
 
@@ -95,8 +106,7 @@ Supports generating case classes with arbitrary fields of the following datatype
 Future
 ------
 * support for more avro datatypes
-* ability to specify preferred collection type to represent ARRAY
-
+* more codegen situations, e.g. exploding Spark Rows?
 
 Credits
 -------

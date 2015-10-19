@@ -1,8 +1,11 @@
 package sbtavrohugger
 package tasks
 
+import settings.AvrohuggerSettings.{ scalaCustomTypes, scalaCustomNamespace }
+
+
 import avrohugger.Generator
-import avrohugger.format.{ Standard, SpecificRecord }
+import avrohugger.format.SpecificRecord
 
 import java.io.File
 
@@ -22,12 +25,14 @@ object SpecificGeneratorTask {
     avroConfig: sbt.Configuration) = (streams,
     sourceDirectory in avroConfig,
     scalaSource in avroConfig,
+    scalaCustomTypes in avroConfig,
+    scalaCustomNamespace in avroConfig,
     target) map {
-      (o, srcDir, targetDir, cache) =>
+      (o, srcDir, targetDir, customTypes, customNamespaces, cache) =>
         val cachedCompile = FileFunction.cached(cache / "avro",
           inStyle = FilesInfo.lastModified,
           outStyle = FilesInfo.exists) { (in: Set[File]) =>
-            val generator = new Generator(SpecificRecord)
+            val generator = new Generator(SpecificRecord, customTypes, customNamespaces)
             FileWriter.generateCaseClasses(generator, srcDir, targetDir, o.log)
           }
         cachedCompile((srcDir ** "*.av*").get.toSet).toSeq

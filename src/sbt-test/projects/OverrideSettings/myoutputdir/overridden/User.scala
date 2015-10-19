@@ -1,5 +1,5 @@
 /** MACHINE-GENERATED FROM AVRO SCHEMA. DO NOT EDIT DIRECTLY */
-package example
+package overridden
 
 case class User(var name: String, var favorite_number: Option[Int], var favorite_color: Option[String]) extends org.apache.avro.specific.SpecificRecordBase {
   def this() = this("", Some(1), Some(""))
@@ -26,19 +26,19 @@ case class User(var name: String, var favorite_number: Option[Int], var favorite
   def put(field: Int, value: Any): Unit = {
     field match {
       case pos if pos == 0 => this.name = {
-        value match {
-          case (value: org.apache.avro.util.Utf8) => value.toString
-          case _ => value
-        }
+        value.toString
       }.asInstanceOf[String]
       case pos if pos == 1 => this.favorite_number = {
-        Option(value)
+        value match {
+          case null => None
+          case _ => Some(value)
+        }
       }.asInstanceOf[Option[Int]]
       case pos if pos == 2 => this.favorite_color = {
-        Option(value match {
-          case (value: org.apache.avro.util.Utf8) => value.toString
-          case _ => value
-        })
+        value match {
+          case null => None
+          case _ => Some(value.toString)
+        }
       }.asInstanceOf[Option[String]]
       case _ => new org.apache.avro.AvroRuntimeException("Bad index")
     }
