@@ -1,4 +1,4 @@
-import sbtavrohugger.settings.AvrohuggerSettings.scalaCustomNamespace
+import sbtavrohugger.AvrohuggerSettings.scalaCustomNamespace
 
 sbtavrohugger.SbtAvrohugger.specificAvroSettings
 

@@ -1,7 +1,8 @@
 package sbtavrohugger
-package settings
+package formats
+package specific
 
-import tasks.SpecificGeneratorTask.specificCaseClassGeneratorTask
+import SpecificGeneratorTask.specificCaseClassGeneratorTask
 import AvrohuggerSettings.{ scalaCustomTypes, scalaCustomNamespace }
 
 import java.io.File
@@ -12,7 +13,6 @@ import sbt.{
   Configuration,
   Setting,
   Task,
-  SettingKey,
   TaskKey,
   inConfig
 }

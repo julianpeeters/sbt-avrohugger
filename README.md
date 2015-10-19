@@ -8,7 +8,7 @@ Install the plugin
 Add the following lines to the file ``myproject/project/plugins.sbt`` in your
 project directory:
 
-    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "0.4.2")
+    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "0.5.0")
 
 
 Import the plugin settings
@@ -27,6 +27,11 @@ To get the `generate-specific` task for generating Scala Case Classes that are c
 
     sbtavrohugger.SbtAvrohugger.specificAvroSettings
 
+
+
+To get the `generate-scavro` task for generating Scala Case Class wrapper classes (Java generated classes supplied separately, or perhaps just use the Scavro plugin to do both) for use with [Scavro](https://github.com/oysterbooks/scavro), use:
+
+    sbtavrohugger.SbtAvrohugger.scavroSettings
 
 
 Scope
@@ -56,13 +61,13 @@ Settings can be overridden by adding lines to ``myproject/build.sbt``:
 ```
 
 
-`scala-custom-types` and `scala-custom-namespace` require additional imports (I'm not sure why these aren't picked up with the other settings, anybody know?):
+`scala-custom-types` and `scala-custom-namespace` require additional imports (I'm not sure why these aren't picked up with the other settings, anybody know why we have to import them separately?):
 
 ```scala
-import sbtavrohugger.settings.AvrohuggerSettings.scalaCustomTypes
-import sbtavrohugger.settings.AvrohuggerSettings.scalaCustomNamespace
+import sbtavrohugger.AvrohuggerSettings.{ scalaCustomTypes, scalaCustomNamespace }
 
 (scalaCustomTypes in avroConfig) := Map("array"->"Seq")
+
 (scalaCustomNamespace in avroConfig) := Map("example"->"overridden")
 ```
 
@@ -76,6 +81,8 @@ Each task is automatically executed every time the project is compiled.*
 | ------------- |:-------------:| -----:|
 | generate      | ``generate`` | Compiles the Avro files into Scala case classes. |
 | generateSpecific      | ``generate-specific``      |   Compiles the Avro files into Scala case classes implementing `SpecificRecord`. |
+| generateScavro      | ``generate-scavro``      |   Compiles the Avro files into Scala case class Scavro wrapper classes. |
+
 
 
 
@@ -97,7 +104,7 @@ Supports generating case classes with arbitrary fields of the following datatype
 * ENUM -> `generate`: scala.Enumeration, `generate-specific`: Java Enum
 * BYTES -> //TODO
 * FIXED -> //TODO
-* ARRAY -> List (please see Changing Settings above)
+* ARRAY -> List (`generate-scavro`: Array). To reassign, please see Settings above.
 * UNION -> Option
 * RECORD -> case class
 
@@ -111,7 +118,7 @@ Future
 Credits
 -------
 
-`sbt-avrohugger` is based on [sbt-avro](https://github.com/cavorite/sbt-avro) by [Juan Manuel Caicedo](http://cavorite.com/) (even this README file!).
+`sbt-avrohugger` is based on [sbt-avro](https://github.com/cavorite/sbt-avro) by [Juan Manuel Caicedo](http://cavorite.com/), and depends on [avrohugger](https://github.com/julianpeeters/avrohugger).
 
 #### Contributors
 

@@ -1,0 +1,5 @@
+> update
+
+> avro:generate-scavro
+
+$ exists target/scala-2.10/src_managed/main/test/model/AvroTypeProviderTest00.scala

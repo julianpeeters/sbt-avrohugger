@@ -1,6 +1,8 @@
 package sbtavrohugger
 
-import settings.{ AvroSettings, SpecificAvroSettings }
+import formats.specific.SpecificAvroSettings
+import formats.standard.AvroSettings
+import formats.scavro.ScavroSettings
 
 import java.io.File
 import scala.collection.JavaConverters._
@@ -31,6 +33,10 @@ object SbtAvrohugger extends Plugin {
 
   lazy val avroSettings: Seq[Setting[_]] = {
     AvroSettings.getSettings(avroConfig, inputDir, outputDir, classPath)
+  }
+
+  lazy val scavroSettings: Seq[Setting[_]] = {
+    ScavroSettings.getSettings(avroConfig, inputDir, outputDir, classPath)
   }
 
   lazy val specificAvroSettings: Seq[Setting[_]] = {

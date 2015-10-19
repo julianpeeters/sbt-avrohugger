@@ -1,0 +1,9 @@
+@namespace("example")
+protocol UserProtocol {
+
+  record User {
+    string name;
+    union {null, int} favoriteNumber;
+    union {null, string} favoriteColor;
+  }
+}
