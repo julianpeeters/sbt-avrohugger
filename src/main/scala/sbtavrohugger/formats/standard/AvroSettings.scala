@@ -3,7 +3,7 @@ package formats
 package standard
 
 import GeneratorTask.caseClassGeneratorTask
-import AvrohuggerSettings.{ scalaCustomTypes, scalaCustomNamespace }
+import AvrohuggerSettings.{ avroScalaCustomTypes, avroScalaCustomNamespace }
 
 import java.io.File
 
@@ -32,8 +32,8 @@ object AvroSettings  {
     inputDir,
     outputDir,
     classPath,
-    scalaCustomTypes in avroConfig := Map.empty[String, String],
-    scalaCustomNamespace in avroConfig := Map.empty[String, String],
+    avroScalaCustomTypes in avroConfig := Map.empty[String, Class[_]],
+    avroScalaCustomNamespace in avroConfig := Map.empty[String, String],
     generate <<= caseClassGeneratorTask(avroConfig))) ++ Seq[Setting[_]](
       sourceGenerators in Compile <+= (generate in avroConfig),
       managedSourceDirectories in Compile <+= (scalaSource in avroConfig),

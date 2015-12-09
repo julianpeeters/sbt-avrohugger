@@ -7,7 +7,7 @@ import avrohugger.format.{ Standard, SpecificRecord }
 
 import java.io.File
 
-import AvrohuggerSettings.{ scalaCustomTypes, scalaCustomNamespace }
+import AvrohuggerSettings.{ avroScalaCustomTypes, avroScalaCustomNamespace }
 
 import sbt.Keys._
 import sbt.{
@@ -25,8 +25,8 @@ object SpecificGeneratorTask {
     avroConfig: sbt.Configuration) = (streams,
     sourceDirectory in avroConfig,
     scalaSource in avroConfig,
-    scalaCustomTypes in avroConfig,
-    scalaCustomNamespace in avroConfig,
+    avroScalaCustomTypes in avroConfig,
+    avroScalaCustomNamespace in avroConfig,
     target) map {
       (o, srcDir, targetDir, customTypes, customNamespace, cache) =>
         val cachedCompile = FileFunction.cached(cache / "avro",

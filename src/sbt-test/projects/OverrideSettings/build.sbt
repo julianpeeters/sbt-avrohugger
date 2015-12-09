@@ -1,10 +1,10 @@
-import sbtavrohugger.AvrohuggerSettings.scalaCustomNamespace
+import sbtavrohugger.AvrohuggerSettings.avroScalaCustomNamespace
 
 sbtavrohugger.SbtAvrohugger.specificAvroSettings
 
 (scalaSource in avroConfig) := new java.io.File("myoutputdir")
 
-(scalaCustomNamespace in avroConfig) := Map("example"->"overridden")
+(avroScalaCustomNamespace in avroConfig) := Map("example"->"overridden")
 
 organization := "com.julianpeeters"
 
