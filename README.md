@@ -29,7 +29,7 @@ To get the `generate-specific` task for generating Scala Case Classes that are c
 
 
 
-To get the `generate-scavro` task for generating Scala Case Class wrapper classes (Java generated classes supplied separately, or perhaps just use the Scavro plugin to do both) for use with [Scavro](https://github.com/oysterbooks/scavro), use:
+To get the `generate-scavro` task for generating Scala Case Class wrapper classes (Java generated classes supplied separately, or just use the Scavro plugin to do both) for use with [Scavro](https://github.com/oedura/scavro), use:
 
     sbtavrohugger.SbtAvrohugger.scavroSettings
 
@@ -47,8 +47,8 @@ Settings
 | ------------- |:-------------:| -----:| -----:|
 | sourceDirectory      | ``source-directory``  | ``src/main/avro`` | Path containing ``*.avsc``, ``*.avdl``, and/or ``*.avro`` files. |
 | scalaSource          | ``scala-source``      |   ``$sourceManaged/main`` |   Path for the generated ``*.scala`` or ``*.java``  files. |
-| scalaCustomTypes      | ``scala-custom-types`` |   ``Map.empty[String, String]`` | Map for reassigning `array` to `Array`, `List`, or `Seq`. |
-| scalaCustomNamespace | ``scala-custom-namespace`` |   ``Map.empty[String, String]`` | Map for reassigning namespaces. |
+| avroScalaCustomTypes      | ``scala-custom-types`` |   ``Map.empty[String, Class[_]]`` | Map for reassigning `array` to `Array`, `List`, or `Seq`. |
+| avroScalaCustomNamespace | ``scala-custom-namespace`` |   ``Map.empty[String, String]`` | Map for reassigning namespaces. |
 
 Changing Settings
 -----------------
@@ -64,11 +64,11 @@ Settings can be overridden by adding lines to ``myproject/build.sbt``:
 `scala-custom-types` and `scala-custom-namespace` require additional imports (I'm not sure why these aren't picked up with the other settings, anybody know why we have to import them separately?):
 
 ```scala
-import sbtavrohugger.AvrohuggerSettings.{ scalaCustomTypes, scalaCustomNamespace }
+import sbtavrohugger.AvrohuggerSettings.{ avroScalaCustomTypes, avroScalaCustomNamespace }
 
-(scalaCustomTypes in avroConfig) := Map("array"->"Seq")
+(avroScalaCustomTypes in avroConfig) := Map("array"->"Seq")
 
-(scalaCustomNamespace in avroConfig) := Map("example"->"overridden")
+(avroScalaCustomNamespace in avroConfig) := Map("example"->"overridden")
 ```
 
 Tasks
