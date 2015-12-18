@@ -2,19 +2,18 @@ import sbt._
 import Keys._
 import ScriptedPlugin._
 
-
 object build extends Build {
   val sbtAvrohugger = Project(
     id = "sbt-avrohugger",
     base = file("."),
     settings = Defaults.defaultSettings ++ scriptedSettings ++ Seq[Project.Setting[_]](
       organization := "com.julianpeeters",
-      version := "0.7.0-SNAPSHOT",
+      version := "0.7.0",
       sbtPlugin := true,
       scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Ywarn-value-discard"),
       resolvers += Resolver.file("Local Ivy Repository", file("/home/julianpeeters/.ivy2/local/"))(Resolver.ivyStylePatterns),
       libraryDependencies ++= Seq(
-        "com.julianpeeters" % "avrohugger-core_2.10" % "0.8.0-SNAPSHOT",
+        "com.julianpeeters" % "avrohugger-core_2.10" % "0.8.0",
         "org.specs2" %% "specs2-core" % "3.6.4" % "test"),
       scalaVersion := "2.10.5",
       scalacOptions in Compile ++= Seq("-deprecation"),
