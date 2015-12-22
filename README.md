@@ -8,7 +8,7 @@ Install the plugin
 Add the following lines to the file ``myproject/project/plugins.sbt`` in your
 project directory:
 
-    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "0.7.0")
+    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "0.7.1")
 
 
 Import the plugin settings
@@ -57,7 +57,7 @@ Settings can be overridden by adding lines to ``myproject/build.sbt``:
 
 ```scala    
 (scalaSource in avroConfig) := new java.io.File("myscalaSource")
-    
+
 ```
 
 
@@ -66,7 +66,7 @@ Settings can be overridden by adding lines to ``myproject/build.sbt``:
 ```scala
 import sbtavrohugger.AvrohuggerSettings.{ avroScalaCustomTypes, avroScalaCustomNamespace }
 
-(avroScalaCustomTypes in avroConfig) := Map("array"->"Seq")
+(avroScalaCustomTypes in avroConfig) := Map("array"->classOf[Array[_]])
 
 (avroScalaCustomNamespace in avroConfig) := Map("example"->"overridden")
 ```
