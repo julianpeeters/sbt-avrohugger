@@ -1,0 +1,18 @@
+{
+  "name" : "ArrayRef",
+  "type" : "record",
+  "namespace" : "other",
+  "fields" : [
+    {
+      "name": "simple",
+      "type": [null ,"UnionRef"]
+    },
+    {
+      "name": "ancestors",
+      "type": {
+        "type": "array", 
+        "items": "common.Z"
+      }
+    }
+  ]
+}

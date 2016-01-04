@@ -1,0 +1,11 @@
+{
+  "name" : "UnionRef",
+  "type" : "record",
+  "namespace" : "other",
+  "fields" : [
+    {
+      "name": "ancestors",
+      "type": [null ,"common.Z"]
+    }
+  ]
+}

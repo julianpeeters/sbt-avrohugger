@@ -1,0 +1,14 @@
+{
+  "name" : "Z",
+  "type" : "record",
+  "namespace" : "common",
+  "fields" : [
+    {
+      "name": "ancestors",
+      "type": {
+        "type": "array", 
+        "items": "common.Z"
+      }
+    }
+  ]
+}

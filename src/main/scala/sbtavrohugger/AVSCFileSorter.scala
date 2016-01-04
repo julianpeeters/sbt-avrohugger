@@ -1,8 +1,12 @@
-package sbtavrohugger;
+package sbtavrohugger
+
+import java.io.File
+
+import spray.json.DefaultJsonProtocol._
+import spray.json._
 
 import scala.collection.mutable
 import scala.io.Source
-import java.io.File
 
 object AVSCFileSorter {
 
@@ -11,37 +15,90 @@ object AVSCFileSorter {
   //that dependent types are compiled in the correct order.
   // Code adapted from https://github.com/ch4mpy/sbt-avro/blob/master/src/main/scala/com/c4soft/sbtavro/SbtAvro.scala
   // by Jerome Wascongne
+  object Keys {
+    val Fields = "fields"
+    val Type = "type"
+    val Items = "items"
+  }
 
   def sortSchemaFiles(files: Traversable[File]): Seq[File] = {
     val sortedButReversed = mutable.MutableList.empty[File]
-    var used: Traversable[File] = files
-    while(!used.isEmpty) {
-      val usedUnused = usedUnusedSchemas(used)
-      sortedButReversed ++= usedUnused._2
-      used = usedUnused._1
+    var pending: Traversable[File] = files
+    while(pending.nonEmpty) {
+      val (used, unused) = usedUnusedSchemas(pending)
+      sortedButReversed ++= unused
+      pending = used
     }
     sortedButReversed.reverse.toSeq
   }
 
-  def strContainsType(str: String, fullName: String): Boolean = {
-    val simpleTypeName = fullName.split("\\.").last
+  def strContainsType(candidateName:String, str: String, fullName: String): Boolean = {
+    def isMatch(regex: String): Boolean = {
+      regex.r.findFirstIn(str).isDefined
+    }
+
+    val types = findReferredTypes(str.parseJson)
+
     val namespace = fullName.split("\\.") match {
       case x if x.length == 1 => ""
       case x => x.dropRight(1).mkString("\\.")
     }
     val namespaceRegex = "\\\"namespace\\\"\\s*:\\s*\\\"" + namespace + "\\\""
-    val simpleTypeRegex = "\\\"type\\\"\\s*:\\s*\\\"" + simpleTypeName + "\\\""
-    val fullTypeRegex = "\\\"type\\\"\\s*:\\s*\\\"" + fullName + "\\\""
-    def isMatch(regex: String): Boolean = {
-      regex.r.findFirstIn(str).isDefined
+    val isSameNamespace = isMatch(namespaceRegex)
+    val simpleTypeName = fullName.split("\\.").last
+
+    val simpleCandidateName = candidateName.split("\\.").last
+
+    val withoutSelf = types
+      .filter(x => x != candidateName)
+      .filter(x => if (isSameNamespace) x != simpleCandidateName else true)
+
+    def isReferred(name:String): Boolean = {
+      withoutSelf.contains(name)
     }
-    isMatch(fullTypeRegex) || ( isMatch(namespaceRegex) && isMatch(simpleTypeRegex) )
+
+    isReferred(fullName) || (isSameNamespace && isReferred(simpleTypeName))
   }
-  
+
+  def findReferredTypes(strAsJson: JsValue): List[String] = {
+    val fields = strAsJson.asJsObject.fields(Keys.Fields).asInstanceOf[JsArray]
+    val referredTypes = for {
+      element <- fields.elements
+      (key, typeValue) <- element.asJsObject.fields
+      if key == Keys.Type
+    } yield {
+      typeValue match {
+        case s: JsString =>
+          List(s.value)
+        case a: JsArray =>
+          val elementsAsString = a.elements.map {
+            case s: JsString => s.value
+            case o: AnyRef => o.toString
+          }
+          List(elementsAsString: _*)
+        case _ =>
+          // This means a complex type reference as below
+          /*
+            "type": {
+              "type": "array",
+              "items": "common.Z"
+            }
+          */
+          val fields = typeValue.asJsObject.fields
+          val item = fields(Keys.Items).convertTo[String]
+          List(item)
+      }
+    }
+    referredTypes.flatten.toList
+  }
+
   def usedUnusedSchemas(files: Traversable[File]): (Traversable[File], Traversable[File]) = {
     val usedUnused = files.map { f =>
       val fullName = extractFullName(f)
-      (f, files.count { candidate => strContainsType(fileText(candidate), fullName) } )
+      (f, files.count { candidate =>
+        val candidateName = extractFullName(candidate)
+        strContainsType(candidateName, fileText(candidate), fullName)
+      } )
     }.partition(_._2 > 0)
     (usedUnused._1.map(_._1), usedUnused._2.map(_._1))
   }
@@ -50,17 +107,18 @@ object AVSCFileSorter {
     val txt = fileText(f)
     val namespace = namespaceRegex.findFirstMatchIn(txt)
     val name = nameRegex.findFirstMatchIn(txt)
-    if(namespace == None) {
-      return name.get.group(1)
+    val nameGroup = name.get.group(1)
+    if(namespace.isEmpty) {
+      nameGroup
     } else {
-      return s"${namespace.get.group(1)}.${name.get.group(1)}"
+      s"${namespace.get.group(1)}.$nameGroup"
     }
   }
 
   def fileText(f: File): String = {
     val src = Source.fromFile(f)
     try {
-      return src.getLines.mkString
+      src.getLines.mkString
     } finally {
       src.close()
     }

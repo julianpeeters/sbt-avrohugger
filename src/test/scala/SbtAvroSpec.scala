@@ -2,9 +2,6 @@ package sbtavrohugger
 
 import java.io.File
 
-import org.apache.avro.Schema
-import org.apache.avro.compiler.specific.SpecificCompiler
-import org.apache.avro.generic.GenericData.StringType
 import org.specs2.mutable.Specification
 
 /**
@@ -19,6 +16,4 @@ class SbtAvroSpec extends Specification {
     AVSCFileSorter.sortSchemaFiles(sourceFiles) must beEqualTo(Seq(new File(sourceDir, "c.avsc"), new File(sourceDir, "b.avsc"), new File(sourceDir, "a.avsc")))
     AVSCFileSorter.sortSchemaFiles(sourceFiles.reverse) must beEqualTo(Seq(new File(sourceDir, "c.avsc"), new File(sourceDir, "b.avsc"), new File(sourceDir, "a.avsc")))
   }
-
-
 }
