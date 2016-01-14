@@ -8,7 +8,7 @@ Install the plugin
 Add the following lines to the file ``myproject/project/plugins.sbt`` in your
 project directory:
 
-    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "0.7.2")
+    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "0.8.0")
 
 
 Import the plugin settings
@@ -102,7 +102,7 @@ Supports generating case classes with arbitrary fields of the following datatype
 * NULL  -> Null
 * MAP -> Map
 * ENUM -> `generate`: scala.Enumeration, `generate-specific`: Java Enum
-* BYTES -> //TODO
+* BYTES -> Array[Byte]
 * FIXED -> //TODO
 * ARRAY -> List (`generate-scavro`: Array). To reassign, please see Settings above.
 * UNION -> Option
