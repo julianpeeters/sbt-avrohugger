@@ -10,10 +10,12 @@ class SbtAvroDependenciesSpec extends Specification {
   
   val arrayRef = new File(sourceDir, "ArrayRef.avsc")
   val simpleArrayRef = new File(sourceDir, "SimpleArrayRef.avsc")
+  val enumRef = new File(sourceDir, "EnumRef.avsc")
   val zFile = new File(sourceDir, "Z.avsc")
   val unionRef = new File(sourceDir, "UnionRef.avsc")
   val sourceFiles = Seq(arrayRef, zFile, unionRef)
   val sourceFiles2 = Seq(simpleArrayRef, zFile, unionRef)
+  val sourceFilesWithEnum = Seq(enumRef)
 
   "Schema files should be sorted correctly for union and array references" >> {
     AVSCFileSorter.sortSchemaFiles(sourceFiles) must beEqualTo(Seq(zFile, unionRef, arrayRef))
@@ -23,5 +25,9 @@ class SbtAvroDependenciesSpec extends Specification {
   "Schema files should be sorted correctly for transitive union references" >> {
     AVSCFileSorter.sortSchemaFiles(sourceFiles2) must beEqualTo(Seq(zFile, unionRef, simpleArrayRef))
     AVSCFileSorter.sortSchemaFiles(sourceFiles2.reverse) must beEqualTo(Seq(zFile, unionRef, simpleArrayRef))
+  }
+
+  "Schema files should be sorted correctly for enum references" >> {
+    AVSCFileSorter.sortSchemaFiles(sourceFilesWithEnum) must beEqualTo(Seq(enumRef))
   }
 }

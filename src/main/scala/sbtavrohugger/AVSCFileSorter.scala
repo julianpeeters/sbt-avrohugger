@@ -19,6 +19,9 @@ object AVSCFileSorter {
     val Fields = "fields"
     val Type = "type"
     val Items = "items"
+    val Array = "array"
+    val Enum = "enum"
+    val Name = "name"
   }
 
   def sortSchemaFiles(files: Traversable[File]): Seq[File] = {
@@ -83,10 +86,20 @@ object AVSCFileSorter {
               "type": "array",
               "items": "common.Z"
             }
+            OR
+            "type": {
+              "name": "Direction",
+              "type": "enum",
+              "symbols" : ["NORTH", "SOUTH", "EAST", "WEST"]
+            }  
           */
           val fields = typeValue.asJsObject.fields
-          val item = fields(Keys.Items).convertTo[String]
-          List(item)
+          val typeOfRef = fields(Keys.Type)
+          typeOfRef match {
+            case JsString(Keys.Array) => List(fields(Keys.Items).convertTo[String])
+            case JsString(Keys.Enum) => List(fields(Keys.Name).convertTo[String])
+            case _ => List.empty
+          }
       }
     }
     referredTypes.flatten.toList
