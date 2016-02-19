@@ -64,7 +64,7 @@ object AVSCFileSorter {
   }
 
   def findReferredTypes(strAsJson: JsValue): List[String] = {
-    val fields = strAsJson.asJsObject.fields(Keys.Fields).asInstanceOf[JsArray]
+    val fields = strAsJson.asJsObject.fields.getOrElse(Keys.Fields, JsArray.empty).asInstanceOf[JsArray]
     val referredTypes = for {
       element <- fields.elements
       (key, typeValue) <- element.asJsObject.fields
