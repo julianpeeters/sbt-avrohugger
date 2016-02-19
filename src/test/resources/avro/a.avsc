@@ -4,7 +4,7 @@
     "name": "A",
     "fields": [{
             "name": "b",
-            "type": "com.c4soft.sbtavro.B"
+            "type": ["null", "com.c4soft.sbtavro.B"]
         },{
             "name": "c",
             "type": "com.c4soft.sbtavro.C"
