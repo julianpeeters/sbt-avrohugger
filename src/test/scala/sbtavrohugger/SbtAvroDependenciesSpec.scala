@@ -1,5 +1,6 @@
 package sbtavrohugger
 
+import filesorter.AVSCFileSorter
 import java.io.File
 
 import org.specs2.mutable.Specification
@@ -7,7 +8,7 @@ import org.specs2.mutable.Specification
 class SbtAvroDependenciesSpec extends Specification {
   val sourceDir = new File(getClass.getClassLoader.getResource("dependencies").toURI)
   val targetDir = new File(sourceDir.getParentFile, "generated")
-  
+
   val arrayRef = new File(sourceDir, "ArrayRef.avsc")
   val simpleArrayRef = new File(sourceDir, "SimpleArrayRef.avsc")
   val enumRef = new File(sourceDir, "EnumRef.avsc")

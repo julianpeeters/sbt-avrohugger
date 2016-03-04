@@ -1,5 +1,6 @@
 package sbtavrohugger;
 
+import filesorter.AVSCFileSorter
 import avrohugger.Generator
 import java.io.File
 import sbt.Keys._

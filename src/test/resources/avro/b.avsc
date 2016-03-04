@@ -3,8 +3,14 @@
     "namespace": "com.c4soft.sbtavro",
     "name": "B",
     "fields": [{
-            "name": "c",
-            "type": "com.c4soft.sbtavro.C"
+            "name": "cArray",
+            "type": [
+                "null",
+                {
+                  "type": "array",
+                  "items": "com.c4soft.sbtavro.C"
+                }
+            ]
         }
     ]
 }
