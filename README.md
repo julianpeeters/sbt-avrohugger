@@ -8,7 +8,7 @@ Install the plugin
 Add the following lines to the file ``myproject/project/plugins.sbt`` in your
 project directory:
 
-    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "0.9.3")
+    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "0.9.4")
 
 
 Import the plugin settings
@@ -61,7 +61,7 @@ Settings can be overridden by adding lines to ``myproject/build.sbt``:
 ```
 
 
-`scala-custom-types` and `scala-custom-namespace` require additional imports (I'm not sure why these aren't picked up with the other settings, anybody know why we have to import them separately?):
+`avro-scala-custom-types` and `avro-scala-custom-namespace` require additional imports (I'm not sure why these aren't picked up with the other settings, anybody know why we have to import them separately?):
 
 ```scala
 import sbtavrohugger.AvrohuggerSettings.{ avroScalaCustomTypes, avroScalaCustomNamespace }
@@ -99,7 +99,7 @@ Supports generating case classes with arbitrary fields of the following datatype
 * DOUBLE -> Double
 * STRING -> String
 * BOOLEAN -> Boolean
-* NULL  -> Null
+* NULL -> Null
 * MAP -> Map
 * ENUM -> `generate`: scala.Enumeration, `generate-specific`: Java Enum
 * BYTES -> Array[Byte]
@@ -113,6 +113,7 @@ Supports generating case classes with arbitrary fields of the following datatype
 Future
 ------
 * support for more avro datatypes
+* decimal support for avrohugger via logical types
 * more codegen situations, e.g. exploding Spark Rows?
 
 Credits
