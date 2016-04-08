@@ -8,7 +8,7 @@ Install the plugin
 Add the following lines to the file ``myproject/project/plugins.sbt`` in your
 project directory:
 
-    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "0.9.5")
+    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "0.9.6")
 
 
 Import the plugin settings
@@ -29,7 +29,7 @@ To get the `generate-specific` task for generating Scala Case Classes that are c
 
 
 
-To get the `generate-scavro` task for generating Scala Case Class wrapper classes (Java generated classes supplied separately, or just use the Scavro plugin to do both) for use with [Scavro](https://github.com/oedura/scavro), use:
+To get the `generate-scavro` task for generating Scala Case Class wrapper classes (Java generated classes supplied separately) for use with [Scavro](https://github.com/oedura/scavro), use:
 
     sbtavrohugger.SbtAvrohugger.scavroSettings
 
