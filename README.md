@@ -1,5 +1,5 @@
 # sbt-avrohugger
-sbt plugin for generating Scala case classes from Apache Avro schemas, datafiles, and protocols.
+sbt plugin for generating Scala case classes and ADTs from Apache Avro schemas, datafiles, and protocols.
 
 
 Install the plugin
@@ -8,7 +8,7 @@ Install the plugin
 Add the following lines to the file ``myproject/project/plugins.sbt`` in your
 project directory:
 
-    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "0.9.8")
+    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "0.10.0")
 
 
 Import the plugin settings
@@ -93,20 +93,20 @@ Datatypes
 Supports generating case classes with arbitrary fields of the following datatypes:
 
 
-* INT -> Int
-* LONG -> Long
-* FLOAT -> Float
-* DOUBLE -> Double
-* STRING -> String
-* BOOLEAN -> Boolean
-* NULL -> Null
-* MAP -> Map
-* ENUM -> `generate`: scala.Enumeration, `generate-specific`: Java Enum
-* BYTES -> Array[Byte]
-* FIXED -> //TODO
-* ARRAY -> List (`generate-scavro`: Array). To reassign, please see Settings above.
-* UNION -> Option
-* RECORD -> case class
+* INT &rarr; Int
+* LONG &rarr; Long
+* FLOAT &rarr; Float
+* DOUBLE &rarr; Double
+* STRING &rarr; String
+* BOOLEAN &rarr; Boolean
+* NULL &rarr; Null
+* MAP &rarr; Map
+* ENUM &rarr; `generate`: scala.Enumeration, `generate-specific`: Java Enum
+* BYTES &rarr; Array[Byte]
+* FIXED &rarr; //TODO
+* ARRAY &rarr; List (`generate-scavro`: Array). To reassign, please see Settings above.
+* UNION &rarr; Option
+* RECORD &rarr; case class
 
 
 
