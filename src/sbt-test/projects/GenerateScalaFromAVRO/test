@@ -1,5 +1,0 @@
-> update
-
-> avro:generate
-
-$ exists target/scala-2.10/src_managed/main/test/AvroTypeProviderTest00.scala

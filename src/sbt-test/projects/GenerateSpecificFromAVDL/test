@@ -1,5 +1,0 @@
-> update
-
-> avro:generate-specific
-
-$ exists target/scala-2.10/src_managed/main/example/User.scala

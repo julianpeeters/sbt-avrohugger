@@ -1,5 +1,0 @@
-> update
-
-> avro:generate-scavro
-
-$ exists target/scala-2.10/src_managed/main/example/model/User.scala
