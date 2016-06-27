@@ -13,7 +13,7 @@ Install the plugin
 Add the following lines to the file ``myproject/project/plugins.sbt`` in your
 project directory:
 
-    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "0.10.1")
+    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "0.11.0")
 
 
 Import the plugin settings
@@ -54,6 +54,8 @@ Settings
 | scalaSource          | ``scala-source``      |   ``$sourceManaged/main`` |   Path for the generated ``*.scala`` or ``*.java``  files. |
 | avroScalaCustomTypes      | ``avro-scala-custom-types`` |   ``Map.empty[String, Class[_]]`` | Map for reassigning `array` to `Array`, `List`, or `Seq`. |
 | avroScalaCustomNamespace | ``avro-scala-custom-namespace`` |   ``Map.empty[String, String]`` | Map for reassigning namespaces. |
+| avroScalaCustomEnumStyle | ``avro-scala-custom-enum-style`` |   ``Map.empty[String, String]`` | Map for reassigning enum style to `java enum` or `case object`. |
+
 
 Changing Settings
 -----------------
@@ -69,11 +71,18 @@ Settings can be overridden by adding lines to ``myproject/build.sbt``:
 `avro-scala-custom-types` and `avro-scala-custom-namespace` require additional imports (I'm not sure why these aren't picked up with the other settings, anybody know why we have to import them separately?):
 
 ```scala
-import sbtavrohugger.AvrohuggerSettings.{ avroScalaCustomTypes, avroScalaCustomNamespace }
+import sbtavrohugger.AvrohuggerSettings.{
+  avroScalaCustomTypes,
+  avroScalaCustomNamespace,
+  avroScalaCustomEnumStyle
+}
 
 (avroScalaCustomTypes in avroConfig) := Map("array"->classOf[Array[_]])
 
 (avroScalaCustomNamespace in avroConfig) := Map("example"->"overridden")
+
+(avroScalaCustomEnumStyle in avroConfig) := Map("enum"->"java enum")
+
 ```
 
 Tasks

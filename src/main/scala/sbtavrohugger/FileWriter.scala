@@ -15,15 +15,16 @@ object FileWriter {
     target: File,
     log: Logger): Set[java.io.File] = {
 
+    for (inFile <- AVSCFileSorter.sortSchemaFiles((srcDir ** "*.avsc").get)) {
+      log.info("Compiling AVSC %s".format(inFile))
+      generator.fileToFile(inFile, target.getPath)
+    }
+
     for (idl <- (srcDir ** "*.avdl").get) {
       log.info("Compiling Avro IDL %s".format(idl))
       generator.fileToFile(idl, target.getPath)
     }
 
-    for (inFile <- AVSCFileSorter.sortSchemaFiles((srcDir ** "*.avsc").get)) {
-      log.info("Compiling AVSC %s".format(inFile))
-      generator.fileToFile(inFile, target.getPath)
-    }
 
     for (inFile <- (srcDir ** "*.avro").get) {
       log.info("Compiling Avro datafile %s".format(inFile))

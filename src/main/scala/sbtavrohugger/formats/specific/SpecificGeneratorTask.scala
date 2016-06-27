@@ -7,7 +7,11 @@ import avrohugger.format.{ Standard, SpecificRecord }
 
 import java.io.File
 
-import AvrohuggerSettings.{ avroScalaCustomTypes, avroScalaCustomNamespace }
+import AvrohuggerSettings.{
+  avroScalaCustomTypes,
+  avroScalaCustomNamespace,
+  avroScalaCustomEnumStyle
+}
 
 import sbt.Keys._
 import sbt.{
@@ -27,13 +31,14 @@ object SpecificGeneratorTask {
     scalaSource in avroConfig,
     avroScalaCustomTypes in avroConfig,
     avroScalaCustomNamespace in avroConfig,
+    avroScalaCustomEnumStyle in avroConfig,
     target) map {
-      (o, srcDir, targetDir, customTypes, customNamespace, cache) =>
+      (out, srcDir, targetDir, customTypes, customNamespace, customEnumStyle, cache) =>
         val cachedCompile = FileFunction.cached(cache / "avro",
           inStyle = FilesInfo.lastModified,
           outStyle = FilesInfo.exists) { (in: Set[File]) =>
-            val generator = new Generator(SpecificRecord, customTypes, customNamespace)
-            FileWriter.generateCaseClasses(generator, srcDir, targetDir, o.log)
+            val generator = new Generator(SpecificRecord, customTypes, customNamespace, customEnumStyle)
+            FileWriter.generateCaseClasses(generator, srcDir, targetDir, out.log)
           }
         cachedCompile((srcDir ** "*.av*").get.toSet).toSeq
     }

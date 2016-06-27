@@ -3,7 +3,11 @@ package formats
 package scavro
 
 import ScavroGeneratorTask.scavroCaseClassGeneratorTask
-import AvrohuggerSettings.{ avroScalaCustomTypes, avroScalaCustomNamespace }
+import AvrohuggerSettings.{
+  avroScalaCustomTypes,
+  avroScalaCustomNamespace,
+  avroScalaCustomEnumStyle
+}
 
 import java.io.File
 
@@ -34,6 +38,7 @@ object ScavroSettings {
       classPath,
       avroScalaCustomTypes in avroConfig := Map.empty[String, Class[_]],
       avroScalaCustomNamespace in avroConfig := Map.empty[String, String],
+      avroScalaCustomEnumStyle in avroConfig := Map.empty[String, String],
       generateScavro <<= scavroCaseClassGeneratorTask(avroConfig))) ++
         Seq[Setting[_]](
           sourceGenerators in Compile <+= (generateScavro in avroConfig),
