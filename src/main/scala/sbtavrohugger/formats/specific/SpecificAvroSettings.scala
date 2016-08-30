@@ -44,7 +44,9 @@ object SpecificAvroSettings {
           sourceGenerators in Compile <+= (generateSpecific in avroConfig),
           managedSourceDirectories in Compile <+= (scalaSource in avroConfig),
           cleanFiles <+= (scalaSource in avroConfig),
-          ivyConfigurations += avroConfig)
+          ivyConfigurations += avroConfig,
+          includeFilter := AllPassFilter,
+          excludeFilter := NothingFilter)
   }
 
 }
