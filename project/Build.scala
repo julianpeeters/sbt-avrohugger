@@ -8,12 +8,12 @@ object build extends Build {
     base = file("."),
     settings = Defaults.defaultSettings ++ scriptedSettings ++ Seq[Project.Setting[_]](
       organization := "com.julianpeeters",
-      version := "0.11.0",
+      version := "0.12.0",
       sbtPlugin := true,
       scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Ywarn-value-discard"),
       resolvers += Resolver.file("Local Ivy Repository", file(Path.userHome.absolutePath + "/.ivy2/local/"))(Resolver.ivyStylePatterns),
       libraryDependencies ++= Seq(
-        "com.julianpeeters" % "avrohugger-core_2.10" % "0.11.0",
+        "com.julianpeeters" % "avrohugger-core_2.10" % "0.12.0",
         "io.spray" %%  "spray-json" % "1.3.2",
         "org.specs2" %% "specs2-core" % "3.6.4" % "test"),
       scalaVersion := "2.10.5",

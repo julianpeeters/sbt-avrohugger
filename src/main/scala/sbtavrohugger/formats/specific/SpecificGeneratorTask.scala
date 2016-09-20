@@ -32,12 +32,14 @@ object SpecificGeneratorTask {
     avroScalaCustomTypes in avroConfig,
     avroScalaCustomNamespace in avroConfig,
     avroScalaCustomEnumStyle in avroConfig,
-    target) map {
-      (out, srcDir, targetDir, customTypes, customNamespace, customEnumStyle, cache) =>
+    target,
+    scalaBinaryVersion) map {
+      (out, srcDir, targetDir, customTypes, customNamespace, customEnumStyle, cache, scalaVersion) =>
         val cachedCompile = FileFunction.cached(cache / "avro",
           inStyle = FilesInfo.lastModified,
           outStyle = FilesInfo.exists) { (in: Set[File]) =>
-            val generator = new Generator(SpecificRecord, customTypes, customNamespace, customEnumStyle)
+            val isNumberOfFieldsRestricted = scalaVersion == "2.10"
+            val generator = new Generator(SpecificRecord, customTypes, customNamespace, customEnumStyle, isNumberOfFieldsRestricted)
             FileWriter.generateCaseClasses(generator, srcDir, targetDir, out.log)
           }
         cachedCompile((srcDir ** "*.av*").get.toSet).toSeq
