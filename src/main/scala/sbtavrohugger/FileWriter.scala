@@ -1,10 +1,11 @@
-package sbtavrohugger
+package sbtavrohugger;
 
-import java.io.File
-
+import filesorter.AVSCFileSorter
 import avrohugger.Generator
-import sbt.{FileFilter, Logger, globFilter, singleFileFinder}
-import sbtavrohugger.filesorter.AVSCFileSorter
+import java.io.File
+import sbt.Keys._
+import sbt.{Logger, globFilter, singleFileFinder}
+import sbt.Path._
 
 object FileWriter {
 
@@ -12,26 +13,25 @@ object FileWriter {
     generator: Generator,
     srcDir: File,
     target: File,
-    log: Logger,
-    inFilter: FileFilter,
-    exFilter: FileFilter): Set[java.io.File] = {
+    log: Logger): Set[java.io.File] = {
 
-    for (inFile <- AVSCFileSorter.sortSchemaFiles((srcDir ** "*.avsc").get) if inFilter.accept(inFile) && !exFilter.accept(inFile)) {
+    for (inFile <- AVSCFileSorter.sortSchemaFiles((srcDir ** "*.avsc").get)) {
       log.info("Compiling AVSC %s".format(inFile))
       generator.fileToFile(inFile, target.getPath)
     }
 
-    for (idl <- (srcDir ** "*.avdl").get if inFilter.accept(idl) && !exFilter.accept(idl)) {
+    for (idl <- (srcDir ** "*.avdl").get) {
       log.info("Compiling Avro IDL %s".format(idl))
       generator.fileToFile(idl, target.getPath)
     }
 
-    for (inFile <- (srcDir ** "*.avro").get if inFilter.accept(inFile) && !exFilter.accept(inFile)) {
+
+    for (inFile <- (srcDir ** "*.avro").get) {
       log.info("Compiling Avro datafile %s".format(inFile))
       generator.fileToFile(inFile, target.getPath)
     }
 
-    for (protocol <- (srcDir ** "*.avpr").get if inFilter.accept(protocol) && !exFilter.accept(protocol)) {
+    for (protocol <- (srcDir ** "*.avpr").get) {
       log.info("Compiling Avro protocol %s".format(protocol))
       generator.fileToFile(protocol, target.getPath)
     }
