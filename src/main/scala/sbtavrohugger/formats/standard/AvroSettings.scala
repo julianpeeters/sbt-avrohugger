@@ -3,23 +3,11 @@ package formats
 package standard
 
 import GeneratorTask.caseClassGeneratorTask
-import AvrohuggerSettings.{
-  avroScalaCustomTypes,
-  avroScalaCustomNamespace,
-  avroScalaCustomEnumStyle
-}
-
+import AvrohuggerSettings.{avroScalaCustomEnumStyle, avroScalaCustomNamespace, avroScalaCustomTypes}
 import java.io.File
 
 import sbt.Keys._
-import sbt.{
-  Compile,
-  Configuration,
-  Setting,
-  Task,
-  TaskKey,
-  inConfig
-}
+import sbt.{AllPassFilter, Compile, Configuration, NothingFilter, Setting, Task, TaskKey, inConfig}
 
 object AvroSettings  {
 
@@ -43,7 +31,9 @@ object AvroSettings  {
       sourceGenerators in Compile <+= (generate in avroConfig),
       managedSourceDirectories in Compile <+= (scalaSource in avroConfig),
       cleanFiles <+= (scalaSource in avroConfig),
-      ivyConfigurations += avroConfig)
+      ivyConfigurations += avroConfig,
+      includeFilter := AllPassFilter,
+      excludeFilter := NothingFilter)
   }
 
 }
