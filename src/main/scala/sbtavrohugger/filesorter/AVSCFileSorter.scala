@@ -20,8 +20,9 @@ object AVSCFileSorter {
 
   def sortSchemaFiles(files: Traversable[File]): Seq[File] = {
     val sortedButReversed = mutable.MutableList.empty[File]
-    var pending: Traversable[File] = files
-
+    def normalizeInput(files: List[File]) = files.sortBy(file => file.getName)
+    var pending: Traversable[File] = normalizeInput(files.toList)
+    
     while(pending.nonEmpty) {
       val (used, unused) = usedUnusedSchemas(pending)
       sortedButReversed ++= unused
