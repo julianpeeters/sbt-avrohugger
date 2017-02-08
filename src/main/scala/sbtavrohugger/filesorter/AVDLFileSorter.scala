@@ -19,23 +19,16 @@ object AVDLFileSorter {
       (file.getCanonicalFile, getImports(file))
     }.toMap
 
-    def addSchema(currentFiles: Seq[File], processedImports: Set[File]): Seq[File] = {
-      val initialValue = (Seq.empty[File], Seq.empty[File])
-      val (newFiles, remainingFiles) = currentFiles.foldLeft(initialValue){ case((n, r), acc) =>
-          val imports = importsMap(acc)
-          if (imports.forall(processedImports.contains)) {
-            (n :+ acc, r)
-          }
-          else {
-            (n, r :+ acc)
-          }
+    def addFiles(currentFiles: Seq[File], processedImports: Set[File]): Seq[File] = {
+      val fileGroups = currentFiles.groupBy{ file =>
+        importsMap(file).forall(processedImports.contains)
       }
-      if (remainingFiles.isEmpty)
-        newFiles
-      else
-        newFiles ++ addSchema(remainingFiles, newFiles.toSet)
+      val newFiles = fileGroups(true)
+      fileGroups.get(false).fold(newFiles){ remainingFiles =>
+        newFiles ++ addFiles(remainingFiles, newFiles.toSet)
+      }
     }
-    val result = addSchema(files, Set.empty)
+    val result = addFiles(files, Set.empty)
     result
   }
 
