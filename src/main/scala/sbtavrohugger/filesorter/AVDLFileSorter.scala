@@ -28,8 +28,8 @@ object AVDLFileSorter {
           importsMap(file).forall(processedImports.contains)
         }
         val newFiles = fileGroups.getOrElse(true, Seq.empty)
-        val unprocessableFiles = fileGroups.getOrElse(false, Seq.empty)
-        addFiles(processedFiles ++ newFiles, unprocessableFiles, newFiles.toSet)
+        val toBeProcessedFiles = fileGroups.getOrElse(false, Seq.empty)
+        addFiles(processedFiles ++ newFiles, toBeProcessedFiles, newFiles.toSet)
       }
     }
     val result = addFiles(Seq.empty, files, Set.empty)
