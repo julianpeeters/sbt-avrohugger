@@ -2,6 +2,7 @@ package sbtavrohugger.filesorter
 
 import java.io.File
 
+import scala.annotation.tailrec
 import scala.io.Source
 
 /**
@@ -19,16 +20,19 @@ object AVDLFileSorter {
       (file.getCanonicalFile, getImports(file))
     }.toMap
 
-    def addFiles(currentFiles: Seq[File], processedImports: Set[File]): Seq[File] = {
-      val fileGroups = currentFiles.groupBy{ file =>
-        importsMap(file).forall(processedImports.contains)
-      }
-      val newFiles = fileGroups(true)
-      fileGroups.get(false).fold(newFiles){ remainingFiles =>
-        newFiles ++ addFiles(remainingFiles, newFiles.toSet)
+    @tailrec def addFiles(processedFiles: Seq[File], remainingFiles: Seq[File], processedImports: Set[File]): Seq[File] = {
+      if (remainingFiles.isEmpty)
+        processedFiles
+      else {
+        val fileGroups = remainingFiles.groupBy{ file =>
+          importsMap(file).forall(processedImports.contains)
+        }
+        val newFiles = fileGroups.getOrElse(true, Seq.empty)
+        val unprocessableFiles = fileGroups.getOrElse(false, Seq.empty)
+        addFiles(processedFiles ++ newFiles, unprocessableFiles, newFiles.toSet)
       }
     }
-    val result = addFiles(files, Set.empty)
+    val result = addFiles(Seq.empty, files, Set.empty)
     result
   }
 
