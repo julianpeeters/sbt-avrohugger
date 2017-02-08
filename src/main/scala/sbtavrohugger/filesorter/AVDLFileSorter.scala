@@ -5,7 +5,12 @@ import java.io.File
 import scala.io.Source
 
 /**
-  * Created by jon.morra on 2/7/17.
+  * The order in which avsc files are compiled depends on the underlying file
+  * system (under OSX its is alphabetical, under some linux distros it's not).
+  * This is an issue when you have a record type that is used in different
+  * other types. This ensures that dependent types are compiled in the
+  * correct order.
+  * Created by Jon Morra on 2/7/17.
   */
 object AVDLFileSorter {
   def sortSchemaFiles(filesTraversable: Traversable[File]): Seq[File] = {
