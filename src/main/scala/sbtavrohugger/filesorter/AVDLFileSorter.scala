@@ -15,24 +15,23 @@ import scala.io.Source
   */
 object AVDLFileSorter {
   def sortSchemaFiles(filesTraversable: Traversable[File]): Seq[File] = {
-    val files = filesTraversable.toSeq
+    val files = filesTraversable.toList
     val importsMap = files.map{ file =>
       (file.getCanonicalFile, getImports(file))
     }.toMap
 
-    @tailrec def addFiles(processedFiles: Seq[File], remainingFiles: Seq[File], processedImports: Set[File]): Seq[File] = {
-      if (remainingFiles.isEmpty)
-        processedFiles
-      else {
-        val fileGroups = remainingFiles.groupBy{ file =>
-          importsMap(file).forall(processedImports.contains)
-        }
-        val newFiles = fileGroups.getOrElse(true, Seq.empty)
-        val toBeProcessedFiles = fileGroups.getOrElse(false, Seq.empty)
-        addFiles(processedFiles ++ newFiles, toBeProcessedFiles, newFiles.toSet)
+    @tailrec def addFiles(processedFiles: Seq[File], remainingFiles: List[File]): Seq[File] = {
+      remainingFiles match {
+        case Nil => processedFiles
+        case h :: t =>
+          val processedFilesSet = processedFiles.toSet
+          if (importsMap(h).forall(processedFilesSet.contains))
+            addFiles(processedFiles :+ h, t)
+          else
+            addFiles(processedFiles, t :+ h)
       }
     }
-    val result = addFiles(Seq.empty, files, Set.empty)
+    val result = addFiles(Seq.empty, files)
     result
   }
 
