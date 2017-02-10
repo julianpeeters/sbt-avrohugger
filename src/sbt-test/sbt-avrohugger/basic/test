@@ -33,4 +33,14 @@ $ exists target/scala-2.10/src_managed/main/compiled_avro/com/cavorite/_E.scala
 $ exists target/scala-2.10/classes/com/cavorite/_E.class
 
 
+
+$ exists target/scala-2.10/src_managed/main/compiled_avro/foo/bar/AProtocol.scala
+$ exists target/scala-2.10/classes/foo/bar/AProtocol.class
+
+$ exists target/scala-2.10/src_managed/main/compiled_avro/foo/bar/baz/B.scala
+$ exists target/scala-2.10/classes/foo/bar/baz/B.class
+
+$ exists target/scala-2.10/src_managed/main/compiled_avro/foo/bar/baz/bop/C.scala
+$ exists target/scala-2.10/classes/foo/bar/baz/bop/C.class
+
 > clean
