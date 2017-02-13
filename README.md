@@ -13,7 +13,7 @@ Install the plugin
 Add the following lines to the file ``myproject/project/plugins.sbt`` in your
 project directory:
 
-    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "0.14.0")
+    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "0.15.0")
 
 
 Import the plugin settings
@@ -144,6 +144,7 @@ Credits
 - [Jerome Wacongne](https://github.com/ch4mpy)
 - [Ryan Koval](http://github.ryankoval.com)
 - [Saket](https://github.com/skate056)
+- [Jon Morra](https://github.com/jon-morra-zefr)
 
 #### Fork away, just make sure the tests pass before you send a pull request.
 
