@@ -1,8 +1,9 @@
 package sbtavrohugger;
 
-import filesorter.AVSCFileSorter
+import filesorter.{AVDLFileSorter, AVSCFileSorter}
 import avrohugger.Generator
 import java.io.File
+
 import sbt.Keys._
 import sbt.{Logger, globFilter, singleFileFinder}
 import sbt.Path._
@@ -20,7 +21,7 @@ object FileWriter {
       generator.fileToFile(inFile, target.getPath)
     }
 
-    for (idl <- (srcDir ** "*.avdl").get) {
+    for (idl <- AVDLFileSorter.sortSchemaFiles((srcDir ** "*.avdl").get)) {
       log.info("Compiling Avro IDL %s".format(idl))
       generator.fileToFile(idl, target.getPath)
     }
