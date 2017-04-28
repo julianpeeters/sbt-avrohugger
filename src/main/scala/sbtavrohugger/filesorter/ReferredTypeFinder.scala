@@ -9,12 +9,14 @@ import spray.json._
   * by Jerome Wascongne
   */
 object ReferredTypeFinder {
-  
+
   object Keys {
     val Fields = "fields"
     val Type = "type"
     val Items = "items"
+    val Values = "values"
     val Array = "array"
+    val Map = "map"
     val Enum = "enum"
     val Record = "record"
     val Name = "name"
@@ -26,6 +28,7 @@ object ReferredTypeFinder {
       val typeOfRef = fields(Keys.Type)
       typeOfRef match {
         case JsString(Keys.Array) => findReferredTypes(fields(Keys.Items))
+        case JsString(Keys.Map) => findReferredTypes(fields(Keys.Values))
         case JsString(Keys.Enum) => List(fields(Keys.Name).convertTo[String])
         case JsString(Keys.Record) => findReferredTypes(fields(Keys.Fields))
         case nestedDefinition => findReferredTypes(nestedDefinition)
