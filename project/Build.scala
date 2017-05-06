@@ -8,7 +8,7 @@ object build extends Build {
     base = file("."),
     settings = Defaults.defaultSettings ++ scriptedSettings ++ Seq[Project.Setting[_]](
       organization := "com.julianpeeters",
-      version := "0.15.1",
+      version := "0.15.2-SNAPSHOT",
       sbtPlugin := true,
       scriptedLaunchOpts := { scriptedLaunchOpts.value ++
         Seq("-Xmx1024M", "-Dplugin.version=" + version.value)
