@@ -1,0 +1,11 @@
+{
+  "name" : "A",
+  "type" : "record",
+  "namespace" : "common",
+  "fields" : [
+    {
+      "name": "any",
+      "type": "int"
+    }
+  ]
+}
