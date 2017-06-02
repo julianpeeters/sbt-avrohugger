@@ -1,0 +1,14 @@
+{
+  "name": "MapRef",
+  "type": "record",
+  "namespace": "common",
+  "fields": [
+    {
+      "name": "a",
+      "type": {
+        "type": "map",
+        "values": "common.A"
+      }
+    }
+  ]
+}

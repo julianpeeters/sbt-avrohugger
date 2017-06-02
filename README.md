@@ -146,6 +146,7 @@ Credits
 - [Ryan Koval](http://github.ryankoval.com)
 - [Saket](https://github.com/skate056)
 - [Jon Morra](https://github.com/jon-morra-zefr)
+- [Simonas Gelazevicius](https://github.com/simsasg)
 
 #### Fork away, just make sure the tests pass before you send a pull request.
 
