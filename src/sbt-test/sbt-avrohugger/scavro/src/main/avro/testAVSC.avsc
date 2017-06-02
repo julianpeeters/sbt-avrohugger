@@ -1,7 +1,7 @@
 {
     "type": "record",
-    "name": "com.cavorite.C",
-    "doc": "Fully-qualified dependency",
+    "namespace": "example",
+    "name": "TestAVSC",
     "fields": [{
             "name": "str",
             "type": "string"

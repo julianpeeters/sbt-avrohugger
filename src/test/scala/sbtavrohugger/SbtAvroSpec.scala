@@ -3,7 +3,7 @@ package sbtavrohugger
 import java.io.File
 
 import org.specs2.mutable.Specification
-import filesorter.{AVDLFileSorter, AVSCFileSorter}
+import avrohugger.filesorter.{AvdlFileSorter, AvscFileSorter}
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -18,13 +18,13 @@ class SbtAvroSpec extends Specification {
   val avdlSourceFiles = ArrayBuffer(new File(sourceDir, "a.avdl"), new File(sourceDir, "foo/a.avdl"), new File(sourceDir, "c.avdl"))
 
   "Schema files should be sorted with re-used types schemas first, whatever input order" >> {
-    AVSCFileSorter.sortSchemaFiles(sourceFiles) must beEqualTo(Seq(new File(sourceDir, "c.avsc"), new File(sourceDir, "b.avsc"), new File(sourceDir, "a.avsc")))
-    AVSCFileSorter.sortSchemaFiles(sourceFiles.reverse) must beEqualTo(Seq(new File(sourceDir, "c.avsc"), new File(sourceDir, "b.avsc"), new File(sourceDir, "a.avsc")))
+    AvscFileSorter.sortSchemaFiles(sourceFiles) must beEqualTo(Seq(new File(sourceDir, "c.avsc"), new File(sourceDir, "b.avsc"), new File(sourceDir, "a.avsc")))
+    AvscFileSorter.sortSchemaFiles(sourceFiles.reverse) must beEqualTo(Seq(new File(sourceDir, "c.avsc"), new File(sourceDir, "b.avsc"), new File(sourceDir, "a.avsc")))
   }
 
   "AVDL files should be sorted correctly for imports" >> {
     val expected = avdlSourceFiles
-    AVDLFileSorter.sortSchemaFiles(avdlSourceFiles) must beEqualTo(expected)
-    AVDLFileSorter.sortSchemaFiles(avdlSourceFiles.reverse) must beEqualTo(expected)
+    AvdlFileSorter.sortSchemaFiles(avdlSourceFiles) must beEqualTo(expected)
+    AvdlFileSorter.sortSchemaFiles(avdlSourceFiles.reverse) must beEqualTo(expected)
   }
 }

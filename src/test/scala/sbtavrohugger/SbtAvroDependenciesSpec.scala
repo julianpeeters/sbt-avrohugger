@@ -1,6 +1,6 @@
 package sbtavrohugger
 
-import filesorter.AVSCFileSorter
+import avrohugger.filesorter.AvscFileSorter
 import java.io.File
 
 import org.specs2.mutable.Specification
@@ -19,16 +19,16 @@ class SbtAvroDependenciesSpec extends Specification {
   val sourceFilesWithEnum = Seq(enumRef)
 
   "Schema files should be sorted correctly for union and array references" >> {
-    AVSCFileSorter.sortSchemaFiles(sourceFiles) must beEqualTo(Seq(zFile, unionRef, arrayRef))
-    AVSCFileSorter.sortSchemaFiles(sourceFiles.reverse) must beEqualTo(Seq(zFile, unionRef, arrayRef))
+    AvscFileSorter.sortSchemaFiles(sourceFiles) must beEqualTo(Seq(zFile, unionRef, arrayRef))
+    AvscFileSorter.sortSchemaFiles(sourceFiles.reverse) must beEqualTo(Seq(zFile, unionRef, arrayRef))
   }
 
   "Schema files should be sorted correctly for transitive union references" >> {
-    AVSCFileSorter.sortSchemaFiles(sourceFiles2) must beEqualTo(Seq(zFile, unionRef, simpleArrayRef))
-    AVSCFileSorter.sortSchemaFiles(sourceFiles2.reverse) must beEqualTo(Seq(zFile, unionRef, simpleArrayRef))
+    AvscFileSorter.sortSchemaFiles(sourceFiles2) must beEqualTo(Seq(zFile, unionRef, simpleArrayRef))
+    AvscFileSorter.sortSchemaFiles(sourceFiles2.reverse) must beEqualTo(Seq(zFile, unionRef, simpleArrayRef))
   }
 
   "Schema files should be sorted correctly for enum references" >> {
-    AVSCFileSorter.sortSchemaFiles(sourceFilesWithEnum) must beEqualTo(Seq(enumRef))
+    AvscFileSorter.sortSchemaFiles(sourceFilesWithEnum) must beEqualTo(Seq(enumRef))
   }
 }

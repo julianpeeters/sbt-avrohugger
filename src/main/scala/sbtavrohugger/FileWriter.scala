@@ -1,6 +1,6 @@
 package sbtavrohugger;
 
-import filesorter.{AVDLFileSorter, AVSCFileSorter}
+import avrohugger.filesorter.{AvdlFileSorter, AvscFileSorter}
 import avrohugger.Generator
 import java.io.File
 
@@ -16,16 +16,15 @@ object FileWriter {
     target: File,
     log: Logger): Set[java.io.File] = {
 
-    for (inFile <- AVSCFileSorter.sortSchemaFiles((srcDir ** "*.avsc").get)) {
+    for (inFile <- AvscFileSorter.sortSchemaFiles((srcDir ** "*.avsc").get)) {
       log.info("Compiling AVSC %s".format(inFile))
       generator.fileToFile(inFile, target.getPath)
     }
 
-    for (idl <- AVDLFileSorter.sortSchemaFiles((srcDir ** "*.avdl").get)) {
+    for (idl <- AvdlFileSorter.sortSchemaFiles((srcDir ** "*.avdl").get)) {
       log.info("Compiling Avro IDL %s".format(idl))
       generator.fileToFile(idl, target.getPath)
     }
-
 
     for (inFile <- (srcDir ** "*.avro").get) {
       log.info("Compiling Avro datafile %s".format(inFile))

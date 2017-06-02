@@ -1,0 +1,9 @@
+> compile
+
+$ exists target/scala-2.10/src_managed/main/compiled_avro/example/model/TestAVDL.scala
+$ exists target/scala-2.10/classes/example/model/TestAVDL.class
+
+$ exists target/scala-2.10/src_managed/main/compiled_avro/example/model/TestAVSC.scala
+$ exists target/scala-2.10/classes/example/model/TestAVSC.class
+
+> clean
