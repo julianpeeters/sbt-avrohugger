@@ -21,7 +21,7 @@ object build extends Build {
         "com.julianpeeters" % "avrohugger-filesorter_2.10" % "0.16.0",
         "io.spray" %%  "spray-json" % "1.3.2",
         "org.specs2" %% "specs2-core" % "3.6.4" % "test"),
-      scalaVersion := "2.10.5",
+      scalaVersion := "2.10.6",
       scalacOptions in Compile ++= Seq("-deprecation"),
       description := "Sbt plugin for compiling Avro sources",
       publishMavenStyle := true,
