@@ -36,7 +36,7 @@ class SbtAvroDependenciesSpec extends Specification {
   }
 
   "Schema files should be sorted correctly for map references" >> {
-    AVSCFileSorter.sortSchemaFiles(sourceFiles3) must beEqualTo(Seq(aFile, mapRef))
-    AVSCFileSorter.sortSchemaFiles(sourceFiles3.reverse) must beEqualTo(Seq(aFile, mapRef))
+    AvscFileSorter.sortSchemaFiles(sourceFiles3) must beEqualTo(Seq(aFile, mapRef))
+    AvscFileSorter.sortSchemaFiles(sourceFiles3.reverse) must beEqualTo(Seq(aFile, mapRef))
   }
 }
