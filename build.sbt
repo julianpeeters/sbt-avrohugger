@@ -13,7 +13,7 @@ libraryDependencies ++= Seq(
   "com.julianpeeters" %% "avrohugger-core" % "0.16.0",
   "com.julianpeeters" %% "avrohugger-filesorter" % "0.16.0",
   "io.spray" %%  "spray-json" % "1.3.2",
-  "org.specs2" %% "specs2-core" % "3.6.4" % "test")
+  "org.specs2" %% "specs2-core" % "3.8.6" % "test")
 
 publishMavenStyle := true
 publishArtifact in Test := false
