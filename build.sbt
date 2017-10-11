@@ -10,9 +10,9 @@ scalaVersion := appConfiguration.value.provider.scalaProvider.version
 scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Ywarn-value-discard")
 
 libraryDependencies ++= Seq(
-  "com.julianpeeters" %% "avrohugger-core" % "0.16.0",
-  "com.julianpeeters" %% "avrohugger-filesorter" % "0.16.0",
-  "io.spray" %%  "spray-json" % "1.3.2",
+  "com.julianpeeters" %% "avrohugger-core" % "0.17.0-SNAPSHOT",
+  "com.julianpeeters" %% "avrohugger-filesorter" % "0.17.0-SNAPSHOT",
+  "io.spray" %% "spray-json" % "1.3.2",
   "org.specs2" %% "specs2-core" % "3.8.6" % "test")
 
 publishMavenStyle := true

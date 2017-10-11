@@ -1,10 +1,5 @@
 package sbtavrohugger
 
-import formats.specific.SpecificAvroSettings
-import formats.standard.{AvroSettings, GeneratorTask}
-import formats.scavro.ScavroSettings
-import formats.StandardGeneratorTask
-
 import avrohugger.Generator
 import avrohugger.format.{Scavro, SpecificRecord, Standard}
 
