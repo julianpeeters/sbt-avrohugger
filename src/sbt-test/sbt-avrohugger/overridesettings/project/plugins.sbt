@@ -1,3 +1,7 @@
-addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "latest.integration")
-
-resolvers += Resolver.file("Local Ivy Repository", file("~/.ivy2/local/"))(Resolver.ivyStylePatterns)
+{
+  val pluginVersion = System.getProperty("plugin.version")
+  if (pluginVersion == null)
+    throw new RuntimeException("""|The system property 'plugin.version' is not defined.
+                                  |Specify this property using the scriptedLaunchOpts -D.""".stripMargin)
+  else addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % pluginVersion)
+}

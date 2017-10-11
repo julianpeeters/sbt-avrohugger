@@ -1,6 +1,6 @@
 name := "scavro-generation-test"
 
-sbtavrohugger.SbtAvrohugger.scavroSettings
+sourceGenerators in Compile += (avroScalaGenerateScavro in Compile).taskValue
 
 sbtavro.SbtAvro.avroSettings
 

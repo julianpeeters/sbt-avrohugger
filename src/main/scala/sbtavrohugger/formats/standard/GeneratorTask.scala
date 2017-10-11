@@ -24,6 +24,7 @@ import sbt.{
   singleFileFinder }
 
 object GeneratorTask {
+  
 
   private[sbtavrohugger] def caseClassGeneratorTask(avroConfig: Config) = {
     (streams,

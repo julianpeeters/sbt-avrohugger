@@ -1,5 +1,5 @@
-> update
+> clean
 
-> avro:generate-specific
+> test
 
 $ exists myoutputdir/overridden/User.scala
