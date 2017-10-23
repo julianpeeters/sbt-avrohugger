@@ -1,0 +1,3 @@
+> compile
+
+# REMOVE COMMENT AFTER CHANGING THIS TEST TO CHECK SERIALIZABILITY   $ exists myoutputdir/overridden/User.scala

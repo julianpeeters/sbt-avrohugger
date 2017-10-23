@@ -2,6 +2,8 @@ organization := "com.julianpeeters"
 
 name := "override-settings"
 
+scalaVersion := "2.12.4"
+
 version := "0.1-SNAPSHOT"
 
 sourceGenerators in Compile += (avroScalaGenerateSpecific in Compile).taskValue

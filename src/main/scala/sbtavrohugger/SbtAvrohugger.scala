@@ -41,7 +41,7 @@ object SbtAvrohugger extends AutoPlugin {
   import autoImport._
   override def requires = plugins.JvmPlugin
   override def trigger = allRequirements
-  
+    
   override lazy val projectSettings: Seq[Def.Setting[_]] = inConfig(Compile)(
     avroSettings ++
     scavroSettings ++
@@ -60,15 +60,19 @@ object SbtAvrohugger extends AutoPlugin {
       val srcDir = avroSourceDirectory.value
       val targetDir = avroScalaSource.value
       val out = streams.value
+      val scalaV = scalaVersion.value
+      val customTypes = avroScalaCustomTypes.value
+      val customNamespace = avroScalaCustomNamespace.value
+      val customEnumStyle = avroScalaCustomEnumStyle.value
       val cachedCompile = FileFunction.cached(cache / "avro",
         inStyle = FilesInfo.lastModified,
         outStyle = FilesInfo.exists) { (in: Set[File]) =>
-          val isNumberOfFieldsRestricted = scalaVersion.value == "2.10"
+          val isNumberOfFieldsRestricted = scalaV == "2.10"
           val gen = new Generator(
             Standard,
-            avroScalaCustomTypes.value,
-            avroScalaCustomNamespace.value,
-            avroScalaCustomEnumStyle.value,
+            customTypes,
+            customNamespace,
+            customEnumStyle,
             isNumberOfFieldsRestricted)
           FileWriter.generateCaseClasses(gen, srcDir, targetDir, out.log)
         }
@@ -89,15 +93,19 @@ object SbtAvrohugger extends AutoPlugin {
       val srcDir = avroScavroSourceDirectory.value
       val targetDir = avroScavroScalaSource.value
       val out = streams.value
+      val scalaV = scalaVersion.value
+      val scavroCustomTypes = avroScalaScavroCustomTypes.value
+      val scavroCustomNamespace = avroScalaScavroCustomNamespace.value
+      val scavroCustomEnumStyle = avroScalaScavroCustomEnumStyle.value
       val cachedCompile = FileFunction.cached(cache / "avro",
         inStyle = FilesInfo.lastModified,
         outStyle = FilesInfo.exists) { (in: Set[File]) =>
-          val isNumberOfFieldsRestricted = scalaVersion.value == "2.10"
+          val isNumberOfFieldsRestricted = scalaV == "2.10"
           val gen = new Generator(
             Scavro,
-            avroScalaScavroCustomTypes.value,
-            avroScalaScavroCustomNamespace.value,
-            avroScalaScavroCustomEnumStyle.value,
+            scavroCustomTypes,
+            scavroCustomNamespace,
+            scavroCustomEnumStyle,
             isNumberOfFieldsRestricted)
           FileWriter.generateCaseClasses(gen, srcDir, targetDir, out.log)
         }
@@ -118,15 +126,19 @@ object SbtAvrohugger extends AutoPlugin {
       val srcDir = avroSpecificSourceDirectory.value
       val targetDir = avroSpecificScalaSource.value
       val out = streams.value
+      val scalaV = scalaVersion.value
+      val specificCustomTypes = avroScalaSpecificCustomTypes.value
+      val specificCustomNamespace = avroScalaSpecificCustomNamespace.value
+      val specificCustomEnumStyle = avroScalaSpecificCustomEnumStyle.value
       val cachedCompile = FileFunction.cached(cache / "avro",
         inStyle = FilesInfo.lastModified,
         outStyle = FilesInfo.exists) { (in: Set[File]) =>
-          val isNumberOfFieldsRestricted = scalaVersion.value == "2.10"
+          val isNumberOfFieldsRestricted = scalaV == "2.10"
           val gen = new Generator(
             SpecificRecord,
-            avroScalaSpecificCustomTypes.value,
-            avroScalaSpecificCustomNamespace.value,
-            avroScalaSpecificCustomEnumStyle.value,
+            specificCustomTypes,
+            specificCustomNamespace,
+            specificCustomEnumStyle,
             isNumberOfFieldsRestricted)
           FileWriter.generateCaseClasses(gen, srcDir, targetDir, out.log)
         }
