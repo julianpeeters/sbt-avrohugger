@@ -15,22 +15,26 @@ import sbt._
 object SbtAvrohugger extends AutoPlugin {
   
   object autoImport {
-    // Scavro Format
-    lazy val avroScalaGenerateScavro        = taskKey[Seq[File]]("Generate Scala sources for Scavro")
+    
+    // sbt tasks:
+    lazy val avroScalaGenerateScavro   = taskKey[Seq[File]]("Generate Scala sources for Scavro")
+    lazy val avroScalaGenerateSpecific = taskKey[Seq[File]]("Generate Scala sources implementing SpecificRecord")
+    lazy val avroScalaGenerate         = taskKey[Seq[File]]("Generate Scala sources from avro files")
+
+    // sbt settings
+      // Scavro Format
     lazy val avroScavroSourceDirectory      = settingKey[File]("Avro schema directory for generating Scavro Scala")
     lazy val avroScavroScalaSource          = settingKey[File]("Scavro Scala source directory for compiled avro")
     lazy val avroScalaScavroCustomTypes     = settingKey[Map[String, Class[_]]]("Customize Avro to Scala type map by type")
     lazy val avroScalaScavroCustomNamespace = settingKey[Map[String, String]]("Custom namespace of generated Scavro Scala code")
     lazy val avroScalaScavroCustomEnumStyle = settingKey[Map[String, String]]("Custom enum style of generated Scavro Scala code")
-    // SpecificRecord Format
-    lazy val avroScalaGenerateSpecific        = taskKey[Seq[File]]("Generate Scala sources implementing SpecificRecord")
+      // SpecificRecord Format
     lazy val avroSpecificSourceDirectory      = settingKey[File]("Avro schema directory for generating SpecificRecord")
     lazy val avroSpecificScalaSource          = settingKey[File]("Specific Scala source directory for compiled avro")
     lazy val avroScalaSpecificCustomTypes     = settingKey[Map[String, Class[_]]]("Custom Avro to Scala type map")
     lazy val avroScalaSpecificCustomNamespace = settingKey[Map[String, String]]("Custom namespace of generated Specific Scala code")
     lazy val avroScalaSpecificCustomEnumStyle = settingKey[Map[String, String]]("Custom enum style of generated Specific Scala code")
-    // Standard Format
-    lazy val avroScalaGenerate        = taskKey[Seq[File]]("Generate Scala sources from avro files")
+      // Standard Format
     lazy val avroSourceDirectory      = settingKey[File]("Avro schema directory for Scala code generation")
     lazy val avroScalaSource          = settingKey[File]("Scala source directory for compiled avro")
     lazy val avroScalaCustomTypes     = settingKey[Map[String, Class[_]]]("Custom Avro to Scala type map")
