@@ -22,20 +22,20 @@ Usage
 
 The following tasks and settings are automatically imported to your build:
 
-### Tasks
+### Tasks:
 
-| Name                      | Description                                                                     |
-| ------------------------- | -------------------------------------------------------------------------------:|
-| avroScalaGenerate         |  Compiles the Avro files into Scala case classes.                               |
-| avroScalaGenerateScavro   |  Compiles the Avro files into Scala case class Scavro wrapper classes.          |
-| avroScalaGenerateSpecific |  Compiles the Avro files into Scala case classes implementing `SpecificRecord`. |
+| Name                        | Description                                                                     |
+| --------------------------- | -------------------------------------------------------------------------------:|
+| `avroScalaGenerate`         |  Compiles the Avro files into Scala case classes.                               |
+| `avroScalaGenerateScavro`   |  Compiles the Avro files into Scala case class Scavro wrapper classes.          |
+| `avroScalaGenerateSpecific` |  Compiles the Avro files into Scala case classes implementing `SpecificRecord`. |
 
 Run the tasks manually in your sbt shell, or wire them into `compile` in your `build.sbt`:
 
 e.g., `sourceGenerators in Compile += (avroScalaGenerate in Compile).taskValue`
 
 
-### Settings
+### Settings:
 
 _**Standard Settings**_
 
@@ -76,11 +76,11 @@ Settings can be overridden by adding lines to your `build.sbt` file:
 ```scala    
 (avroScalaSource in Compile) := new java.io.File("myScalaSource")
 
-(avroScalaCustomTypes in avroConfig) := Map("array"->classOf[Array[_]])
+(avroScalaCustomTypes in Compile) := Map("array"->classOf[Array[_]])
 
-(avroScalaCustomNamespace in avroConfig) := Map("example"->"overridden")
+(avroScalaCustomNamespace in Compile) := Map("example"->"overridden")
 
-(avroScalaCustomEnumStyle in avroConfig) := Map("enum"->"java enum")
+(avroScalaCustomEnumStyle in Compile) := Map("enum"->"java enum")
 
 ```
 
