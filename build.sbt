@@ -2,7 +2,7 @@ name := "sbt-avrohugger"
 organization := "com.julianpeeters"
 description := "Sbt plugin for compiling Avro to Scala"
 
-version := "1.0.0"
+version := "1.1.0"
 
 sbtPlugin := true
 
@@ -11,8 +11,8 @@ crossSbtVersions := Seq("0.13.16", sbtVersion.value)
 scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Ywarn-value-discard")
 
 libraryDependencies ++= Seq(
-  "com.julianpeeters" %% "avrohugger-core" % "0.17.0",
-  "com.julianpeeters" %% "avrohugger-filesorter" % "0.17.0",
+  "com.julianpeeters" %% "avrohugger-core" % "0.18.0",
+  "com.julianpeeters" %% "avrohugger-filesorter" % "0.18.0",
   "io.spray" %% "spray-json" % "1.3.2",
   "org.specs2" %% "specs2-core" % "3.8.6" % "test")
 
