@@ -2,10 +2,11 @@ package sbtavrohugger
 
 import avrohugger.Generator
 import avrohugger.format.{Scavro, SpecificRecord, Standard}
-
 import java.io.File
-import scala.collection.JavaConverters._
 
+import avrohugger.format.standard.UnionStyle
+
+import scala.collection.JavaConverters._
 import sbt.Keys._
 import sbt._
 
@@ -40,7 +41,7 @@ object SbtAvrohugger extends AutoPlugin {
     lazy val avroScalaCustomTypes     = settingKey[Map[String, Class[_]]]("Custom Avro to Scala type map")
     lazy val avroScalaCustomNamespace = settingKey[Map[String, String]]("Custom namespace of generated Scala code")
     lazy val avroScalaCustomEnumStyle = settingKey[Map[String, String]]("Custom enum style of generated Scala code")
-    lazy val avroScalaUnionsStyle = settingKey[Map[String, String]]("Custom union style of generated Scala code")
+    lazy val avroScalaCustomUnionStyle = settingKey[UnionStyle]("Custom union style of generated Scala code")
   }
     
   import autoImport._
@@ -59,7 +60,7 @@ object SbtAvrohugger extends AutoPlugin {
     avroScalaCustomTypes          := Map.empty[String, Class[_]],
     avroScalaCustomNamespace      := Map.empty[String, String],
     avroScalaCustomEnumStyle      := Map.empty[String, String],
-    avroScalaUnionsStyle          := Map.empty[String, String],
+    avroScalaCustomUnionStyle     := avrohugger.format.standard.Default,
     logLevel in avroScalaGenerate := (logLevel?? Level.Info).value,
     avroScalaGenerate := {
       val cache = target.value
@@ -70,7 +71,7 @@ object SbtAvrohugger extends AutoPlugin {
       val customTypes = avroScalaCustomTypes.value
       val customNamespace = avroScalaCustomNamespace.value
       val customEnumStyle = avroScalaCustomEnumStyle.value
-      val unionAsShapelessCop = avroScalaUnionsStyle.value.get("union").exists(_ == "shapeless_coproduct")
+      val customUnionStyle = avroScalaCustomUnionStyle.value
       val cachedCompile = FileFunction.cached(cache / "avro",
         inStyle = FilesInfo.lastModified,
         outStyle = FilesInfo.exists) { (in: Set[File]) =>
@@ -81,7 +82,7 @@ object SbtAvrohugger extends AutoPlugin {
             avroScalaCustomNamespace = customNamespace,
             avroScalaCustomEnumStyle = customEnumStyle,
             restrictedFieldNumber = isNumberOfFieldsRestricted,
-            unionsAsShapelessCoproduct = unionAsShapelessCop)
+            standardUnionStyle = customUnionStyle)
           FileWriter.generateCaseClasses(gen, srcDir, targetDir, out.log)
         }
       cachedCompile((srcDir ** "*.av*").get.toSet).toSeq
