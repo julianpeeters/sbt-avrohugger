@@ -14,6 +14,8 @@ sourceGenerators in Compile += (avroScalaGenerateSpecific in Compile).taskValue
 
 (avroScalaSpecificCustomTypes in Compile) := Map("array" -> classOf[Vector[_]])
 
+(avroScalaUnionsAsShapelessCoproduct in Compile) := true
+
 libraryDependencies += "org.apache.avro" % "avro" % "1.7.7"
 
 
