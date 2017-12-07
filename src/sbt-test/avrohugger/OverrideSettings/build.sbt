@@ -4,7 +4,7 @@ avroSpecificScalaSource in Compile := new java.io.File(s"${baseDirectory.value}/
 
 avroScalaSpecificCustomNamespace in Compile := Map("example"->"overridden")
 
-avroScalaUnionsAsShapelessCoproduct in Compile := true
+avroScalaUnionsStyle in Compile := Map("union" -> "shapeless_coproduct")
 
 organization := "com.julianpeeters"
 

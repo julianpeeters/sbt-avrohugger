@@ -40,7 +40,7 @@ object SbtAvrohugger extends AutoPlugin {
     lazy val avroScalaCustomTypes     = settingKey[Map[String, Class[_]]]("Custom Avro to Scala type map")
     lazy val avroScalaCustomNamespace = settingKey[Map[String, String]]("Custom namespace of generated Scala code")
     lazy val avroScalaCustomEnumStyle = settingKey[Map[String, String]]("Custom enum style of generated Scala code")
-    lazy val avroScalaUnionsAsShapelessCoproduct = settingKey[Boolean]("Generate `shapeless.Coproduct` for all non nullable `union` fields")
+    lazy val avroScalaUnionsStyle = settingKey[Map[String, String]]("Custom union style of generated Scala code")
   }
     
   import autoImport._
@@ -59,7 +59,7 @@ object SbtAvrohugger extends AutoPlugin {
     avroScalaCustomTypes          := Map.empty[String, Class[_]],
     avroScalaCustomNamespace      := Map.empty[String, String],
     avroScalaCustomEnumStyle      := Map.empty[String, String],
-    avroScalaUnionsAsShapelessCoproduct    := false,
+    avroScalaUnionsStyle          := Map.empty[String, String],
     logLevel in avroScalaGenerate := (logLevel?? Level.Info).value,
     avroScalaGenerate := {
       val cache = target.value
@@ -70,7 +70,7 @@ object SbtAvrohugger extends AutoPlugin {
       val customTypes = avroScalaCustomTypes.value
       val customNamespace = avroScalaCustomNamespace.value
       val customEnumStyle = avroScalaCustomEnumStyle.value
-      val unionAsShapelessCop = avroScalaUnionsAsShapelessCoproduct.value
+      val unionAsShapelessCop = avroScalaUnionsStyle.value.get("union").exists(_ == "shapeless_coproduct")
       val cachedCompile = FileFunction.cached(cache / "avro",
         inStyle = FilesInfo.lastModified,
         outStyle = FilesInfo.exists) { (in: Set[File]) =>
