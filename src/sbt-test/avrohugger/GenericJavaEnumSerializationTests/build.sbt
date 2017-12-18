@@ -1,7 +1,9 @@
 sourceGenerators in Compile += (avroScalaGenerate in Compile).taskValue
 
-avroScalaCustomEnumStyle in Compile := Map("enum"->"java enum")
-
+avroScalaCustomTypes in Compile := {
+  avrohugger.format.Standard.defaultTypes.copy(
+    enum = avrohugger.types.JavaEnum)
+}
 organization := "com.julianpeeters"
 
 name := "datatype-avro-serializaton-tests"

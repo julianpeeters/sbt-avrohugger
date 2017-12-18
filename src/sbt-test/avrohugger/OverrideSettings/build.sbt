@@ -4,8 +4,6 @@ avroSpecificScalaSource in Compile := new java.io.File(s"${baseDirectory.value}/
 
 avroScalaSpecificCustomNamespace in Compile := Map("example"->"overridden")
 
-avroScalaCustomUnionStyle in Compile := avrohugger.format.standard.ShapelessCoproduct
-
 organization := "com.julianpeeters"
 
 name := "override-settings"

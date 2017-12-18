@@ -16,7 +16,10 @@ version in sbtavro.SbtAvro.avroConfig := "1.8.0"
 
 sourceGenerators in Compile += (avroScalaGenerateScavro in Compile).taskValue
 
-avroScalaScavroCustomTypes in Compile := Map("array" -> classOf[List[_]])
+avroScalaScavroCustomTypes in Compile := {
+  avrohugger.format.Scavro.defaultTypes.copy(
+    array = avrohugger.types.ScalaList)
+}
 
 avroScalaScavroCustomNamespace in Compile := Map("model.v2" -> "scavromodelv2", "model" -> "scavromodel", "test" -> "scavrotest")
 

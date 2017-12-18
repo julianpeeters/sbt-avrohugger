@@ -1,7 +1,9 @@
 sourceGenerators in Compile += (avroScalaGenerateSpecific in Compile).taskValue
 
-avroScalaSpecificCustomTypes in Compile := Map("array" -> classOf[Array[_]])
-
+avroScalaSpecificCustomTypes in Compile := {
+  avrohugger.format.SpecificRecord.defaultTypes.copy(
+    array = avrohugger.types.ScalaArray)
+}
 organization := "com.julianpeeters"
 
 name := "datatype-specific-array-serializaton-tests"

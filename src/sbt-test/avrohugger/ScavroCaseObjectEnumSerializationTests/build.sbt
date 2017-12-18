@@ -16,10 +16,11 @@ version in sbtavro.SbtAvro.avroConfig := "1.8.0"
 
 sourceGenerators in Compile += (avroScalaGenerateScavro in Compile).taskValue
 
-avroScalaScavroCustomTypes in Compile := Map("array"-> classOf[List[_]])
-
-avroScalaScavroCustomEnumStyle in Compile := Map("enum"-> "case object")
-
+avroScalaScavroCustomTypes in Compile := {
+  avrohugger.format.Scavro.defaultTypes.copy(
+    enum = avrohugger.types.ScalaCaseObjectEnum,
+    array = avrohugger.types.ScalaList)
+}
 avroScalaScavroCustomNamespace in Compile := Map("SCAVRO_DEFAULT_PACKAGE$" -> "scavro")
 
 libraryDependencies ++= Seq(

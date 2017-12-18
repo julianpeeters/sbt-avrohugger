@@ -2,11 +2,9 @@ package sbtavrohugger
 
 import avrohugger.Generator
 import avrohugger.format.{Scavro, SpecificRecord, Standard}
+import avrohugger.types.AvroScalaTypes
 import java.io.File
 
-import avrohugger.format.standard.UnionStyle
-
-import scala.collection.JavaConverters._
 import sbt.Keys._
 import sbt._
 
@@ -26,22 +24,18 @@ object SbtAvrohugger extends AutoPlugin {
       // Scavro Format
     lazy val avroScavroSourceDirectory      = settingKey[File]("Avro schema directory for generating Scavro Scala")
     lazy val avroScavroScalaSource          = settingKey[File]("Scavro Scala source directory for compiled avro")
-    lazy val avroScalaScavroCustomTypes     = settingKey[Map[String, Class[_]]]("Customize Avro to Scala type map by type")
+    lazy val avroScalaScavroCustomTypes     = settingKey[AvroScalaTypes]("Customize Avro to Scala type map by type")
     lazy val avroScalaScavroCustomNamespace = settingKey[Map[String, String]]("Custom namespace of generated Scavro Scala code")
-    lazy val avroScalaScavroCustomEnumStyle = settingKey[Map[String, String]]("Custom enum style of generated Scavro Scala code")
       // SpecificRecord Format
     lazy val avroSpecificSourceDirectory      = settingKey[File]("Avro schema directory for generating SpecificRecord")
     lazy val avroSpecificScalaSource          = settingKey[File]("Specific Scala source directory for compiled avro")
-    lazy val avroScalaSpecificCustomTypes     = settingKey[Map[String, Class[_]]]("Custom Avro to Scala type map")
+    lazy val avroScalaSpecificCustomTypes     = settingKey[AvroScalaTypes]("Custom Avro to Scala type map")
     lazy val avroScalaSpecificCustomNamespace = settingKey[Map[String, String]]("Custom namespace of generated Specific Scala code")
-    lazy val avroScalaSpecificCustomEnumStyle = settingKey[Map[String, String]]("Custom enum style of generated Specific Scala code")
       // Standard Format
     lazy val avroSourceDirectory      = settingKey[File]("Avro schema directory for Scala code generation")
     lazy val avroScalaSource          = settingKey[File]("Scala source directory for compiled avro")
-    lazy val avroScalaCustomTypes     = settingKey[Map[String, Class[_]]]("Custom Avro to Scala type map")
+    lazy val avroScalaCustomTypes     = settingKey[AvroScalaTypes]("Custom Scala types of generated Scala code")
     lazy val avroScalaCustomNamespace = settingKey[Map[String, String]]("Custom namespace of generated Scala code")
-    lazy val avroScalaCustomEnumStyle = settingKey[Map[String, String]]("Custom enum style of generated Scala code")
-    lazy val avroScalaCustomUnionStyle = settingKey[UnionStyle]("Custom union style of generated Scala code")
   }
     
   import autoImport._
@@ -57,10 +51,8 @@ object SbtAvrohugger extends AutoPlugin {
   lazy val avroSettings: Seq[Def.Setting[_]] = Seq(
     avroScalaSource               := sourceManaged.value / "compiled_avro",
     avroSourceDirectory           := sourceDirectory.value / "avro",
-    avroScalaCustomTypes          := Map.empty[String, Class[_]],
     avroScalaCustomNamespace      := Map.empty[String, String],
-    avroScalaCustomEnumStyle      := Map.empty[String, String],
-    avroScalaCustomUnionStyle     := avrohugger.format.standard.Default,
+    avroScalaCustomTypes          := Standard.defaultTypes,
     logLevel in avroScalaGenerate := (logLevel?? Level.Info).value,
     avroScalaGenerate := {
       val cache = target.value
@@ -70,19 +62,15 @@ object SbtAvrohugger extends AutoPlugin {
       val scalaV = scalaVersion.value
       val customTypes = avroScalaCustomTypes.value
       val customNamespace = avroScalaCustomNamespace.value
-      val customEnumStyle = avroScalaCustomEnumStyle.value
-      val customUnionStyle = avroScalaCustomUnionStyle.value
       val cachedCompile = FileFunction.cached(cache / "avro",
         inStyle = FilesInfo.lastModified,
         outStyle = FilesInfo.exists) { (in: Set[File]) =>
           val isNumberOfFieldsRestricted = scalaV == "2.10"
           val gen = new Generator(
             format = Standard,
-            avroScalaCustomTypes = customTypes,
+            avroScalaCustomTypes = Some(customTypes),
             avroScalaCustomNamespace = customNamespace,
-            avroScalaCustomEnumStyle = customEnumStyle,
-            restrictedFieldNumber = isNumberOfFieldsRestricted,
-            standardUnionStyle = customUnionStyle)
+            restrictedFieldNumber = isNumberOfFieldsRestricted)
           FileWriter.generateCaseClasses(gen, srcDir, targetDir, out.log)
         }
       cachedCompile((srcDir ** "*.av*").get.toSet).toSeq
@@ -93,9 +81,8 @@ object SbtAvrohugger extends AutoPlugin {
   lazy val scavroSettings: Seq[Def.Setting[_]] = Seq(
     avroScavroScalaSource          := sourceManaged.value / "compiled_avro",
     avroScavroSourceDirectory      := sourceDirectory.value / "avro",
-    avroScalaScavroCustomTypes     := Map.empty[String, Class[_]],
+    avroScalaScavroCustomTypes     := Scavro.defaultTypes,
     avroScalaScavroCustomNamespace := Map.empty[String, String],
-    avroScalaScavroCustomEnumStyle := Map.empty[String, String],
     logLevel in avroScalaGenerateScavro  := (logLevel?? Level.Info).value,
     avroScalaGenerateScavro := {
       val cache = target.value
@@ -105,16 +92,14 @@ object SbtAvrohugger extends AutoPlugin {
       val scalaV = scalaVersion.value
       val scavroCustomTypes = avroScalaScavroCustomTypes.value
       val scavroCustomNamespace = avroScalaScavroCustomNamespace.value
-      val scavroCustomEnumStyle = avroScalaScavroCustomEnumStyle.value
       val cachedCompile = FileFunction.cached(cache / "avro",
         inStyle = FilesInfo.lastModified,
         outStyle = FilesInfo.exists) { (in: Set[File]) =>
           val isNumberOfFieldsRestricted = scalaV == "2.10"
           val gen = new Generator(
             Scavro,
-            scavroCustomTypes,
+            Some(scavroCustomTypes),
             scavroCustomNamespace,
-            scavroCustomEnumStyle,
             isNumberOfFieldsRestricted)
           FileWriter.generateCaseClasses(gen, srcDir, targetDir, out.log)
         }
@@ -126,9 +111,8 @@ object SbtAvrohugger extends AutoPlugin {
   lazy val specificAvroSettings: Seq[Def.Setting[_]] = Seq(
     avroSpecificScalaSource := sourceManaged.value / "compiled_avro",
     avroSpecificSourceDirectory := sourceDirectory.value / "avro",
-    avroScalaSpecificCustomTypes := Map.empty[String, Class[_]],
+    avroScalaSpecificCustomTypes := SpecificRecord.defaultTypes,
     avroScalaSpecificCustomNamespace := Map.empty[String, String],
-    avroScalaSpecificCustomEnumStyle := Map.empty[String, String],
     logLevel in avroScalaGenerateSpecific := (logLevel?? Level.Info).value,
     avroScalaGenerateSpecific := {
       val cache = target.value
@@ -138,16 +122,14 @@ object SbtAvrohugger extends AutoPlugin {
       val scalaV = scalaVersion.value
       val specificCustomTypes = avroScalaSpecificCustomTypes.value
       val specificCustomNamespace = avroScalaSpecificCustomNamespace.value
-      val specificCustomEnumStyle = avroScalaSpecificCustomEnumStyle.value
       val cachedCompile = FileFunction.cached(cache / "avro",
         inStyle = FilesInfo.lastModified,
         outStyle = FilesInfo.exists) { (in: Set[File]) =>
           val isNumberOfFieldsRestricted = scalaV == "2.10"
           val gen = new Generator(
             SpecificRecord,
-            specificCustomTypes,
+            Some(specificCustomTypes),
             specificCustomNamespace,
-            specificCustomEnumStyle,
             isNumberOfFieldsRestricted)
           FileWriter.generateCaseClasses(gen, srcDir, targetDir, out.log)
         }

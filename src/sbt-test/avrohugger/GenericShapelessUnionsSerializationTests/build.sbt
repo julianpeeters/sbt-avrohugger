@@ -24,4 +24,7 @@ libraryDependencies += "org.apache.avro" % "avro" % "1.7.7"
 
 libraryDependencies += "org.specs2" %% "specs2-core" % "3.8.6" % "test"
 
-(avroScalaCustomUnionStyle in Compile) := avrohugger.format.standard.ShapelessCoproduct
+avroScalaCustomTypes in Compile := {
+  avrohugger.format.Standard.defaultTypes.copy(
+    union = avrohugger.types.ShapelessCoproduct)
+}

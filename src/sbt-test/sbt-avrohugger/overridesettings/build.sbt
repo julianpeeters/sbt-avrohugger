@@ -6,16 +6,23 @@ scalaVersion := "2.12.4"
 
 version := "0.1-SNAPSHOT"
 
-sourceGenerators in Compile += (avroScalaGenerateSpecific in Compile).taskValue
+sourceGenerators in Compile += (avroScalaGenerate in Compile).taskValue
 
-(avroSpecificScalaSource in Compile) := new java.io.File(s"${baseDirectory.value}/myoutputdir")
+(avroScalaSource in Compile) := new java.io.File(s"${baseDirectory.value}/myoutputdir")
 
-(avroScalaSpecificCustomNamespace in Compile) := Map("example"->"overridden")
+(avroScalaCustomNamespace in Compile) := Map("example"->"overridden")
 
-(avroScalaSpecificCustomTypes in Compile) := Map("array" -> classOf[Vector[_]])
+avroScalaCustomTypes in Compile := {
+  avrohugger.format.Standard.defaultTypes.copy(
+    array = avrohugger.types.ScalaVector,
+    union = avrohugger.types.ShapelessCoproduct)
+}
 
-(avroScalaCustomUnionStyle in Compile) := avrohugger.format.standard.ShapelessCoproduct
 
-libraryDependencies += "org.apache.avro" % "avro" % "1.7.7"
+libraryDependencies ++= Seq(
+  "com.chuusai" %% "shapeless" % "2.3.2",
+  "org.apache.avro" % "avro" % "1.7.7"
+)
+
 
 

@@ -1,6 +1,9 @@
 sourceGenerators in Compile += (avroScalaGenerate in Compile).taskValue
 
-avroScalaCustomEnumStyle in Compile := Map("enum"->"case object")
+avroScalaCustomTypes in Compile := {
+  avrohugger.format.Standard.defaultTypes.copy(
+    enum = avrohugger.types.ScalaCaseObjectEnum)
+}
 
 organization := "com.julianpeeters"
 
