@@ -39,23 +39,23 @@ e.g., `sourceGenerators in Compile += (avroScalaGenerate in Compile).taskValue`
 
 _**Standard Settings**_
 
-| Name                       | Default                               | Description                                                      |
-| -------------------------- | -------------------------------------:| ----------------------------------------------------------------:|
-| `avroSourceDirectory`      | ``src/main/avro``                     | Path containing ``*.avsc``, ``*.avdl``, and/or ``*.avro`` files. |
-| `avroScalaSource`          | ``$sourceManaged/main/compiled_avro`` | Path for the generated ``*.scala`` or ``*.java``  files.         |
-| `avroScalaCustomTypes`     | ``Map.empty[String, Class[_]]``       | Map for reassigning `array` to `Array`, `List`, or `Vector`.     |
-| `avroScalaCustomNamespace` | ``Map.empty[String, String]``         | Map for reassigning namespaces.                                  |
-| `avroScalaCustomEnumStyle` | ``Map.empty[String, String]``         | Map for reassigning enum style to `java enum` or `case object`.  |
+| Name                       | Default                               | Description                              |
+| -------------------------- | -------------------------------------:| ----------------------------------------:|
+| `avroSourceDirectory`      | ``src/main/avro``                     | Path containing ``*.avsc``, ``*.avdl``, and/or ``*.avro`` files.|
+| `avroScalaSource`          | ``$sourceManaged/main/compiled_avro`` | Path for the generated ``*.scala`` or ``*.java``  files.|
+| `avroScalaCustomTypes`     | ``Standard.defaultTypes``             | Customizable Type Mapping.|
+| `avroScalaCustomNamespace` | ``Map.empty[String, String]``         | Map for reassigning namespaces.|
+
 
 _**Scavro Settings**_
 
-| Name                             | Default                               | Description                                                      |
-| -------------------------------- | -------------------------------------:| ----------------------------------------------------------------:|
+| Name                             | Default                               | Description                   |
+| -------------------------------- | -------------------------------------:| -----------------------------:|
 | `avroScavroSourceDirectory`      | ``src/main/avro``                     | Path containing ``*.avsc``, ``*.avdl``, and/or ``*.avro`` files. |
 | `avroScavroScalaSource`          | ``$sourceManaged/main/compiled_avro`` | Path for the generated ``*.scala`` or ``*.java``  files.         |
-| `avroScalaScavroCustomTypes`     | ``Map.empty[String, Class[_]]``       | Map for reassigning `array` to `Array`, `List`, or `Vector`.     |
+| `avroScalaScavroCustomTypes`     | ``Scavro.defaultTypes``             | Customizable Type Mapping.|
 | `avroScalaScavroCustomNamespace` | ``Map.empty[String, String]``         | Map for reassigning namespaces.                                  |
-| `avroScalaScavroCustomEnumStyle` | ``Map.empty[String, String]``         | Map for reassigning enum style to `java enum` or `case object`.  |
+
 
 _**SpecificRecord Settings**_
 
@@ -63,9 +63,8 @@ _**SpecificRecord Settings**_
 | ---------------------------------- | -------------------------------------:| ----------------------------------------------------------------:|
 | `avroSpecificSourceDirectory`      | ``src/main/avro``                     | Path containing ``*.avsc``, ``*.avdl``, and/or ``*.avro`` files. |
 | `avroSpecificScalaSource`          | ``$sourceManaged/main/compiled_avro`` | Path for the generated ``*.scala`` or ``*.java``  files.         |
-| `avroScalaSpecificCustomTypes`     | ``Map.empty[String, Class[_]]``       | Map for reassigning `array` to `Array`, `List`, or `Vector`.     |
+| `avroScalaSpecificCustomTypes`     | ``SpecificRecord.defaultTypes``             | Customizable Type Mapping.|
 | `avroScalaSpecificCustomNamespace` | ``Map.empty[String, String]``         | Map for reassigning namespaces.                                  |
-| `avroScalaSpecificCustomEnumStyle` | ``Map.empty[String, String]``         | Map for reassigning enum style to `java enum` or `case object`.  |
 
 
 Changing Settings
@@ -74,16 +73,20 @@ Changing Settings
 Settings can be overridden by adding lines to your `build.sbt` file:
 
 ```scala    
-(avroScalaSource in Compile) := new java.io.File("myScalaSource")
+avroSpecificScalaSource in Compile := new java.io.File("myScalaSource")
 
-(avroScalaCustomTypes in Compile) := Map("array"->classOf[Array[_]])
+avroScalaSpecificCustomNamespace in Compile := Map("example"->"overridden")
 
-(avroScalaCustomNamespace in Compile) := Map("example"->"overridden")
-
-(avroScalaCustomEnumStyle in Compile) := Map("enum"->"java enum")
-
+avroScalaSpecificCustomTypes in Compile := {
+  avrohugger.format.SpecificRecord.defaultTypes.copy(
+    array = avrohugger.types.ScalaVector)
+}
 ```
 
+* `array` can be assigned to `ScalaArray`, `ScalaList`, and `ScalaVector`
+* `enum` can be assigned to `JavaEnum`, `ScalaCaseObjectEnum`, and `ScalaEnumeration`
+* `union` can be assigned to `OptionEitherShapelessCoproduct` and `ShapelessCoproduct`
+* `int`, `long`, `float`, `double` can be assigned to `ScalaInt`, `ScalaLong`, `ScalaFloat`, `ScalaDouble`
 
 Datatypes
 ---------
@@ -117,6 +120,9 @@ Contributors
 - [Saket](https://github.com/skate056)
 - [Jon Morra](https://github.com/jon-morra-zefr)
 - [Simonas Gelazevicius](https://github.com/simsasg)
+- [Raúl Raja Martínez](https://github.com/raulraja)
+- [Paul Snively](https://github.com/PaulAtBanno)
+- [Zach Cox](https://github.com/zcox)
 
 #### Fork away, just make sure the tests pass before you send a pull request.
 
