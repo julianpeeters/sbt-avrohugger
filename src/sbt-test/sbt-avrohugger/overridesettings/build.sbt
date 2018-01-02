@@ -10,6 +10,8 @@ sourceGenerators in Compile += (avroScalaGenerate in Compile).taskValue
 
 (avroScalaSource in Compile) := new java.io.File(s"${baseDirectory.value}/myoutputdir")
 
+(avroSourceDirectory in Compile) := new java.io.File(s"${baseDirectory.value}/src/main/myavro")
+
 (avroScalaCustomNamespace in Compile) := Map("example"->"overridden")
 
 avroScalaCustomTypes in Compile := {
