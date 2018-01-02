@@ -2,6 +2,7 @@ import test._
 import org.specs2.mutable.Specification
 import com.sksamuel.avro4s.RecordFormat
 import java.io.File
+import shapeless.Inl
 
 import org.apache.avro.file.{ DataFileReader, DataFileWriter }
 import org.apache.avro.generic.{
@@ -28,6 +29,8 @@ class StandardDefaultValuesSpec extends Specification {
       sameRecord.optionalEnum === None
       sameRecord.defaultMap === Map("Hello" -> "world", "Merry" -> "Christmas")
       sameRecord.byt === "\u00FF".getBytes
+      sameRecord.defaultEither === Left(2)
+      sameRecord.defaultCoproduct === Inl(3)
     }
   }
 

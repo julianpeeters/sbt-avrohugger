@@ -21,5 +21,7 @@ protocol Defaults {
     union {null, DefaultEnum} optionalEnum = null;
     map<string> defaultMap = {"Hello" : "world", "Merry" : "Christmas"};
     bytes byt = "\u00FF";
+    union {int, string} defaultEither = 2;
+    union {int, string, boolean} defaultCoproduct = 3;
   }
 }

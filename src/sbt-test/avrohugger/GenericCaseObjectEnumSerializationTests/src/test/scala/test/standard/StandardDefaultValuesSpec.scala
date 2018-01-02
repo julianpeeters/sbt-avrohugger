@@ -1,6 +1,7 @@
 import test._
 import org.specs2.mutable.Specification
 import com.sksamuel.avro4s.RecordFormat
+import shapeless.Inl
 
 class StandardDefaultValuesSpec extends Specification {
 
@@ -21,6 +22,8 @@ class StandardDefaultValuesSpec extends Specification {
       sameRecord.optionalEnum === None
       sameRecord.defaultMap === Map("Hello" -> "world", "Merry" -> "Christmas")
       sameRecord.byt === "\u00FF".getBytes
+      sameRecord.defaultEither === Left(2)
+      sameRecord.defaultCoproduct === Inl(3)
     }
   }
 
