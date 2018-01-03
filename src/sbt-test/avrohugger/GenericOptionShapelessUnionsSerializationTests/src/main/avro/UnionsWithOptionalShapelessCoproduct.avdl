@@ -6,6 +6,7 @@ protocol AllUnionsWithShapelessCoproduct {
   }
 
   record Event2 {
+    int index = 10;
   }
 
   record Event3 {
