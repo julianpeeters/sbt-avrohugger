@@ -48,9 +48,9 @@ class AllUnionsWithShapelessCoproductSpec extends Specification {
       StandardTestUtil.verifyWriteAndRead(records)
     }
 
-    "Continue using `Option[A :+: B :+: C :+: Cnil]` with `Option[shapeless.Coproduct]`" in {
-      val record1 = ShouldRenderAsOptionalCoproduct2(Option(Coproduct(Event1())))
-      val record2 = ShouldRenderAsOptionalCoproduct2(Option(Coproduct(Event1())))
+    "Continue using `Option[A :+: B :+: C :+: Cnil]` with `Option[shapeless.Coproduct]` and override default args" in {
+      val record1 = ShouldRenderAsOptionalCoproduct2(Option(Coproduct(Event1(5))))
+      val record2 = ShouldRenderAsOptionalCoproduct2(Option(Coproduct(Event1(5))))
       val format = RecordFormat[ShouldRenderAsOptionalCoproduct2]
       val records = List(format.to(record1), format.to(record2))
       StandardTestUtil.verifyWriteAndRead(records)
