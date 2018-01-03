@@ -1,0 +1,67 @@
+@namespace("example.idl")
+protocol AllUnionsWithShapelessCoproduct {
+
+  record Event1 {
+  }
+
+  record Event2 {
+  }
+
+  record Event3 {
+  }
+
+  record Event4 {
+  }
+
+  record ShouldRenderAsOptional {
+    union { null, Event1 } value;
+  }
+
+  record ShouldRenderAsNullable {
+    union { Event1, null } value;
+  }
+
+  record ShouldRenderAsOptionalCoproduct {
+    union { null, Event1, Event2 } value;
+  }
+
+  record ShouldRenderAsNullableCoproduct {
+    union { Event1, null, Event2 } value;
+  }
+
+  record ShouldRenderAsNullableCoproduct2 {
+    union { Event1, Event2, null } value;
+  }
+
+  record ShouldRenderAsOptionalCoproduct2 {
+    union { null, Event1, Event2, Event3 } value;
+  }
+
+  record ShouldRenderAsNullableCoproduct3 {
+    union { Event1, Event2, Event3, null } value;
+  }
+
+  record ShouldRenderAsNullableCoproduct4 {
+    union { Event1, Event2, null, Event3 } value;
+  }
+
+  record ShouldRenderAsCoproduct {
+    union { Event1, Event2 } value;
+  }
+
+  record ShouldRenderAsCoproduct2 {
+    union { Event1, Event2, Event3, Event4 } value;
+  }
+
+  record ShouldRenderAsCoproduct3 {
+    union { Event2, Event1, Event3, Event4 } value;
+  }
+
+  record ShouldRenderAsOptional2 {
+    union { null, Event1 } value = null;
+  }
+  
+  record ShouldRenderAsNullable2 {
+    union { Event1, null } value = Event1;
+  }
+}
