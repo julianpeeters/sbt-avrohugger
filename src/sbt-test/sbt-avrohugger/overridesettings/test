@@ -3,3 +3,5 @@
 > test
 
 $ exists myoutputdir/overridden/User.scala
+
+$ exists mytestoutputdir/example/User.scala

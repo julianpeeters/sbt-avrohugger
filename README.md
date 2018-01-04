@@ -30,9 +30,16 @@ The following tasks and settings are automatically imported to your build:
 | `avroScalaGenerateScavro`   |  Compiles the Avro files into Scala case class Scavro wrapper classes.          |
 | `avroScalaGenerateSpecific` |  Compiles the Avro files into Scala case classes implementing `SpecificRecord`. |
 
-Run the tasks manually in your sbt shell, or wire them into `compile` in your `build.sbt`:
 
-e.g., `sourceGenerators in Compile += (avroScalaGenerate in Compile).taskValue`
+Wire them into `compile` in your `build.sbt`, in `Compile` and/or `Test` configs:
+
+e.g.: `sourceGenerators in Compile += (avroScalaGenerate in Compile).taskValue`
+
+Or run them manually (please see [Changing Settings](https://github.com/julianpeeters/avrohugger#changing-settings) or the [sbt docs](http://www.scala-sbt.org/1.x/docs/Howto-Customizing-Paths.html#Add+an+additional+source+directory) in order to ensure the compiler will be able to find files generated in this manner).
+
+To watch avro files for changes with `~`, e.g. in `~compile`, use:
+
+e.g.: `watchSources ++= ((avroSourceDirectory in Compile).value ** "*.avdl").get`
 
 
 ### Settings:

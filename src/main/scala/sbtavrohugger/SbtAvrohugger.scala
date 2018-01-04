@@ -41,12 +41,16 @@ object SbtAvrohugger extends AutoPlugin {
   import autoImport._
   override def requires = plugins.JvmPlugin
   override def trigger = allRequirements
-    
-  override lazy val projectSettings: Seq[Def.Setting[_]] = inConfig(Compile)(
+  
+  lazy val baseSettings = 
     avroSettings ++
     scavroSettings ++
-    specificAvroSettings)
-
+    specificAvroSettings
+    
+  override lazy val projectSettings: Seq[Def.Setting[_]] =
+    inConfig(Compile)(baseSettings) ++
+    inConfig(Test)(baseSettings) 
+    
   // Standard Format
   lazy val avroSettings: Seq[Def.Setting[_]] = Seq(
     avroScalaSource               := sourceManaged.value / "compiled_avro",

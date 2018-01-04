@@ -7,8 +7,10 @@ scalaVersion := "2.12.4"
 version := "0.1-SNAPSHOT"
 
 sourceGenerators in Compile += (avroScalaGenerate in Compile).taskValue
+sourceGenerators in Test += (avroScalaGenerate in Test).taskValue
 
 (avroScalaSource in Compile) := new java.io.File(s"${baseDirectory.value}/myoutputdir")
+(avroScalaSource in Test) := new java.io.File(s"${baseDirectory.value}/mytestoutputdir")
 
 (avroSourceDirectory in Compile) := new java.io.File(s"${baseDirectory.value}/src/main/myavro")
 
