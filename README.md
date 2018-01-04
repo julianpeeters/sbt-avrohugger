@@ -99,7 +99,7 @@ Testing
 -------
 
 Please run unit tests in `src/test/scala` with `^ test`, and integration tests
-in `src/sbt-test` with `^ scripted`, or, e.g. `scripted avrohugger/GenericSerializationTests`.
+in `src/sbt-test` with `^ scripted sbt-avrohugger/*`, or, e.g. `scripted sbt-avrohugger/specific`.
 
 
 Credits
