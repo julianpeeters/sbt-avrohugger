@@ -2,9 +2,11 @@
 protocol AllUnionsWithShapelessCoproduct {
 
   record Event1 {
+    int index = 1;
   }
 
   record Event2 {
+    int index = 10;
   }
 
   record Event3 {
@@ -14,7 +16,7 @@ protocol AllUnionsWithShapelessCoproduct {
   }
 
   record ShouldRenderAsOptional {
-    union { null, Event1 } value;
+    union { null, Event1 } value = null;
   }
 
   record ShouldRenderAsNullable {
@@ -34,7 +36,7 @@ protocol AllUnionsWithShapelessCoproduct {
   }
 
   record ShouldRenderAsOptionalCoproduct2 {
-    union { null, Event1, Event2, Event3 } value;
+    union { null, Event1, Event2, Event3 } value = null;
   }
 
   record ShouldRenderAsNullableCoproduct3 {
@@ -54,14 +56,14 @@ protocol AllUnionsWithShapelessCoproduct {
   }
 
   record ShouldRenderAsCoproduct3 {
-    union { Event2, Event1, Event3, Event4 } value;
+    union { Event2, Event1, Event3, Event4 } value = {};
   }
 
   record ShouldRenderAsOptional2 {
     union { null, Event1 } value = null;
   }
-  
+
   record ShouldRenderAsNullable2 {
-    union { Event1, null } value = Event1;
+    union { Event1, null } value = { "index" : 0 };
   }
 }
