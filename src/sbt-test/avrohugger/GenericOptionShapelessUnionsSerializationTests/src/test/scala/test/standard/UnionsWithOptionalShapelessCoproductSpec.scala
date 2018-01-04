@@ -104,6 +104,14 @@ class AllUnionsWithShapelessCoproductSpec extends Specification {
         sameRecord.value === Option(Coproduct(Event1(1)))
       }
 
+      "deserialize correctly with default values" in {
+        val record = ShouldRenderAsOptionalCoproduct2()
+        val format = RecordFormat[ShouldRenderAsOptionalCoproduct2]
+        val avro = format.to(record)
+        val sameRecord = format.from(avro)
+        sameRecord.value === None
+      }
+
       "deserialize correctly in non-nullable position" in {
         val record = ShouldRenderAsCoproduct3(Coproduct(Event2()))
         val format = RecordFormat[ShouldRenderAsCoproduct3]
