@@ -94,6 +94,7 @@ avroScalaSpecificCustomTypes in Compile := {
 * `enum` can be assigned to `JavaEnum`, `ScalaCaseObjectEnum`, and `ScalaEnumeration`
 * `union` can be assigned to `OptionEitherShapelessCoproduct` and `OptionShapelessCoproduct`
 * `int`, `long`, `float`, `double` can be assigned to `ScalaInt`, `ScalaLong`, `ScalaFloat`, `ScalaDouble`
+* `protocol` can be assigned to `ScalaADT` and `NoTypeGenerated` (see [Protocol Support](https://github.com/julianpeeters/avrohugger#protocol-support))
 
 Datatypes
 ---------
