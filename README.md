@@ -36,7 +36,7 @@ Wire the tasks into `compile` in your `build.sbt`:
 
 e.g.: `sourceGenerators in Compile += (avroScalaGenerate in Compile).taskValue`
 
-By [default](https://github.com/julianpeeters/sbt-avrohugger#settings), the plugin looks Avro files in `src/main/avro` and generates Scala files in `$sourceManaged`, e.g., `target/scala-2.12/src_managed/main/compiled_avro/` (please see [Changing Settings](https://github.com/julianpeeters/avrohugger#changing-settings).
+By [default](https://github.com/julianpeeters/sbt-avrohugger#settings), the plugin looks Avro files in `src/main/avro` and generates Scala files in `$sourceManaged`, e.g., `target/scala-2.12/src_managed/main/compiled_avro/` (please see [Changing Settings](https://github.com/julianpeeters/sbt-avrohugger#changing-settings).
 
 #### Test
 
@@ -46,7 +46,7 @@ e.g. `sourceGenerators in Test += (avroScalaGenerate in Test).taskValue`
 
 #### Manually
 
-To run the tasks manually, please see [Changing Settings](https://github.com/julianpeeters/avrohugger#changing-settings) or the [sbt docs](http://www.scala-sbt.org/1.x/docs/Howto-Customizing-Paths.html#Add+an+additional+source+directory) in order to ensure the compiler will be able to find the generated files.
+To run the tasks manually, please see [Changing Settings](https://github.com/julianpeeters/sbt-avrohugger#changing-settings) or the [sbt docs](http://www.scala-sbt.org/1.x/docs/Howto-Customizing-Paths.html#Add+an+additional+source+directory) in order to ensure the compiler will be able to find the generated files.
 
 
 #### Watch Avro Files
