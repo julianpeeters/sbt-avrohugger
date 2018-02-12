@@ -30,14 +30,28 @@ The following tasks and settings are automatically imported to your build:
 | `avroScalaGenerateScavro`   |  Compiles the Avro files into Scala case class Scavro wrapper classes.          |
 | `avroScalaGenerateSpecific` |  Compiles the Avro files into Scala case classes implementing `SpecificRecord`. |
 
+#### Compile
 
-Wire them into `compile` in your `build.sbt`, in `Compile` and/or `Test` configs:
+Wire the tasks into `compile` in your `build.sbt`:
 
 e.g.: `sourceGenerators in Compile += (avroScalaGenerate in Compile).taskValue`
 
-Or run them manually (please see [Changing Settings](https://github.com/julianpeeters/avrohugger#changing-settings) or the [sbt docs](http://www.scala-sbt.org/1.x/docs/Howto-Customizing-Paths.html#Add+an+additional+source+directory) in order to ensure the compiler will be able to find files generated in this manner).
+By [default](https://github.com/julianpeeters/sbt-avrohugger#settings), the plugin looks Avro files in `src/main/avro` and generates Scala files in `$sourceManaged`, e.g., `target/scala-2.12/src_managed/main/compiled_avro/` (please see [Changing Settings](https://github.com/julianpeeters/avrohugger#changing-settings).
 
-To watch avro files for changes with `~`, e.g. in `~compile`, use:
+#### Test
+
+And/Or wire the tasks into the `Test` config:
+
+e.g. `sourceGenerators in Test += (avroScalaGenerate in Test).taskValue`
+
+#### Manually
+
+To run the tasks manually, please see [Changing Settings](https://github.com/julianpeeters/avrohugger#changing-settings) or the [sbt docs](http://www.scala-sbt.org/1.x/docs/Howto-Customizing-Paths.html#Add+an+additional+source+directory) in order to ensure the compiler will be able to find the generated files.
+
+
+#### Watch Avro Files
+
+To enable file-watching for avro files, e.g. in `~compile`, use:
 
 e.g.: `watchSources ++= ((avroSourceDirectory in Compile).value ** "*.avdl").get`
 
@@ -60,7 +74,7 @@ _**Scavro Settings**_
 | -------------------------------- | -------------------------------------:| -----------------------------:|
 | `avroScavroSourceDirectory`      | ``src/main/avro``                     | Path containing ``*.avsc``, ``*.avdl``, and/or ``*.avro`` files. |
 | `avroScavroScalaSource`          | ``$sourceManaged/main/compiled_avro`` | Path for the generated ``*.scala`` or ``*.java``  files.         |
-| `avroScalaScavroCustomTypes`     | ``Scavro.defaultTypes``             | Customizable Type Mapping.|
+| `avroScalaScavroCustomTypes`     | ``Scavro.defaultTypes``               | Customizable Type Mapping.|
 | `avroScalaScavroCustomNamespace` | ``Map.empty[String, String]``         | Map for reassigning namespaces.                                  |
 
 
