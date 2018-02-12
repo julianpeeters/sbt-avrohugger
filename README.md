@@ -40,7 +40,7 @@ By [default](https://github.com/julianpeeters/sbt-avrohugger#settings), the plug
 
 #### Test
 
-And/Or wire the tasks into the `Test` config:
+And/Or wire the tasks into the `Test` config, putting Avro files in `src/test/avro`:
 
 e.g. `sourceGenerators in Test += (avroScalaGenerate in Test).taskValue`
 
