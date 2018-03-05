@@ -14,7 +14,7 @@ Install the plugin (compatible with sbt 0.13 and 1.0)
 Add the following lines to the file ``myproject/project/plugins.sbt`` in your
 project directory:
 
-    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "2.0.0-RC3")
+    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "2.0.0-RC4")
 
 
 Usage
@@ -36,7 +36,7 @@ Wire the tasks into `compile` in your `build.sbt`:
 
 e.g.: `sourceGenerators in Compile += (avroScalaGenerate in Compile).taskValue`
 
-By [default](https://github.com/julianpeeters/sbt-avrohugger#settings), the plugin looks Avro files in `src/main/avro` and generates Scala files in `$sourceManaged`, e.g., `target/scala-2.12/src_managed/main/compiled_avro/` (please see [Changing Settings](https://github.com/julianpeeters/sbt-avrohugger#changing-settings).
+By [default](https://github.com/julianpeeters/sbt-avrohugger#settings), the plugin looks Avro files in `src/main/avro` and generates Scala files in `$sourceManaged`, e.g., `target/scala-2.12/src_managed/main/compiled_avro/` (to choose different locations, please see [Changing Settings](https://github.com/julianpeeters/sbt-avrohugger#changing-settings)).
 
 #### Test
 
