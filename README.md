@@ -14,7 +14,7 @@ Install the plugin (compatible with sbt 0.13 and 1.0)
 Add the following lines to the file ``myproject/project/plugins.sbt`` in your
 project directory:
 
-    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "2.0.0-RC6")
+    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "2.0.0-RC7")
 
 
 Usage
@@ -104,6 +104,7 @@ avroScalaSpecificCustomTypes in Compile := {
 }
 ```
 
+* `record` can be assigned to `ScalaCaseClass` and `ScalaCaseClassWithSchema`
 * `array` can be assigned to `ScalaArray`, `ScalaList`, and `ScalaVector`
 * `enum` can be assigned to `JavaEnum`, `ScalaCaseObjectEnum`, `EnumAsScalaString`, and `ScalaEnumeration`
 * `union` can be assigned to `OptionEitherShapelessCoproduct` and `OptionShapelessCoproduct`
