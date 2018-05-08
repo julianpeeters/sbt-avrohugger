@@ -1,3 +1,6 @@
 language: scala
 jdk: oraclejdk8
 script: sbt clean test scripted
+os:
+  - linux
+  - osx
