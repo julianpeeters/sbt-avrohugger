@@ -65,7 +65,7 @@ class StandardPrimitivesSpec extends Specification {
     }
   }
 
-  "A case class with a `BigDecimal` field" should {
+  "A case class with a `BigDecimal` field from .avdl" should {
     "deserialize correctly" in {
       val record1 = DecimalIdl(BigDecimal(10.0))
       val record2 = DecimalIdl(BigDecimal(10.0))
@@ -75,9 +75,8 @@ class StandardPrimitivesSpec extends Specification {
     }
   }
 
-  "A case class with a `BigDecimal` field and default values" should {
+  "A case class with a `BigDecimal` field and default values from .avdl" should {
     "deserialize correctly" in {
-      val bs: ToSchema[scala.math.BigDecimal] = implicitly[ToSchema[scala.math.BigDecimal]]
       val record1 = DecimalIdl()
       val record2 = DecimalIdl()
       val format = RecordFormat[DecimalIdl]
@@ -85,6 +84,17 @@ class StandardPrimitivesSpec extends Specification {
       StandardTestUtil.verifyWriteAndRead(records)
     }
   }
+
+  "A case class with a `BigDecimal` field from .avsc" should {
+    "deserialize correctly" in {
+      val record1 = DecimalSc(BigDecimal(10.0))
+      val record2 = DecimalSc(BigDecimal(10.0))
+      val format = RecordFormat[DecimalSc]
+      val records = List(format.to(record1), format.to(record2))
+      StandardTestUtil.verifyWriteAndRead(records)
+    }
+  }
+
 /*
   Avro4s is used to convert to `GenericRecord` for testing, chokes on `null`
   "A case class with an `Null` field" should {
