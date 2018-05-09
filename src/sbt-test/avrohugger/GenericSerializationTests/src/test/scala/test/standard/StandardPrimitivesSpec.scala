@@ -67,8 +67,8 @@ class StandardPrimitivesSpec extends Specification {
 
   "A case class with a `BigDecimal` field" should {
     "deserialize correctly" in {
-      val record1 = DecimalIdl(10.0)
-      val record2 = DecimalIdl(10.0)
+      val record1 = DecimalIdl(BigDecimal(10.0))
+      val record2 = DecimalIdl(BigDecimal(10.0))
       val format = RecordFormat[DecimalIdl]
       val records = List(format.to(record1), format.to(record2))
       StandardTestUtil.verifyWriteAndRead(records)
