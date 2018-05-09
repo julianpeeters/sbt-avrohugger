@@ -10,9 +10,9 @@ crossScalaVersions := Seq("2.11.8", "2.12.4")
 
 scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Ywarn-value-discard")
 
-libraryDependencies += "com.sksamuel.avro4s" %% "avro4s-core" % "1.8.0"
+libraryDependencies += "com.sksamuel.avro4s" %% "avro4s-core" % "1.8.3"
 
-libraryDependencies += "org.apache.avro" % "avro" % "1.7.7"
+libraryDependencies += "org.apache.avro" % "avro" % "1.8.2"
 
 libraryDependencies += "com.chuusai" %% "shapeless" % "2.3.3"
 

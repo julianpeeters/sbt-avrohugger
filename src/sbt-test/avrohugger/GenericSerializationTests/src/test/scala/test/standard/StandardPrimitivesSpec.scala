@@ -1,6 +1,7 @@
 import test._
 import org.specs2.mutable.Specification
-import com.sksamuel.avro4s.RecordFormat
+import com.sksamuel.avro4s._
+import com.sksamuel.avro4s.ToSchema._
 
 class StandardPrimitivesSpec extends Specification {
 
@@ -59,6 +60,27 @@ class StandardPrimitivesSpec extends Specification {
       val record1 = AvroTypeProviderTest05("hello world")
       val record2 = AvroTypeProviderTest05("hello galaxy")
       val format = RecordFormat[AvroTypeProviderTest05]
+      val records = List(format.to(record1), format.to(record2))
+      StandardTestUtil.verifyWriteAndRead(records)
+    }
+  }
+
+  "A case class with a `BigDecimal` field" should {
+    "deserialize correctly" in {
+      val record1 = DecimalIdl(10.0)
+      val record2 = DecimalIdl(10.0)
+      val format = RecordFormat[DecimalIdl]
+      val records = List(format.to(record1), format.to(record2))
+      StandardTestUtil.verifyWriteAndRead(records)
+    }
+  }
+
+  "A case class with a `BigDecimal` field and default values" should {
+    "deserialize correctly" in {
+      val bs: ToSchema[scala.math.BigDecimal] = implicitly[ToSchema[scala.math.BigDecimal]]
+      val record1 = DecimalIdl()
+      val record2 = DecimalIdl()
+      val format = RecordFormat[DecimalIdl]
       val records = List(format.to(record1), format.to(record2))
       StandardTestUtil.verifyWriteAndRead(records)
     }

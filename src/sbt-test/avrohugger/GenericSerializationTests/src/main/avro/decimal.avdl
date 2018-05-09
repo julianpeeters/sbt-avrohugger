@@ -1,0 +1,9 @@
+@namespace("test")
+
+protocol DecimalIDL {
+
+  record DecimalIdl {
+    decimal(9, 2) dec = 8888.88;
+  }
+
+}
