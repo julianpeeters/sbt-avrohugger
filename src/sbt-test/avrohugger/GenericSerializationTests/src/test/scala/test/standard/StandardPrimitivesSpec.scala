@@ -95,6 +95,18 @@ class StandardPrimitivesSpec extends Specification {
     }
   }
 
+  "A case class with a union / optional BigDecimal contained withing a Record from .avdl" should {
+    "deserialize correctly" in {
+      val record1 = UnionWithRecordOverBigDecimal(Some(DecimalIdl(BigDecimal(10.0))))
+      val record2 = UnionWithRecordOverBigDecimal(Some(DecimalIdl(BigDecimal(10.0))))
+      val format = RecordFormat[UnionWithRecordOverBigDecimal]
+      val records = List(format.to(record1), format.to(record2))
+      StandardTestUtil.verifyWriteAndRead(records)
+    }
+  }
+
+
+
 /*
   Avro4s is used to convert to `GenericRecord` for testing, chokes on `null`
   "A case class with an `Null` field" should {
