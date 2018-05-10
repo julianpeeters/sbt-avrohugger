@@ -1,6 +1,7 @@
 import test._
 import org.specs2.mutable.Specification
-import com.sksamuel.avro4s.RecordFormat
+import com.sksamuel.avro4s._
+import com.sksamuel.avro4s.ToSchema._
 
 class StandardPrimitivesSpec extends Specification {
 
@@ -63,6 +64,49 @@ class StandardPrimitivesSpec extends Specification {
       StandardTestUtil.verifyWriteAndRead(records)
     }
   }
+
+  "A case class with a `BigDecimal` field from .avdl" should {
+    "deserialize correctly" in {
+      val record1 = DecimalIdl(BigDecimal(10.0))
+      val record2 = DecimalIdl(BigDecimal(10.0))
+      val format = RecordFormat[DecimalIdl]
+      val records = List(format.to(record1), format.to(record2))
+      StandardTestUtil.verifyWriteAndRead(records)
+    }
+  }
+
+  "A case class with a `BigDecimal` field and default values from .avdl" should {
+    "deserialize correctly" in {
+      val record1 = DecimalIdl()
+      val record2 = DecimalIdl()
+      val format = RecordFormat[DecimalIdl]
+      val records = List(format.to(record1), format.to(record2))
+      StandardTestUtil.verifyWriteAndRead(records)
+    }
+  }
+
+  "A case class with a `BigDecimal` field from .avsc" should {
+    "deserialize correctly" in {
+      val record1 = DecimalSc(BigDecimal(10.0))
+      val record2 = DecimalSc(BigDecimal(10.0))
+      val format = RecordFormat[DecimalSc]
+      val records = List(format.to(record1), format.to(record2))
+      StandardTestUtil.verifyWriteAndRead(records)
+    }
+  }
+
+  "A case class with a union / optional BigDecimal contained within a Record from .avdl" should {
+    "deserialize correctly" in {
+      val record1 = UnionWithRecordOverBigDecimal(Some(DecimalIdl(BigDecimal(10.0))))
+      val record2 = UnionWithRecordOverBigDecimal(Some(DecimalIdl(BigDecimal(10.0))))
+      val format = RecordFormat[UnionWithRecordOverBigDecimal]
+      val records = List(format.to(record1), format.to(record2))
+      StandardTestUtil.verifyWriteAndRead(records)
+    }
+  }
+
+
+
 /*
   Avro4s is used to convert to `GenericRecord` for testing, chokes on `null`
   "A case class with an `Null` field" should {
