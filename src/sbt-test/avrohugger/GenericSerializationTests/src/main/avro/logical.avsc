@@ -1,0 +1,30 @@
+{
+  "namespace": "test",
+  "type": "record",
+  "name": "LogicalSc",
+  "fields": [
+    {
+      "name": "data",
+      "type": {
+        "type": "bytes",
+        "logicalType": "decimal",
+        "precision": 20,
+        "scale": 8
+      }
+    },
+    {
+      "name": "ts",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      }
+    },
+    {
+      "name": "dt",
+      "type": {
+        "type": "int",
+        "logicalType": "date"
+      }
+    }
+  ]
+}

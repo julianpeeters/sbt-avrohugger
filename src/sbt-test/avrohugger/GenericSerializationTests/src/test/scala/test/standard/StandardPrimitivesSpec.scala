@@ -2,6 +2,9 @@ import test._
 import org.specs2.mutable.Specification
 import com.sksamuel.avro4s._
 import com.sksamuel.avro4s.ToSchema._
+import java.time._
+import scala.math.BigDecimal.RoundingMode
+import com.sksamuel.avro4s.ScaleAndPrecisionAndRoundingMode
 
 class StandardPrimitivesSpec extends Specification {
 
@@ -65,46 +68,38 @@ class StandardPrimitivesSpec extends Specification {
     }
   }
 
-  "A case class with a `BigDecimal` field from .avdl" should {
+  "A case class with `logicalType` fields and default values from .avdl" should {
     "deserialize correctly" in {
-      val record1 = DecimalIdl(BigDecimal(10.0))
-      val record2 = DecimalIdl(BigDecimal(10.0))
-      val format = RecordFormat[DecimalIdl]
+      implicit val sp: ScaleAndPrecisionAndRoundingMode = ScaleAndPrecisionAndRoundingMode(8, 20, RoundingMode.HALF_UP)
+      val record1 = LogicalIdl()
+      val record2 = LogicalIdl()
+      val format = RecordFormat[LogicalIdl]
       val records = List(format.to(record1), format.to(record2))
       StandardTestUtil.verifyWriteAndRead(records)
     }
   }
 
-  "A case class with a `BigDecimal` field and default values from .avdl" should {
+  "A case class with `logicalType` fields and explicit values from .avdl" should {
     "deserialize correctly" in {
-      val record1 = DecimalIdl()
-      val record2 = DecimalIdl()
-      val format = RecordFormat[DecimalIdl]
+      implicit val sp: ScaleAndPrecisionAndRoundingMode = ScaleAndPrecisionAndRoundingMode(8, 20, RoundingMode.HALF_UP)
+      val record1 = LogicalIdl(BigDecimal(10.0), Some(BigDecimal(10.0)), LocalDateTime.MAX, LocalDate.MAX)
+      val record2 = LogicalIdl(BigDecimal(10.0), Some(BigDecimal(10.0)), LocalDateTime.MAX, LocalDate.MAX)
+      val format = RecordFormat[LogicalIdl]
       val records = List(format.to(record1), format.to(record2))
       StandardTestUtil.verifyWriteAndRead(records)
     }
   }
 
-  "A case class with a `BigDecimal` field from .avsc" should {
+  "A case class with a `logicalType` fields from .avsc" should {
     "deserialize correctly" in {
-      val record1 = DecimalSc(BigDecimal(10.0))
-      val record2 = DecimalSc(BigDecimal(10.0))
-      val format = RecordFormat[DecimalSc]
+      implicit val sp: ScaleAndPrecisionAndRoundingMode = ScaleAndPrecisionAndRoundingMode(8, 20, RoundingMode.HALF_UP)
+      val record1 = LogicalSc(BigDecimal(10.0), LocalDateTime.MAX, LocalDate.MAX)
+      val record2 = LogicalSc(BigDecimal(10.0), LocalDateTime.MAX, LocalDate.MAX)
+      val format = RecordFormat[LogicalSc]
       val records = List(format.to(record1), format.to(record2))
       StandardTestUtil.verifyWriteAndRead(records)
     }
   }
-
-  "A case class with a union / optional BigDecimal contained within a Record from .avdl" should {
-    "deserialize correctly" in {
-      val record1 = UnionWithRecordOverBigDecimal(Some(DecimalIdl(BigDecimal(10.0))))
-      val record2 = UnionWithRecordOverBigDecimal(Some(DecimalIdl(BigDecimal(10.0))))
-      val format = RecordFormat[UnionWithRecordOverBigDecimal]
-      val records = List(format.to(record1), format.to(record2))
-      StandardTestUtil.verifyWriteAndRead(records)
-    }
-  }
-
 
 
 /*
