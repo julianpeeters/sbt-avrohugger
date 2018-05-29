@@ -3,6 +3,7 @@
 
 [![Travis CI](https://travis-ci.org/julianpeeters/sbt-avrohugger.svg?branch=master)](https://travis-ci.org/julianpeeters/sbt-avrohugger)
 [![Join the chat at https://gitter.im/julianpeeters/avrohugger](https://badges.gitter.im/julianpeeters/avrohugger.svg)](https://gitter.im/julianpeeters/avrohugger?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.julianpeeters/sbt-avrohugger/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.julianpeeters/sbt-avrohugger)
 
 
 sbt plugin for generating Scala case classes and ADTs from Apache Avro schemas, datafiles, and protocols.
