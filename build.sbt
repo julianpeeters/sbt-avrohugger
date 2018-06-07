@@ -7,7 +7,7 @@ version := "2.0.0-RC10"
 sbtPlugin := true
 
 scalaVersion := appConfiguration.value.provider.scalaProvider.version
-crossSbtVersions := Seq("0.13.16", sbtVersion.value)
+crossSbtVersions := Seq("0.13.17", sbtVersion.value)
 scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Ywarn-value-discard")
 
 libraryDependencies ++= Seq(
