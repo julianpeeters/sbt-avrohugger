@@ -1,7 +1,14 @@
-import test._
+import java.time._
+
 import org.specs2.mutable.Specification
+import test._
 
 class SpecificPrimitivesSpec extends Specification {
+
+  private val zone: ZoneId = ZoneId.of("UTC")
+  val instant = LocalDateTime.of(2018, 6, 12, 18, 0).atZone(zone).toInstant
+  val clock = Clock.fixed(instant, zone)
+  private val bigDecimal = BigDecimal(10.0).setScale(8)
 
   "A case class with an `Int` field" should {
     "deserialize correctly" in {
@@ -61,6 +68,24 @@ class SpecificPrimitivesSpec extends Specification {
     "deserialize correctly" in {
       val record1 = AvroTypeProviderTest06(null)
       val record2 = AvroTypeProviderTest06(null)
+      val records = List(record1, record2)
+      SpecificTestUtil.verifyWriteAndRead(records)
+    }
+  }
+
+  "A case class with `logicalType` fields and explicit values from .avdl" should {
+    "deserialize correctly" in {
+      val record1 = LogicalIdl(bigDecimal, LocalDateTime.now(clock), LocalDate.now(clock))
+      val record2 = LogicalIdl(bigDecimal, LocalDateTime.now(clock), LocalDate.now(clock))
+      val records = List(record1, record2)
+      SpecificTestUtil.verifyWriteAndRead(records)
+    }
+  }
+
+  "A case class with a `logicalType` fields from .avsc" should {
+    "deserialize correctly" in {
+      val record1 = LogicalSc(bigDecimal, LocalDateTime.now(clock), LocalDate.now(clock))
+      val record2 = LogicalSc(bigDecimal, LocalDateTime.now(clock), LocalDate.now(clock))
       val records = List(record1, record2)
       SpecificTestUtil.verifyWriteAndRead(records)
     }
