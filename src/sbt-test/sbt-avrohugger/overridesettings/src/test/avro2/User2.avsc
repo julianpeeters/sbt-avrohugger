@@ -1,0 +1,17 @@
+{
+ "namespace": "example2",
+ "type": "record",
+ "name": "User2",
+ "fields": [
+     {"name": "name", "type": "string"},
+     {"name": "favorite_number",  "type": ["int", "null"]},
+     {"name": "favorite_color", "type": ["string", "null"]},
+     {
+            "name": "answers",
+            "type": {
+              "type": "array",
+              "items": "boolean"
+            }
+        }
+ ]
+}
