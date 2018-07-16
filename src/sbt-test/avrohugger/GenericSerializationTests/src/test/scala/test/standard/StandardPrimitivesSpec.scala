@@ -2,9 +2,9 @@ import test._
 import org.specs2.mutable.Specification
 import com.sksamuel.avro4s._
 import com.sksamuel.avro4s.ToSchema._
-import java.time._
+import org.apache.avro.{LogicalTypes, Schema}
+import java.time.{Instant, LocalDate}
 import scala.math.BigDecimal.RoundingMode
-import com.sksamuel.avro4s.ScaleAndPrecisionAndRoundingMode
 
 class StandardPrimitivesSpec extends Specification {
 
@@ -68,6 +68,26 @@ class StandardPrimitivesSpec extends Specification {
     }
   }
 
+  implicit object instantToSchema extends ToSchema[Instant] {
+    override val schema: Schema =
+      LogicalTypes.timestampMillis.addToSchema(
+        Schema.create(Schema.Type.LONG)
+      )
+  }
+
+  implicit object instantFromValue extends FromValue[Instant] {
+    override def apply(value: Any, field: Schema.Field): Instant =
+      Instant.ofEpochMilli(value.asInstanceOf[Long])
+  }
+
+  implicit object instantToValue extends ToValue[Instant] {
+    override def apply(value: Instant): Long = value.toEpochMilli
+  }
+
+  // java.time.Instant.MAX is a datetime so large that, expressed in milliseconds,
+  // it exceeds the maximum Long Value available.
+  private val topMillisInstant: Instant = Instant.ofEpochMilli(Long.MaxValue)
+
   "A case class with `logicalType` fields and default values from .avdl" should {
     "deserialize correctly" in {
       implicit val sp: ScaleAndPrecisionAndRoundingMode = ScaleAndPrecisionAndRoundingMode(8, 20, RoundingMode.HALF_UP)
@@ -82,8 +102,8 @@ class StandardPrimitivesSpec extends Specification {
   "A case class with `logicalType` fields and explicit values from .avdl" should {
     "deserialize correctly" in {
       implicit val sp: ScaleAndPrecisionAndRoundingMode = ScaleAndPrecisionAndRoundingMode(8, 20, RoundingMode.HALF_UP)
-      val record1 = LogicalIdl(BigDecimal(10.0), Some(BigDecimal(10.0)), LocalDateTime.MAX, LocalDate.MAX)
-      val record2 = LogicalIdl(BigDecimal(10.0), Some(BigDecimal(10.0)), LocalDateTime.MAX, LocalDate.MAX)
+      val record1 = LogicalIdl(BigDecimal(10.0), Some(BigDecimal(10.0)), topMillisInstant, LocalDate.MAX)
+      val record2 = LogicalIdl(BigDecimal(10.0), Some(BigDecimal(10.0)), topMillisInstant, LocalDate.MAX)
       val format = RecordFormat[LogicalIdl]
       val records = List(format.to(record1), format.to(record2))
       StandardTestUtil.verifyWriteAndRead(records)
@@ -93,8 +113,8 @@ class StandardPrimitivesSpec extends Specification {
   "A case class with a `logicalType` fields from .avsc" should {
     "deserialize correctly" in {
       implicit val sp: ScaleAndPrecisionAndRoundingMode = ScaleAndPrecisionAndRoundingMode(8, 20, RoundingMode.HALF_UP)
-      val record1 = LogicalSc(BigDecimal(10.0), LocalDateTime.MAX, LocalDate.MAX)
-      val record2 = LogicalSc(BigDecimal(10.0), LocalDateTime.MAX, LocalDate.MAX)
+      val record1 = LogicalSc(BigDecimal(10.0), topMillisInstant, LocalDate.MAX)
+      val record2 = LogicalSc(BigDecimal(10.0), topMillisInstant, LocalDate.MAX)
       val format = RecordFormat[LogicalSc]
       val records = List(format.to(record1), format.to(record2))
       StandardTestUtil.verifyWriteAndRead(records)
