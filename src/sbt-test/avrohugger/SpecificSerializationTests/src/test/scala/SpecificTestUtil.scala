@@ -17,11 +17,11 @@ import org.specs2.mutable.Specification
 object SpecificTestUtil extends Specification {
 
   def write[T <: SpecificRecordBase](file: File, records: List[T]) = {
-    val userDatumWriter = new SpecificDatumWriter[T]
+    val userDatumWriter = new SpecificDatumWriter[T]()
     val dataFileWriter = new DataFileWriter[T](userDatumWriter)
-    dataFileWriter.create(records.head.getSchema, file);
+    dataFileWriter.create(records.head.getSchema, file)
     records.foreach(record => dataFileWriter.append(record))
-    dataFileWriter.close();
+    dataFileWriter.close()
   }
 
   def read[T <: SpecificRecordBase](file: File, records: List[T]) = {
