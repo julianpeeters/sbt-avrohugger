@@ -9,7 +9,7 @@
 sbt plugin for generating Scala case classes and ADTs from Apache Avro schemas, datafiles, and protocols.
 
 
-Install the plugin (compatible with sbt 0.13 and 1.0)
+Install the plugin (compatible with sbt 1.x and 0.13.x)
 ---------------------------------------
 
 Add the following lines to the file ``myproject/project/plugins.sbt`` in your
@@ -147,6 +147,8 @@ Contributors
 - [Raúl Raja Martínez](https://github.com/raulraja)
 - [Paul Snively](https://github.com/PaulAtBanno)
 - [Zach Cox](https://github.com/zcox)
+- [Marco Stefani](https://github.com/inafets)
+- [Diego E. Alonso Blas](https://github.com/diesalbla)
 
 #### Fork away, just make sure the tests pass before you send a pull request.
 

@@ -9,6 +9,9 @@ class SpecificPrimitivesSpec extends Specification {
   val instant = LocalDateTime.of(2018, 6, 12, 18, 0).atZone(zone).toInstant
   val clock = Clock.fixed(instant, zone)
   private val bigDecimal = BigDecimal(10.0).setScale(8)
+  // java.time.Instant.MAX is a datetime so large that, expressed in milliseconds,
+  // it exceeds the maximum Long Value available.
+  private val topMillisInstant: Instant = Instant.ofEpochMilli(Long.MaxValue)
 
   "A case class with an `Int` field" should {
     "deserialize correctly" in {
@@ -75,8 +78,8 @@ class SpecificPrimitivesSpec extends Specification {
 
   "A case class with `logicalType` fields and explicit values from .avdl" should {
     "deserialize correctly" in {
-      val record1 = LogicalIdl(bigDecimal, LocalDateTime.now(clock), LocalDate.now(clock))
-      val record2 = LogicalIdl(bigDecimal, LocalDateTime.now(clock), LocalDate.now(clock))
+      val record1 = LogicalIdl(bigDecimal, topMillisInstant, LocalDate.now(clock))
+      val record2 = LogicalIdl(bigDecimal, topMillisInstant, LocalDate.now(clock))
       val records = List(record1, record2)
       SpecificTestUtil.verifyWriteAndRead(records)
     }
@@ -84,8 +87,8 @@ class SpecificPrimitivesSpec extends Specification {
 
   "A case class with a `logicalType` fields from .avsc" should {
     "deserialize correctly" in {
-      val record1 = LogicalSc(bigDecimal, LocalDateTime.now(clock), LocalDate.now(clock))
-      val record2 = LogicalSc(bigDecimal, LocalDateTime.now(clock), LocalDate.now(clock))
+      val record1 = LogicalSc(bigDecimal, topMillisInstant, LocalDate.now(clock))
+      val record2 = LogicalSc(bigDecimal, topMillisInstant, LocalDate.now(clock))
       val records = List(record1, record2)
       SpecificTestUtil.verifyWriteAndRead(records)
     }
