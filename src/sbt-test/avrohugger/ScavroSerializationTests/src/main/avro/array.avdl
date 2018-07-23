@@ -1,0 +1,8 @@
+@namespace("scavrotest")
+
+protocol ArrayIDL {
+
+  record ArrayIdl {
+    array<int> data;
+  }
+}
