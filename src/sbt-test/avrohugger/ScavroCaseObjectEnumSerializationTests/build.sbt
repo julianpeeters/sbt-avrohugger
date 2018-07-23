@@ -10,10 +10,6 @@ scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Ywarn-value-di
 
 scalacOptions in Test ++= Seq("-Yrangepos")
 
-sbtavro.SbtAvro.avroSettings
-
-version in sbtavro.SbtAvro.avroConfig := "1.8.0"
-
 sourceGenerators in Compile += (avroScalaGenerateScavro in Compile).taskValue
 
 avroScalaScavroCustomTypes in Compile := {

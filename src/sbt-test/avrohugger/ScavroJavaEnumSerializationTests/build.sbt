@@ -10,10 +10,6 @@ scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Ywarn-value-di
 
 scalacOptions in Test ++= Seq("-Yrangepos")
 
-sbtavro.SbtAvro.avroSettings
-
-version in sbtavro.SbtAvro.avroConfig := "1.8.0"
-
 sourceGenerators in Compile += (avroScalaGenerateScavro in Compile).taskValue
 
 avroScalaScavroCustomTypes in Compile := {
@@ -25,7 +21,7 @@ avroScalaScavroCustomTypes in Compile := {
 avroScalaCustomNamespace in Compile := Map("SCAVRO_DEFAULT_PACKAGE$" -> "scavro")
 
 libraryDependencies ++= Seq(
-  "org.oedura" %% "scavro" % "1.0.1",
+  "org.oedura" %% "scavro" % "1.0.3",
   "org.apache.avro" % "avro-ipc" % "1.7.7",
-  "org.specs2" %% "specs2-core" % "3.7.2" % "test"
+  "org.specs2" %% "specs2-core" % "3.8.6" % "test"
 )

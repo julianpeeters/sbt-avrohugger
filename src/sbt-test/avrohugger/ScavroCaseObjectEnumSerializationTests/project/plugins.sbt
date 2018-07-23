@@ -2,7 +2,7 @@ logLevel := Level.Warn
 
 resolvers += "sbt-plugin-releases" at "http://repo.scala-sbt.org/scalasbt/sbt-plugin-releases"
 
-addSbtPlugin("com.cavorite" % "sbt-avro-1-8" % "1.1.3")
+addSbtPlugin("com.cavorite" % "sbt-avro-1-8" % "1.1.4")
 
 addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "latest.integration")
 
