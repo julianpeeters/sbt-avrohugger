@@ -12,26 +12,39 @@ object FileWriter {
 
   private[sbtavrohugger] def generateCaseClasses(
     generator: Generator,
-    srcDir: File,
+    srcDirs: Seq[File],
     target: File,
     log: Logger): Set[java.io.File] = {
+    log.info("Considering source directories %s".format(srcDirs.mkString(",")))
 
-    for (inFile <- AvscFileSorter.sortSchemaFiles((srcDir ** "*.avsc").get)) {
-      log.info("Compiling AVSC %s".format(inFile))
+    for {
+      srcDir <- srcDirs
+      inFile <- AvscFileSorter.sortSchemaFiles((srcDir ** "*.avsc").get)
+    } {
+      log.info("Compiling AVSC %s to %s".format(inFile, target.getPath))
       generator.fileToFile(inFile, target.getPath)
     }
 
-    for (idl <- AvdlFileSorter.sortSchemaFiles((srcDir ** "*.avdl").get)) {
+    for {
+      srcDir <- srcDirs
+      idl <- AvdlFileSorter.sortSchemaFiles((srcDir ** "*.avdl").get)
+    } {
       log.info("Compiling Avro IDL %s".format(idl))
       generator.fileToFile(idl, target.getPath)
     }
 
-    for (inFile <- (srcDir ** "*.avro").get) {
+    for {
+      srcDir <- srcDirs
+      inFile <- (srcDir ** "*.avro").get
+    } {
       log.info("Compiling Avro datafile %s".format(inFile))
       generator.fileToFile(inFile, target.getPath)
     }
 
-    for (protocol <- (srcDir ** "*.avpr").get) {
+    for {
+      srcDir <- srcDirs
+      protocol <- (srcDir ** "*.avpr").get
+    } {
       log.info("Compiling Avro protocol %s".format(protocol))
       generator.fileToFile(protocol, target.getPath)
     }
