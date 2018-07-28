@@ -20,7 +20,7 @@ avroScalaScavroCustomTypes in Compile := {
 avroScalaScavroCustomNamespace in Compile := Map("model.v2" -> "scavromodelv2", "model" -> "scavromodel", "test" -> "scavrotest")
 
 libraryDependencies ++= Seq(
-  "org.oedura" %% "scavro" % "1.0.1",
+  "org.oedura" %% "scavro" % "1.0.3",
   "org.apache.avro" % "avro-ipc" % "1.7.7",
-  "org.specs2" %% "specs2-core" % "3.7.2" % "test"
+  "org.specs2" %% "specs2-core" % "3.8.6" % "test"
 )
