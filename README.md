@@ -63,7 +63,7 @@ _**Standard Settings**_
 
 | Name                       | Default                               | Description                              |
 | -------------------------- | -------------------------------------:| ----------------------------------------:|
-| `avroSourceDirectory`      | ``src/main/avro``                     | Path containing ``*.avsc``, ``*.avdl``, and/or ``*.avro`` files.|
+| `avroSourceDirectories`    | ``Seq("src/main/avro")``              | List of paths containing ``*.avsc``, ``*.avdl``, and/or ``*.avro`` files.|
 | `avroScalaSource`          | ``$sourceManaged/main/compiled_avro`` | Path for the generated ``*.scala`` or ``*.java``  files.|
 | `avroScalaCustomTypes`     | ``Standard.defaultTypes``             | Customizable Type Mapping.|
 | `avroScalaCustomNamespace` | ``Map.empty[String, String]``         | Map for reassigning namespaces.|
@@ -73,7 +73,7 @@ _**Scavro Settings**_
 
 | Name                             | Default                               | Description                   |
 | -------------------------------- | -------------------------------------:| -----------------------------:|
-| `avroScavroSourceDirectory`      | ``src/main/avro``                     | Path containing ``*.avsc``, ``*.avdl``, and/or ``*.avro`` files. |
+| `avroScavroSourceDirectories`    | ``Seq("src/main/avro")``              | List of paths containing ``*.avsc``, ``*.avdl``, and/or ``*.avro`` files. |
 | `avroScavroScalaSource`          | ``$sourceManaged/main/compiled_avro`` | Path for the generated ``*.scala`` or ``*.java``  files.         |
 | `avroScalaScavroCustomTypes`     | ``Scavro.defaultTypes``               | Customizable Type Mapping.|
 | `avroScalaScavroCustomNamespace` | ``Map.empty[String, String]``         | Map for reassigning namespaces.                                  |
@@ -83,7 +83,7 @@ _**SpecificRecord Settings**_
 
 | Name                               | Default                               | Description                                                      |
 | ---------------------------------- | -------------------------------------:| ----------------------------------------------------------------:|
-| `avroSpecificSourceDirectory`      | ``src/main/avro``                     | Path containing ``*.avsc``, ``*.avdl``, and/or ``*.avro`` files. |
+| `avroSpecificSourceDirectories`    | ``Seq("src/main/avro")``              | Path containing ``*.avsc``, ``*.avdl``, and/or ``*.avro`` files. |
 | `avroSpecificScalaSource`          | ``$sourceManaged/main/compiled_avro`` | Path for the generated ``*.scala`` or ``*.java``  files.         |
 | `avroScalaSpecificCustomTypes`     | ``SpecificRecord.defaultTypes``             | Customizable Type Mapping.|
 | `avroScalaSpecificCustomNamespace` | ``Map.empty[String, String]``         | Map for reassigning namespaces.                                  |
@@ -92,9 +92,11 @@ _**SpecificRecord Settings**_
 Changing Settings
 -----------------
 
-Settings can be overridden by adding lines to your `build.sbt` file:
+Settings can be extended/overridden by adding lines to your `build.sbt` file:
 
 ```scala    
+avroSourceDirectories in Compile += (sourceDirectory in Compile).value / "myavro"
+
 avroSpecificScalaSource in Compile := new java.io.File("myScalaSource")
 
 avroScalaSpecificCustomNamespace in Compile := Map("example"->"overridden")
