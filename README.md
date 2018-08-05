@@ -112,6 +112,8 @@ avroScalaSpecificCustomTypes in Compile := {
 * `enum` can be assigned to `JavaEnum`, `ScalaCaseObjectEnum`, `EnumAsScalaString`, and `ScalaEnumeration`
 * `union` can be assigned to `OptionEitherShapelessCoproduct` and `OptionShapelessCoproduct`
 * `int`, `long`, `float`, `double` can be assigned to `ScalaInt`, `ScalaLong`, `ScalaFloat`, `ScalaDouble`
+* `date` logical type can be assigned to `JavaTimeLocalDate` and `JavaSqlDate`
+* `timestamp-millis` logical type can be assigned to `JavaTimeInstant` and `JavaSqlTimestamp`
 * `protocol` can be assigned to `ScalaADT` and `NoTypeGenerated` (see [Protocol Support](https://github.com/julianpeeters/avrohugger#protocol-support))
 
 Datatypes

@@ -1,6 +1,6 @@
 import test._
 import org.specs2.mutable.Specification
-
+import java.sql.{Date, Timestamp}
 class SpecificPrimitivesSpec extends Specification {
 
   "A case class with an `Int` field" should {
@@ -70,6 +70,17 @@ class SpecificPrimitivesSpec extends Specification {
     "deserialize correctly" in {
       val record1 = AvroTypeProviderTest69("hello world".getBytes)
       val record2 = AvroTypeProviderTest69("hello galaxy".getBytes)
+      val records = List(record1, record2)
+      SpecificTestUtil.verifyWriteAndRead(records)
+    }
+  }
+
+  "A case class with a `logicalType` fields from .avsc" should {
+    "deserialize correctly" in {
+      val t1 = System.currentTimeMillis()
+      val t2 = System.currentTimeMillis()
+      val record1 = LogicalSc(BigDecimal(10.0).setScale(8), new Timestamp(Long.MaxValue), new Date(t1))
+      val record2 = LogicalSc(BigDecimal(10.0).setScale(8), new Timestamp(Long.MaxValue), new Date(t2))
       val records = List(record1, record2)
       SpecificTestUtil.verifyWriteAndRead(records)
     }
