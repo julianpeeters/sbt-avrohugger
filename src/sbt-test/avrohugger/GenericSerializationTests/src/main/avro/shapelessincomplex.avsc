@@ -1,0 +1,48 @@
+{
+  "namespace": "example",
+  "type": "record",
+  "name": "UnionInComplex",
+  "fields": [
+    {
+      "name": "fields",
+      "type": {
+        "type": "array",
+        "items": [
+          {
+            "namespace": "example",
+            "type": "record",
+            "name": "AA",
+            "fields": [
+              {
+                "name": "someField",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "namespace": "example",
+            "type": "record",
+            "name": "BB",
+            "fields": [
+              {
+                "name": "someField",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "namespace": "example",
+            "type": "record",
+            "name": "CC",
+            "fields": [
+              {
+                "name": "someField",
+                "type": "string"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
