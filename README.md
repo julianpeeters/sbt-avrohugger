@@ -92,10 +92,13 @@ _**SpecificRecord Settings**_
 Changing Settings
 -----------------
 
-Settings for each format's task can be extended/overridden by adding lines to your `build.sbt` file. E.g., to change how `SpecificRecords` are generated, use:
+Settings for each format's task can be extended/overridden by adding lines to your `build.sbt` file.
+
+
+E.g., to change how classes of `SpecificRecords` format are generated, use:
 
 ```scala    
-avroSourceDirectories in Compile += (sourceDirectory in Compile).value / "myavro"
+avroSpecificSourceDirectories in Compile += (sourceDirectory in Compile).value / "myavro"
 
 avroSpecificScalaSource in Compile := new java.io.File("myScalaSource")
 
