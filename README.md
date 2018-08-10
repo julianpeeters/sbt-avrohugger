@@ -92,7 +92,7 @@ _**SpecificRecord Settings**_
 Changing Settings
 -----------------
 
-Settings can be extended/overridden by adding lines to your `build.sbt` file:
+Settings for each format's task can be extended/overridden by adding lines to your `build.sbt` file. E.g., to change how `SpecificRecords` are generated, use:
 
 ```scala    
 avroSourceDirectories in Compile += (sourceDirectory in Compile).value / "myavro"
