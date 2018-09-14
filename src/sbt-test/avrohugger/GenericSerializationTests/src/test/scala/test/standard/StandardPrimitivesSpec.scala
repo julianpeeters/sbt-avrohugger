@@ -4,6 +4,7 @@ import com.sksamuel.avro4s._
 import com.sksamuel.avro4s.ToSchema._
 import org.apache.avro.{LogicalTypes, Schema}
 import java.time.{Instant, LocalDate}
+import java.util.UUID
 import scala.math.BigDecimal.RoundingMode
 
 class StandardPrimitivesSpec extends Specification {
@@ -113,8 +114,8 @@ class StandardPrimitivesSpec extends Specification {
   "A case class with a `logicalType` fields from .avsc" should {
     "deserialize correctly" in {
       implicit val sp: ScaleAndPrecisionAndRoundingMode = ScaleAndPrecisionAndRoundingMode(8, 20, RoundingMode.HALF_UP)
-      val record1 = LogicalSc(BigDecimal(10.0), topMillisInstant, LocalDate.MAX)
-      val record2 = LogicalSc(BigDecimal(10.0), topMillisInstant, LocalDate.MAX)
+      val record1 = LogicalSc(BigDecimal(10.0), topMillisInstant, LocalDate.MAX, UUID.randomUUID())
+      val record2 = LogicalSc(BigDecimal(10.0), topMillisInstant, LocalDate.MAX, UUID.randomUUID())
       val format = RecordFormat[LogicalSc]
       val records = List(format.to(record1), format.to(record2))
       StandardTestUtil.verifyWriteAndRead(records)
