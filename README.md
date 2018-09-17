@@ -15,7 +15,7 @@ Install the plugin (compatible with sbt 1.x and 0.13.x)
 Add the following lines to the file ``myproject/project/plugins.sbt`` in your
 project directory:
 
-    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "2.0.0-RC12")
+    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "2.0.0-RC13")
 
 
 Usage
@@ -117,6 +117,7 @@ avroScalaSpecificCustomTypes in Compile := {
 * `int`, `long`, `float`, `double` can be assigned to `ScalaInt`, `ScalaLong`, `ScalaFloat`, `ScalaDouble`
 * `date` logical type can be assigned to `JavaTimeLocalDate` and `JavaSqlDate`
 * `timestamp-millis` logical type can be assigned to `JavaTimeInstant` and `JavaSqlTimestamp`
+* `uuid` logical type can be assigned to `UUID`
 * `protocol` can be assigned to `ScalaADT` and `NoTypeGenerated` (see [Protocol Support](https://github.com/julianpeeters/avrohugger#protocol-support))
 
 Datatypes
@@ -157,6 +158,8 @@ Contributors
 - [Marco Stefani](https://github.com/inafets)
 - [Diego E. Alonso Blas](https://github.com/diesalbla)
 - [Chris Albright](https://github.com/chrisalbright)
+- [Sacha Barber](https://github.com/sachabarber)
+- [Andrew Gustafson](https://github.com/agustafson)
 
 #### Fork away, just make sure the tests pass before you send a pull request.
 
