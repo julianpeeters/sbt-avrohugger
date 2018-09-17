@@ -1,4 +1,5 @@
 import java.time._
+import java.util.UUID
 
 import org.specs2.mutable.Specification
 import test._
@@ -87,8 +88,8 @@ class SpecificPrimitivesSpec extends Specification {
 
   "A case class with a `logicalType` fields from .avsc" should {
     "deserialize correctly" in {
-      val record1 = LogicalSc(bigDecimal, topMillisInstant, LocalDate.now(clock))
-      val record2 = LogicalSc(bigDecimal, topMillisInstant, LocalDate.now(clock))
+      val record1 = LogicalSc(bigDecimal, topMillisInstant, LocalDate.now(clock), UUID.randomUUID())
+      val record2 = LogicalSc(bigDecimal, topMillisInstant, LocalDate.now(clock), UUID.randomUUID())
       val records = List(record1, record2)
       SpecificTestUtil.verifyWriteAndRead(records)
     }
