@@ -158,6 +158,8 @@ Contributors
 - [Marco Stefani](https://github.com/inafets)
 - [Diego E. Alonso Blas](https://github.com/diesalbla)
 - [Chris Albright](https://github.com/chrisalbright)
+- [Sacha Barber](https://github.com/sachabarber)
+- [Andrew Gustafson](https://github.com/agustafson)
 
 #### Fork away, just make sure the tests pass before you send a pull request.
 
