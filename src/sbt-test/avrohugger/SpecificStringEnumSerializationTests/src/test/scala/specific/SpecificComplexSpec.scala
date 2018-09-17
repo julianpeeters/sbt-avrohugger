@@ -21,19 +21,19 @@ class SpecificComplexTest extends Specification {
     }
   }
 
-  "A case class with an `List[String]` field" should {
+  "A case class with an `Array[String]` field" should {
     "serialize and deserialize correctly" in {
-      val record1 = AvroTypeProviderTest10(List("head", "tail"))
-      val record2 = AvroTypeProviderTest10(List("top", "bottom"))
+      val record1 = AvroTypeProviderTest10(Array("head", "tail"))
+      val record2 = AvroTypeProviderTest10(Array("top", "bottom"))
       val records = List(record1, record2)
       SpecificTestUtil.verifyWriteAndRead(records)
     }
   }
 
-  "A case class with an `List[Int]` field" should {
+  "A case class with an `Array[Int]` field" should {
     "serialize and deserialize correctly" in {
-      val record1 = AvroTypeProviderTest11(List(1, 2))
-      val record2 = AvroTypeProviderTest11(List(3, 4))
+      val record1 = AvroTypeProviderTest11(Array(1, 2))
+      val record2 = AvroTypeProviderTest11(Array(3, 4))
       val records = List(record1, record2)
       SpecificTestUtil.verifyWriteAndRead(records)
     }
@@ -75,10 +75,10 @@ class SpecificComplexTest extends Specification {
     }
   }
 
-  "A case class with a `Map[String, List[Int]]` field" should {
+  "A case class with a `Map[String, Array[Int]]` field" should {
     "serialize and deserialize correctly" in {
-      val record1 = AvroTypeProviderTestMap03(Map("sherpa"->Some(List(5,6))))
-      val record2 = AvroTypeProviderTestMap03(Map("autobus"->Some(List(8,9))))
+      val record1 = AvroTypeProviderTestMap03(Map("sherpa"->Some(Array(5,6))))
+      val record2 = AvroTypeProviderTestMap03(Map("autobus"->Some(Array(8,9))))
       val records = List(record1, record2)
       SpecificTestUtil.verifyWriteAndRead(records)
     }

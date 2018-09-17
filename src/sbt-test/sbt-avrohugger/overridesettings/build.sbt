@@ -22,7 +22,7 @@ sourceGenerators in Test += (avroScalaGenerate in Test).taskValue
 avroScalaCustomTypes in Compile := {
   avrohugger.format.Standard.defaultTypes.copy(
     array = avrohugger.types.ScalaVector,
-    union = avrohugger.types.OptionShapelessCoproduct)
+    union = avrohugger.types.OptionalShapelessCoproduct)
 }
 
 

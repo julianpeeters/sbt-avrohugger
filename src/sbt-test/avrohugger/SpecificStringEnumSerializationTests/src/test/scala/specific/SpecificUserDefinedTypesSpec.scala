@@ -34,8 +34,8 @@ class SpecificUserDefinedTypesSpec extends Specification {
 
   "A case class with a field that is list of a user-defined type" should {
     "serialize and deserialize correctly" in {
-      val record1 = AvroTypeProviderTest61(List(AvroTypeProviderTest00(1), AvroTypeProviderTest00(2)))
-      val record2 = AvroTypeProviderTest61(List(AvroTypeProviderTest00(3), AvroTypeProviderTest00(4)))
+      val record1 = AvroTypeProviderTest61(Array(AvroTypeProviderTest00(1), AvroTypeProviderTest00(2)))
+      val record2 = AvroTypeProviderTest61(Array(AvroTypeProviderTest00(3), AvroTypeProviderTest00(4)))
       val records = List(record1, record2)
       SpecificTestUtil.verifyWriteAndRead(records)
     }
@@ -43,8 +43,8 @@ class SpecificUserDefinedTypesSpec extends Specification {
 
   "A case class with a field that is list of a nested user-defined type" should {
     "serialize and deserialize correctly" in {
-      val record1 = AvroTypeProviderTest62(List(AvroTypeProviderTest58(AvroTypeProviderTest00(1)), AvroTypeProviderTest58(AvroTypeProviderTest00(2))))
-      val record2 = AvroTypeProviderTest62(List(AvroTypeProviderTest58(AvroTypeProviderTest00(3)), AvroTypeProviderTest58(AvroTypeProviderTest00(4))))
+      val record1 = AvroTypeProviderTest62(Array(AvroTypeProviderTest58(AvroTypeProviderTest00(1)), AvroTypeProviderTest58(AvroTypeProviderTest00(2))))
+      val record2 = AvroTypeProviderTest62(Array(AvroTypeProviderTest58(AvroTypeProviderTest00(3)), AvroTypeProviderTest58(AvroTypeProviderTest00(4))))
       val records = List(record1, record2)
       SpecificTestUtil.verifyWriteAndRead(records)
     }
@@ -55,8 +55,8 @@ class SpecificUserDefinedTypesSpec extends Specification {
 /* //TODO make readable file for this class - not very urgent since this field type is tested in other contexts also
   "A case class with a field that is list of a nested user-defined type in the second position" should {
     "serialize and deserialize correctly" in {
-      val record1 = AvroTypeProviderTest63(List(AvroTypeProviderTest00(1), AvroTypeProviderTest00(2)), List(AvroTypeProviderTest60(AvroTypeProviderTest00(3), AvroTypeProviderTest58(AvroTypeProviderTest00(2)))))
-      val record2 = AvroTypeProviderTest63(List(AvroTypeProviderTest00(3), AvroTypeProviderTest00(2)), List(AvroTypeProviderTest60(AvroTypeProviderTest00(3), AvroTypeProviderTest58(AvroTypeProviderTest00(2)))))
+      val record1 = AvroTypeProviderTest63(Array(AvroTypeProviderTest00(1), AvroTypeProviderTest00(2)), Array(AvroTypeProviderTest60(AvroTypeProviderTest00(3), AvroTypeProviderTest58(AvroTypeProviderTest00(2)))))
+      val record2 = AvroTypeProviderTest63(Array(AvroTypeProviderTest00(3), AvroTypeProviderTest00(2)), Array(AvroTypeProviderTest60(AvroTypeProviderTest00(3), AvroTypeProviderTest58(AvroTypeProviderTest00(2)))))
       val records = List(record1, record2)
       SpecificTestUtil.verifyWriteAndRead(records)
 
@@ -102,8 +102,8 @@ class SpecificUserDefinedTypesSpec extends Specification {
 
   "A case class with a field that is list of a nested user-defined type in the second position" should {
     "serialize and deserialize correctly" in {
-      val record1 = AvroTypeProviderTest68(Some(List(Some(AvroTypeProviderTest00(1)), None)), List(None, Some(List(AvroTypeProviderTest01(1F), AvroTypeProviderTest01(2F)))))
-      val record2 = AvroTypeProviderTest68(Some(List(Some(AvroTypeProviderTest00(3)), None)), List(None, Some(List(AvroTypeProviderTest01(3F), AvroTypeProviderTest01(4F)))))
+      val record1 = AvroTypeProviderTest68(Some(Array(Some(AvroTypeProviderTest00(1)), None)), Array(None, Some(Array(AvroTypeProviderTest01(1F), AvroTypeProviderTest01(2F)))))
+      val record2 = AvroTypeProviderTest68(Some(Array(Some(AvroTypeProviderTest00(3)), None)), Array(None, Some(Array(AvroTypeProviderTest01(3F), AvroTypeProviderTest01(4F)))))
       val records = List(record1, record2)
       SpecificTestUtil.verifyWriteAndRead(records)
     }

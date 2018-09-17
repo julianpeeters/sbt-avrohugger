@@ -66,19 +66,19 @@ class Specific2ArityHomoSpec extends Specification {
     }
   }
 
-  "A case class with an `List[String]` field in the second position" should {
+  "A case class with an `Array[String]` field in the second position" should {
     "serialize and deserialize correctly" in {
-      val record1 = AvroTypeProviderTest24(List("mekka.lekka.hi"), List("mekka.hiney.ho"))
-      val record2 = AvroTypeProviderTest24(List("time"), List("travel"))
+      val record1 = AvroTypeProviderTest24(Array("mekka.lekka.hi"), Array("mekka.hiney.ho"))
+      val record2 = AvroTypeProviderTest24(Array("time"), Array("travel"))
       val records = List(record1, record2)
       SpecificTestUtil.verifyWriteAndRead(records)
     }
   }
 
-  "A case class with an `List[Int]` field in the second position" should {
+  "A case class with an `Array[Int]` field in the second position" should {
     "serialize and deserialize correctly" in {
-      val record1 = AvroTypeProviderTest25(List(1, 2), List(3,4))
-      val record2 = AvroTypeProviderTest25(List(5, 6), List(7,8))
+      val record1 = AvroTypeProviderTest25(Array(1, 2), Array(3,4))
+      val record2 = AvroTypeProviderTest25(Array(5, 6), Array(7,8))
       val records = List(record1, record2)
       SpecificTestUtil.verifyWriteAndRead(records)
     }
@@ -120,10 +120,10 @@ class Specific2ArityHomoSpec extends Specification {
     }
   }
 
-  "A case class with two Map[String, Option[List[Int]]] fields" should {
+  "A case class with two Map[String, Option[Array[Int]]] fields" should {
     "serialize and deserialize correctly" in {
-      val record1 = AvroTypeProviderTestMap06(Map("Olala"->Some(List(1,4))), Map("Rumpole"->None))
-      val record2 = AvroTypeProviderTestMap06(Map("Cran"->Some(List(3,5))), Map("Doc"->None))
+      val record1 = AvroTypeProviderTestMap06(Map("Olala"->Some(Array(1,4))), Map("Rumpole"->None))
+      val record2 = AvroTypeProviderTestMap06(Map("Cran"->Some(Array(3,5))), Map("Doc"->None))
       val records = List(record1, record2)
       SpecificTestUtil.verifyWriteAndRead(records)
     }

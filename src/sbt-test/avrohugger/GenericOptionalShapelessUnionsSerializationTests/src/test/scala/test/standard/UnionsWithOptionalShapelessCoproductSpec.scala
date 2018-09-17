@@ -9,16 +9,16 @@ class AllUnionsWithShapelessCoproductSpec extends Specification {
 
   "Unions" should {
     "Not override `Option[A]` standard derivation with just `shapeless.Coproduct`" in {
-      val record1 = ShouldRenderAsOptional(Option(Event1()))
-      val record2 = ShouldRenderAsOptional(Option(Event1()))
+      val record1 = ShouldRenderAsOptional(Option(Coproduct(Event1())))
+      val record2 = ShouldRenderAsOptional(Option(Coproduct(Event1())))
       val format = RecordFormat[ShouldRenderAsOptional]
       val records = List(format.to(record1), format.to(record2))
       StandardTestUtil.verifyWriteAndRead(records)
     }
     
     "Not override `Option[A]` standard derivation with just `shapeless.Coproduct`" in {
-      val record1 = ShouldRenderAsNullable(Option(Event1()))
-      val record2 = ShouldRenderAsNullable(Option(Event1()))
+      val record1 = ShouldRenderAsNullable(Option(Coproduct(Event1())))
+      val record2 = ShouldRenderAsNullable(Option(Coproduct(Event1())))
       val format = RecordFormat[ShouldRenderAsNullable]
       val records = List(format.to(record1), format.to(record2))
       StandardTestUtil.verifyWriteAndRead(records)

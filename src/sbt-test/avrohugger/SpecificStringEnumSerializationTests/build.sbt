@@ -12,7 +12,8 @@ scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Ywarn-value-di
 
 avroScalaSpecificCustomTypes in Compile := {
   avrohugger.format.SpecificRecord.defaultTypes.copy(
-    enum = avrohugger.types.EnumAsScalaString)
+    enum = avrohugger.types.EnumAsScalaString,
+    array = avrohugger.types.ScalaArray)
 }
 
 libraryDependencies += "org.apache.avro" % "avro" % "1.7.7"

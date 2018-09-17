@@ -34,7 +34,7 @@ class SpecificDefaultValuesSpec extends Specification {
       sameRecord.optionString === None
       sameRecord.optionStringValue === Some("default")
       sameRecord.embedded === Embedded(1)
-      sameRecord.defaultArray === List(1,3,4,5)
+      sameRecord.defaultArray === Array(1,3,4,5)
       sameRecord.optionalEnum === None
       sameRecord.defaultMap === Map("Hello" -> "world", "Merry" -> "Christmas")
       sameRecord.byt === "\u00FF".getBytes
