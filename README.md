@@ -118,6 +118,7 @@ avroScalaSpecificCustomTypes in Compile := {
 * `date` logical type can be assigned to `JavaTimeLocalDate` and `JavaSqlDate`
 * `timestamp-millis` logical type can be assigned to `JavaTimeInstant` and `JavaSqlTimestamp`
 * `uuid` logical type can be assigned to `UUID`
+* `decimal` logical type can be assigned to `ScalaBigDecimal` and `ScalaBigDecimalWithPrecision`
 * `protocol` can be assigned to `ScalaADT` and `NoTypeGenerated` (see [Protocol Support](https://github.com/julianpeeters/avrohugger#protocol-support))
 
 Datatypes
