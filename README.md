@@ -15,7 +15,7 @@ Install the plugin (compatible with sbt 1.x and 0.13.x)
 Add the following lines to the file ``myproject/project/plugins.sbt`` in your
 project directory:
 
-    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "2.0.0-RC13")
+    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "2.0.0-RC14")
 
 
 Usage
@@ -161,6 +161,7 @@ Contributors
 - [Chris Albright](https://github.com/chrisalbright)
 - [Sacha Barber](https://github.com/sachabarber)
 - [Andrew Gustafson](https://github.com/agustafson)
+- [Fede Fernández](https://github.com/fedefernandez)
 
 #### Fork away, just make sure the tests pass before you send a pull request.
 
