@@ -4,7 +4,7 @@ description := "Sbt plugin for compiling Avro to Scala"
 
 version := "2.0.0-RC14"
 
-sbtPlugin := true
+enablePlugins(SbtPlugin)
 
 scalaVersion := appConfiguration.value.provider.scalaProvider.version
 crossSbtVersions := Seq("0.13.18", sbtVersion.value)
