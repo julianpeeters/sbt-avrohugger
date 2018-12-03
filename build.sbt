@@ -2,7 +2,7 @@ name := "sbt-avrohugger"
 organization := "com.julianpeeters"
 description := "Sbt plugin for compiling Avro to Scala"
 
-version := "2.0.0-RC14"
+version := "2.0.0-RC15-SNAPSHOT"
 
 enablePlugins(SbtPlugin)
 
