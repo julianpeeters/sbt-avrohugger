@@ -4,10 +4,10 @@ description := "Sbt plugin for compiling Avro to Scala"
 
 version := "2.0.0-RC15-SNAPSHOT"
 
-sbtPlugin := true
+enablePlugins(SbtPlugin)
 
 scalaVersion := appConfiguration.value.provider.scalaProvider.version
-crossSbtVersions := Seq("0.13.17", sbtVersion.value)
+crossSbtVersions := Seq("0.13.18", sbtVersion.value)
 scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Ywarn-value-discard")
 
 libraryDependencies ++= Seq(
