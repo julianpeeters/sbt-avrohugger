@@ -1,3 +1,5 @@
+package test
+
 import java.nio.ByteBuffer
 
 import com.sksamuel.avro4s._
@@ -6,7 +8,7 @@ import example.idl._
 import org.apache.avro.Schema.Field
 import org.apache.avro.{Conversions, LogicalTypes, Schema}
 import org.specs2.mutable.Specification
-import shapeless.Nat
+import shapeless._
 import shapeless.ops.nat.ToInt
 import shapeless.tag.@@
 import test._
@@ -91,8 +93,8 @@ class DecimalsTaggedSpec extends Specification {
   implicit def bigDecimalToValueBigPrecisionScale[A <: Nat, B <: Nat, C <: Nat, D <: Nat](
       implicit toIntNA: ToInt[A], toIntNB: ToInt[B], toIntNC: ToInt[C], toIntND: ToInt[D]): ToValue[BigDecimal @@ ((A, B), (C, D))] =
     bigDecimalToValue[(A, B), (C, D)](Nat.toInt[A] * 10 + Nat.toInt[B], Nat.toInt[C] * 10 + Nat.toInt[D])
-
-
+  
+  
   "A case class with `logicalType` fields and default values from .avdl" should {
     "deserialize correctly" in {
       val record1 = LogicalIdl(toDecimalTag(BigDecimal(10.6)), Some(toDecimalTag(BigDecimal(10.6))))
@@ -102,7 +104,7 @@ class DecimalsTaggedSpec extends Specification {
       StandardTestUtil.verifyWriteAndRead(records)
     }
   }
-
+  
   "A case class with `logicalType` fields, big precision, and explicit values from .avdl" should {
     "deserialize correctly" in {
       val record1 = LogicalIdlBigPrecision(toDecimalTag(BigDecimal(10.6)), Some(toDecimalTag(BigDecimal(10.6))))
@@ -112,12 +114,43 @@ class DecimalsTaggedSpec extends Specification {
       StandardTestUtil.verifyWriteAndRead(records)
     }
   }
-
+  
   "A case class with `logicalType` fields, big precision, big scale, and explicit values from .avdl" should {
     "deserialize correctly" in {
       val record1 = LogicalIdlBigPrecisionAndScale(toDecimalTag(BigDecimal(10.6)), Some(toDecimalTag(BigDecimal(10.6))))
       val record2 = LogicalIdlBigPrecisionAndScale(toDecimalTag(BigDecimal(14.6)), Some(toDecimalTag(BigDecimal(10.6))))
       val format = RecordFormat[LogicalIdlBigPrecisionAndScale]
+      val records = List(format.to(record1), format.to(record2))
+      StandardTestUtil.verifyWriteAndRead(records)
+    }
+  }
+  
+  "A case class with coproduct `logicalType` fields and default values from .avdl" should {
+    "deserialize correctly" in {
+      val s = toDecimalTag(BigDecimal(10.6))
+      val record1 = LogicalCoproductIdl(Coproduct[@@[scala.math.BigDecimal, (shapeless.Nat._9, shapeless.Nat._2)] :+: String :+: Boolean :+: CNil](shapeless.tag[(shapeless.Nat._9, shapeless.Nat._2)][scala.math.BigDecimal](scala.math.BigDecimal("9999.99"))))
+      val record2 = LogicalCoproductIdl(Coproduct[@@[scala.math.BigDecimal, (shapeless.Nat._9, shapeless.Nat._2)] :+: String :+: Boolean :+: CNil](shapeless.tag[(shapeless.Nat._9, shapeless.Nat._2)][scala.math.BigDecimal](scala.math.BigDecimal("9999.99"))))
+      val format = RecordFormat[LogicalCoproductIdl]
+      val records = List(format.to(record1), format.to(record2))
+      StandardTestUtil.verifyWriteAndRead(records)
+    }
+  }
+  
+  "A case class with either `logicalType` fields and default values from .avdl" should {
+    "deserialize correctly" in {
+      val record1 = LogicalEitherIdl(Left(toDecimalTag(BigDecimal(10.6))))
+      val record2 = LogicalEitherIdl(Left(toDecimalTag(BigDecimal(10.6))))
+      val format = RecordFormat[LogicalEitherIdl]
+      val records = List(format.to(record1), format.to(record2))
+      StandardTestUtil.verifyWriteAndRead(records)
+    }
+  }
+  
+  "A case class with optional `logicalType` fields and default values from .avdl" should {
+    "deserialize correctly" in {
+      val record1 = LogicalOptionalIdl(Some(toDecimalTag(BigDecimal(10.6))))
+      val record2 = LogicalOptionalIdl(Some(toDecimalTag(BigDecimal(10.6))))
+      val format = RecordFormat[LogicalOptionalIdl]
       val records = List(format.to(record1), format.to(record2))
       StandardTestUtil.verifyWriteAndRead(records)
     }
