@@ -79,8 +79,8 @@ class SpecificPrimitivesSpec extends Specification {
 
   "A case class with `logicalType` fields and explicit values from .avdl" should {
     "deserialize correctly" in {
-      val record1 = LogicalIdl(bigDecimal, topMillisInstant, LocalDate.now(clock))
-      val record2 = LogicalIdl(bigDecimal, topMillisInstant, LocalDate.now(clock))
+      val record1 = LogicalIdl(bigDecimal, Some(bigDecimal), topMillisInstant, LocalDate.now(clock))
+      val record2 = LogicalIdl(bigDecimal, Some(bigDecimal), topMillisInstant, LocalDate.now(clock))
       val records = List(record1, record2)
       SpecificTestUtil.verifyWriteAndRead(records)
     }
