@@ -1,6 +1,0 @@
-@namespace( "example2" )
-protocol Protocol {
-    record TestAVDL2 {
-        union { null, string } name = null;
-    }
-}
