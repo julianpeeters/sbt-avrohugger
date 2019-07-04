@@ -10,4 +10,9 @@ $ exists target/scala-2.12/classes/example/TestAVSC.class
 $ exists target/scala-2.12/src_managed/main/compiled_avro/example2/TestAVSC2.scala
 $ exists target/scala-2.12/classes/example2/TestAVSC2.class
 
+$ exists target/scala-2.12/src_managed/main/compiled_avro/example4/TestAVDL4.scala
+$ exists target/scala-2.12/classes/example4/TestAVDL4.class
+$ exists target/scala-2.12/src_managed/main/compiled_avro/example5/TestAVDL5.scala
+$ exists target/scala-2.12/classes/example5/TestAVDL5.class
+
 > clean

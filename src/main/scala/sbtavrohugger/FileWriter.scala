@@ -14,30 +14,30 @@ object FileWriter {
     generator: Generator,
     srcDirs: Seq[File],
     target: File,
+    classLoader: ClassLoader,
     log: Logger): Set[java.io.File] = {
     log.info("Considering source directories %s".format(srcDirs.mkString(",")))
-    
-    def getSrcFiles(fileExtension: String) = for {
-      srcDir <- srcDirs
+    def getSrcFiles(dirs: Seq[File], fileExtension: String) = for {
+      srcDir <- dirs
       srcFile <- (srcDir ** s"*.$fileExtension").get
     } yield srcFile
     
-    for (inFile <- AvscFileSorter.sortSchemaFiles(getSrcFiles("avsc"))) {
+    for (inFile <- AvscFileSorter.sortSchemaFiles(getSrcFiles(srcDirs, "avsc"))) {
       log.info("Compiling AVSC %s to %s".format(inFile, target.getPath))
       generator.fileToFile(inFile, target.getPath)
     }
 
-    for (idl <- AvdlFileSorter.sortSchemaFiles(getSrcFiles("avdl"))) {
-      log.info("Compiling Avro IDL %s".format(idl))
-      generator.fileToFile(idl, target.getPath)
+   for (idlFile <- AvdlFileSorter.sortSchemaFiles(getSrcFiles(srcDirs, "avdl"), classLoader)) {
+      log.info("Compiling Avro IDL %s".format(idlFile))
+      generator.fileToFile(idlFile, target.getPath)
     }
 
-    for (inFile <- getSrcFiles("avro")) {
+    for (inFile <- getSrcFiles(srcDirs, "avro")) {
       log.info("Compiling Avro datafile %s".format(inFile))
       generator.fileToFile(inFile, target.getPath)
     }
 
-    for (protocol <- getSrcFiles("avpr")) {
+    for (protocol <- getSrcFiles(srcDirs, "avpr")) {
       log.info("Compiling Avro protocol %s".format(protocol))
       generator.fileToFile(protocol, target.getPath)
     }

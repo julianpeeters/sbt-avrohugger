@@ -6,8 +6,14 @@ version := "2.0.0-RC16-SNAPSHOT"
 
 enablePlugins(SbtPlugin)
 
+(fork in run) := true
+
+(connectInput in run) := true
+
+(outputStrategy in run) := Some(StdoutOutput)
+
 scalaVersion := appConfiguration.value.provider.scalaProvider.version
-crossSbtVersions := Seq("0.13.18", sbtVersion.value)
+crossSbtVersions := Seq(sbtVersion.value)
 scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Ywarn-value-discard")
 
 libraryDependencies ++= Seq(

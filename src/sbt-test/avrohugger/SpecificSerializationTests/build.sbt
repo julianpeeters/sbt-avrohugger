@@ -14,4 +14,4 @@ libraryDependencies += "org.apache.avro" % "avro" % "1.8.2"
 
 libraryDependencies += "org.apache.avro" % "avro-ipc" % "1.8.2"
 
-libraryDependencies += "org.specs2" %% "specs2-core" % "3.8.6" % "test"
+libraryDependencies += "org.specs2" %% "specs2-core" % "3.8.6"

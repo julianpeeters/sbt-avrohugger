@@ -1,0 +1,36 @@
+{
+    "type": "record",
+    "namespace": "com.c4soft.sbtavro",
+    "name": "B",
+    "fields": [{
+            "name": "cArray",
+            "type": [
+                "null",
+                {
+                  "type": "array",
+                  "items": "com.c4soft.sbtavro.C"
+                }
+            ]
+        },
+        {
+            "name": "dArray",
+            "type": [
+                "null",
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "record",
+                    "name": "D",
+                    "namespace": "com.c4soft.sbtavro",
+                    "fields": [{
+                        "name": "id",
+                        "type": {
+                            "type": "string"
+                        }
+                    }]
+                }
+                }
+            ]
+        }
+    ]
+}

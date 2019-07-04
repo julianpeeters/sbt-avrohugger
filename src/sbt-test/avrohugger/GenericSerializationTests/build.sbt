@@ -16,4 +16,4 @@ libraryDependencies += "org.apache.avro" % "avro" % "1.8.2"
 
 libraryDependencies += "com.chuusai" %% "shapeless" % "2.3.3"
 
-libraryDependencies += "org.specs2" %% "specs2-core" % "3.8.6" % "test"
+libraryDependencies += "org.specs2" %% "specs2-core" % "3.8.6"

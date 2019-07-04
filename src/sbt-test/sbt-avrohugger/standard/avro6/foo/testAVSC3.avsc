@@ -1,0 +1,10 @@
+{
+    "type": "record",
+    "namespace": "example3.foo",
+    "name": "TestAVSC3",
+    "fields": [{
+            "name": "str",
+            "type": "string"
+        }
+    ]
+}

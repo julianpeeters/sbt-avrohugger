@@ -1,0 +1,23 @@
+[{
+    "type": "record",
+    "name": "com.c4soft.sbtavro.C",
+    "fields": [{
+            "name": "str",
+            "type": "string"
+        },
+        {
+            "name": "e",
+            "type": {
+                    "type": "record",
+                    "name": "E",
+                    "fields": [{
+                        "name": "id",
+                        "type": {
+                            "type": "string"
+                        }
+                    }]
+                }
+
+        }
+    ]
+}]

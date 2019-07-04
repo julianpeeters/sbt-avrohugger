@@ -1,0 +1,10 @@
+{
+    "type": "record",
+    "namespace": "example4.sub",
+    "name": "TestAVSCsub",
+    "fields": [{
+            "name": "str",
+            "type": "string"
+        }
+    ]
+}

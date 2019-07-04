@@ -1,0 +1,7 @@
+@namespace( "foo.bar.baz.bop" )
+protocol DProtocol {
+    import idl "testAVDL.avdl";
+    record D {
+        union { null, example4.TestAVDL } t = null;
+    }
+}
