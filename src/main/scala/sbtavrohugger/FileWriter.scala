@@ -14,7 +14,6 @@ object FileWriter {
     generator: Generator,
     srcDirs: Seq[File],
     target: File,
-    classLoader: ClassLoader,
     log: Logger): Set[java.io.File] = {
     log.info("Considering source directories %s".format(srcDirs.mkString(",")))
     def getSrcFiles(dirs: Seq[File], fileExtension: String) = for {
@@ -27,7 +26,7 @@ object FileWriter {
       generator.fileToFile(inFile, target.getPath)
     }
 
-   for (idlFile <- AvdlFileSorter.sortSchemaFiles(getSrcFiles(srcDirs, "avdl"), classLoader)) {
+   for (idlFile <- AvdlFileSorter.sortSchemaFiles(getSrcFiles(srcDirs, "avdl"))) {
       log.info("Compiling Avro IDL %s".format(idlFile))
       generator.fileToFile(idlFile, target.getPath)
     }

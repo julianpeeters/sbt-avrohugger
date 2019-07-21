@@ -170,5 +170,15 @@ class StandardUserDefinedTypesSpec extends Specification {
       StandardTestUtil.verifyWriteAndRead(records)
     }
   }
+
+  "A case class with imports from the classpath` field" should {
+    "serialize and deserialize correctly" in {
+      val record1 = TestAVDL4(example5.TestAVDL5("Sloth"))
+      val record2 = TestAVDL4(example5.TestAVDL5("Aardvark"))
+      val format = RecordFormat[TestAVDL4]
+      val records = List(format.to(record1), format.to(record2))
+      StandardTestUtil.verifyWriteAndRead(records)
+    }
+  }
   
 }

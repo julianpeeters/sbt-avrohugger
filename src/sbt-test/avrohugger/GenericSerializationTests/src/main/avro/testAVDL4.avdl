@@ -1,0 +1,10 @@
+@namespace( "test" )
+protocol Protocol {
+
+  
+    import idl "example5/testAVDL5.avdl";
+    
+    record TestAVDL4 {
+        example5.TestAVDL5 name;
+    }
+}

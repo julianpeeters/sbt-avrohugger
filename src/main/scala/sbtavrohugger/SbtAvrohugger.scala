@@ -67,7 +67,6 @@ object SbtAvrohugger extends AutoPlugin {
     avroScalaGenerate := {
       val cache = target.value
       val srcDirs = avroSourceDirectories.value
-      println("%% srcDirs "  + srcDirs)
       val targetDir = avroScalaSource.value
     
       val out = streams.value
@@ -91,8 +90,9 @@ object SbtAvrohugger extends AutoPlugin {
             format = Standard,
             avroScalaCustomTypes = Some(customTypes),
             avroScalaCustomNamespace = customNamespace,
-            restrictedFieldNumber = isNumberOfFieldsRestricted)
-          FileWriter.generateCaseClasses(gen, srcDirs, targetDir, classLoader, out.log)
+            restrictedFieldNumber = isNumberOfFieldsRestricted,
+            classLoader)
+          FileWriter.generateCaseClasses(gen, srcDirs, targetDir, out.log)
         }
         
       cachedCompile((srcDirs ** "*.av*").get.toSet).toSeq
@@ -127,8 +127,9 @@ object SbtAvrohugger extends AutoPlugin {
             Scavro,
             Some(scavroCustomTypes),
             scavroCustomNamespace,
-            isNumberOfFieldsRestricted)
-          FileWriter.generateCaseClasses(gen, srcDirs, targetDir, classLoader, out.log)
+            isNumberOfFieldsRestricted,
+            classLoader)
+          FileWriter.generateCaseClasses(gen, srcDirs, targetDir, out.log)
         }
       cachedCompile((srcDirs ** "*.av*").get.toSet).toSeq
     }
@@ -162,8 +163,9 @@ object SbtAvrohugger extends AutoPlugin {
             SpecificRecord,
             Some(specificCustomTypes),
             specificCustomNamespace,
-            isNumberOfFieldsRestricted)
-          FileWriter.generateCaseClasses(gen, srcDirs, targetDir, classLoader, out.log)
+            isNumberOfFieldsRestricted,
+            classLoader)
+          FileWriter.generateCaseClasses(gen, srcDirs, targetDir, out.log)
         }
       cachedCompile((srcDirs ** "*.av*").get.toSet).toSeq
     }
