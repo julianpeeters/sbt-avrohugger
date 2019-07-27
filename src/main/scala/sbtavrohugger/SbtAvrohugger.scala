@@ -61,9 +61,6 @@ object SbtAvrohugger extends AutoPlugin {
     avroScalaCustomNamespace      := Map.empty[String, String],
     avroScalaCustomTypes          := Standard.defaultTypes,
     logLevel in avroScalaGenerate := (logLevel?? Level.Info).value,
-    managedClasspath := {
-        Classpaths.managedJars(Compile, classpathTypes.value, update.value)
-      },
     avroScalaGenerate := {
       val cache = target.value
       val srcDirs = avroSourceDirectories.value
