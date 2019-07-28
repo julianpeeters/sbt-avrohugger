@@ -7,6 +7,7 @@ import java.time.{Instant, LocalDate}
 import java.util.UUID
 import scala.math.BigDecimal.RoundingMode
 
+
 class StandardPrimitivesSpec extends Specification {
 
   "A case class with an `Int` field" should {
@@ -144,5 +145,16 @@ class StandardPrimitivesSpec extends Specification {
       StandardTestUtil.verifyWriteAndRead(records)
     }
   }
+  
+  // Aren't backticks supposed to solve this?
+  // "A case class' field names" should {
+  //   "be reflectable by spark even when they are reserved keywords" in {
+  //     import org.apache.spark.sql.catalyst.expressions._
+  //     import org.apache.spark.sql.catalyst.ScalaReflection
+  //     import org.apache.spark.sql.types._
+  //     val inputObject = BoundReference(0, ObjectType(classOf[Test]), nullable = true)
+  //     ScalaReflection.serializerFor[Test](inputObject) must not(throwAn[java.lang.UnsupportedOperationException])
+  //   }
+  // }
 
 }
