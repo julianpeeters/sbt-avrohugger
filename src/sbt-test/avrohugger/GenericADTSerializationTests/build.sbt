@@ -17,7 +17,7 @@ avroScalaCustomTypes in Compile := {
 
 libraryDependencies += "com.sksamuel.avro4s" %% "avro4s-core" % "1.8.0"
 
-libraryDependencies += "org.apache.avro" % "avro" % "1.7.7"
+libraryDependencies += "org.apache.avro" % "avro" % "1.9.0"
 
 libraryDependencies += "com.chuusai" %% "shapeless" % "2.3.3"
 

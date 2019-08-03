@@ -15,7 +15,7 @@ avroScalaCustomTypes in Compile := {
     protocol = avrohugger.types.ScalaADT)
 }
 
-libraryDependencies += "org.apache.avro" % "avro" % "1.7.7"
+libraryDependencies += "org.apache.avro" % "avro" % "1.9.0"
 
 libraryDependencies += "org.apache.avro" % "avro-ipc" % "1.7.7"
 

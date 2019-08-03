@@ -12,7 +12,7 @@ scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Ywarn-value-di
 
 libraryDependencies += "com.sksamuel.avro4s" %% "avro4s-core" % "1.9.0"
 
-libraryDependencies += "org.apache.avro" % "avro" % "1.8.2"
+libraryDependencies += "org.apache.avro" % "avro" % "1.9.0"
 
 libraryDependencies += "com.chuusai" %% "shapeless" % "2.3.3"
 
