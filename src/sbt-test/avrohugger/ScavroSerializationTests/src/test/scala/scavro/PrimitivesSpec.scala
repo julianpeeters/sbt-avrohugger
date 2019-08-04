@@ -524,6 +524,36 @@ class ScavroEmptyRecordTest extends Specification {
       sameRecords must ===(records)
     }
   }
+  
+  
+  "A case class with a reserved word for a field name" should {
+    "deserialize correctly" in {
+      val record1 = Test(true)
+      val record2 = Test(false)
+      val records = List(record1, record2)
+      SpecificTestUtil.verifyWriteAndRead(records)
+      
+      
+      val record = Test(true)
+
+      val filename = "Test.avdl"
+      val records = record :: Nil
+
+      // Convert to json
+      records.foreach(f => println(f.toJson))
+
+      // Write the avro file
+      val writer = AvroWriter[Test](filename)
+      writer.write(records)
+
+      // Read the avro file and do some processing
+      val reader: AvroReader[Test] =
+        AvroReader[Test]
+      val sameRecords = reader.read(filename)
+
+      sameRecords must ===(records)
+    }
+  }
 
 
 }

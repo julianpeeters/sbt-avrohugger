@@ -103,5 +103,14 @@ class SpecificPrimitivesSpec extends Specification {
       SpecificTestUtil.verifyWriteAndRead(records)
     }
   }
+  
+  "A case class with a reserved word for a field name" should {
+    "deserialize correctly" in {
+      val record1 = Test(true)
+      val record2 = Test(false)
+      val records = List(record1, record2)
+      SpecificTestUtil.verifyWriteAndRead(records)
+    }
+  }
 
 }

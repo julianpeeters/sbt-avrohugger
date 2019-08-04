@@ -146,15 +146,14 @@ class StandardPrimitivesSpec extends Specification {
     }
   }
   
-  // Aren't backticks supposed to solve this?
-  // "A case class' field names" should {
-  //   "be reflectable by spark even when they are reserved keywords" in {
-  //     import org.apache.spark.sql.catalyst.expressions._
-  //     import org.apache.spark.sql.catalyst.ScalaReflection
-  //     import org.apache.spark.sql.types._
-  //     val inputObject = BoundReference(0, ObjectType(classOf[Test]), nullable = true)
-  //     ScalaReflection.serializerFor[Test](inputObject) must not(throwAn[java.lang.UnsupportedOperationException])
-  //   }
-  // }
+  "A case class' field names" should {
+    "be reflectable by spark even when they are reserved keywords" in {
+      import org.apache.spark.sql.catalyst.expressions._
+      import org.apache.spark.sql.catalyst.ScalaReflection
+      import org.apache.spark.sql.types._
+      val inputObject = BoundReference(0, ObjectType(classOf[Test]), nullable = true)
+      ScalaReflection.serializerFor[Test](inputObject) must not(throwAn[java.lang.UnsupportedOperationException])
+    }
+  }
 
 }
