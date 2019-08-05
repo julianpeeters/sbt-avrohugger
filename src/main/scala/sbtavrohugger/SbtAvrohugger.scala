@@ -87,8 +87,7 @@ object SbtAvrohugger extends AutoPlugin {
             format = Standard,
             avroScalaCustomTypes = Some(customTypes),
             avroScalaCustomNamespace = customNamespace,
-            restrictedFieldNumber = isNumberOfFieldsRestricted,
-            classLoader)
+            restrictedFieldNumber = isNumberOfFieldsRestricted)
           FileWriter.generateCaseClasses(gen, srcDirs, targetDir, out.log)
         }
         
@@ -124,8 +123,7 @@ object SbtAvrohugger extends AutoPlugin {
             Scavro,
             Some(scavroCustomTypes),
             scavroCustomNamespace,
-            isNumberOfFieldsRestricted,
-            classLoader)
+            isNumberOfFieldsRestricted)
           FileWriter.generateCaseClasses(gen, srcDirs, targetDir, out.log)
         }
       cachedCompile((srcDirs ** "*.av*").get.toSet).toSeq
@@ -160,8 +158,7 @@ object SbtAvrohugger extends AutoPlugin {
             SpecificRecord,
             Some(specificCustomTypes),
             specificCustomNamespace,
-            isNumberOfFieldsRestricted,
-            classLoader)
+            isNumberOfFieldsRestricted)
           FileWriter.generateCaseClasses(gen, srcDirs, targetDir, out.log)
         }
       cachedCompile((srcDirs ** "*.av*").get.toSet).toSeq
