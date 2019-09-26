@@ -18,7 +18,7 @@ scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Ywarn-value-di
 libraryDependencies := {
   CrossVersion.partialVersion(scalaVersion.value) match {
     case Some((2, scalaMajor)) if scalaMajor == 12 =>
-      libraryDependencies.value ++ Seq("com.sksamuel.avro4s" %% "avro4s-core" % "1.8.0")
+      libraryDependencies.value ++ Seq("com.sksamuel.avro4s" %% "avro4s-core" % "3.0.0-RC3")
     case Some((2, scalaMajor)) if scalaMajor == 10 =>
       libraryDependencies.value ++ Seq("com.sksamuel.avro4s" %% "avro4s-core" % "1.2.2")
     case _ => Seq()

@@ -18,6 +18,6 @@ scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Ywarn-value-di
 
 libraryDependencies += "org.apache.avro" % "avro" % "1.9.0"
 
-libraryDependencies += "org.apache.avro" % "avro-ipc" % "1.8.2"
+libraryDependencies += "org.apache.avro" % "avro-ipc-netty" % "1.9.0"
 
 libraryDependencies += "org.specs2" %% "specs2-core" % "3.8.6"
