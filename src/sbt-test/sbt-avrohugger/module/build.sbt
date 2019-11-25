@@ -1,7 +1,7 @@
 
 
 
-// sourceGenerators in Compile += (avroScalaGenerate in Compile).taskValue
+sourceGenerators in Compile += (avroScalaGenerate in Compile).taskValue
 
 lazy val module = (project in file("."))
   .settings(
@@ -17,8 +17,8 @@ lazy val `submodule` = (project in file("submodule"))
   
 lazy val commonSettings = Seq(
   scalaVersion := "2.12.8",
-  libraryDependencies += "org.apache.avro" % "avro" % "1.9.0",
-  libraryDependencies += "org.specs2" %% "specs2-core" % "4.6.0" % Test,
-  libraryDependencies += "org.specs2" %% "specs2-scalacheck" % "4.6.0" % Test
+  libraryDependencies += "org.apache.avro" % "avro" % "1.9.1",
+  libraryDependencies += "org.specs2" %% "specs2-core" % "3.8.6",
+  libraryDependencies += "org.specs2" %% "specs2-scalacheck" % "3.8.6"
 )
 
