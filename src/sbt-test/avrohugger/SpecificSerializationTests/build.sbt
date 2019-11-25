@@ -10,8 +10,8 @@ crossScalaVersions := Seq("2.10.6", "2.11.11", "2.12.4")
 
 scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Ywarn-value-discard")
 
-libraryDependencies += "org.apache.avro" % "avro" % "1.8.2"
+libraryDependencies += "org.apache.avro" % "avro" % "1.9.1"
 
-libraryDependencies += "org.apache.avro" % "avro-ipc" % "1.8.2"
+libraryDependencies += "org.apache.avro" % "avro-ipc-netty" % "1.9.0"
 
 libraryDependencies += "org.specs2" %% "specs2-core" % "3.8.6"

@@ -28,7 +28,7 @@ avroScalaCustomTypes in Compile := {
 
 libraryDependencies ++= Seq(
   "com.chuusai" %% "shapeless" % "2.3.2",
-  "org.apache.avro" % "avro" % "1.7.7"
+  "org.apache.avro" % "avro" % "1.9.1"
 )
 
 

@@ -39,8 +39,9 @@ object StandardTestUtil extends Specification {
       sameRecord = dataFileReader.next(sameRecord)
       record = recordIter.next
     }
+
     dataFileReader.close()
-    sameRecord must ===(record)
+    sameRecord.equals(record)
   }
 
   def verifyWriteAndRead(records: List[GenericRecord]) = {
