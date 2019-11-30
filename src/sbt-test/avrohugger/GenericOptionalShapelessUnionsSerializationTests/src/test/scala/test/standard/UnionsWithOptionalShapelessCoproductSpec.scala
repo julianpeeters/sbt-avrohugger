@@ -72,16 +72,14 @@ class AllUnionsWithShapelessCoproductSpec extends Specification {
       StandardTestUtil.verifyWriteAndRead(records)
     }
 
-    // // "Continue using `A :+: B :+: C :+: Cnil` with `shapeless.Coproduct`" in {
-    // this is commented out because equality of Generic Records fails in the
-    // case of nested records. As Strings they're shown to be equal
-    //   val record1 = ShouldRenderAsCoproduct2(Coproduct(Event1()))
-    //   val record2 = ShouldRenderAsCoproduct2(Coproduct(Event1()))
-    //   val format = RecordFormat[ShouldRenderAsCoproduct2]
-    //   val records = List(format.to(record1), format.to(record2))
-    //   StandardTestUtil.verifyWriteAndRead(records)
-    // }
-    // 
+    "Continue using `A :+: B :+: C :+: Cnil` with `shapeless.Coproduct`" in {
+      val record1 = ShouldRenderAsCoproduct2(Coproduct(Event1()))
+      val record2 = ShouldRenderAsCoproduct2(Coproduct(Event1()))
+      val format = RecordFormat[ShouldRenderAsCoproduct2]
+      val records = List(format.to(record1), format.to(record2))
+      StandardTestUtil.verifyWriteAndRead(records)
+    }
+    
     // "Continue using `A :+: B :+: C :+: Cnil` with `shapeless.Coproduct`" in {
     // this is commented out because equality of Generic Records fails in the
     // case of nested records. As Strings they're shown to be equal
@@ -115,7 +113,7 @@ class AllUnionsWithShapelessCoproductSpec extends Specification {
         val sameRecord = format.from(avro)
         sameRecord.value === None
       }
-      // 
+
       // "deserialize correctly in non-nullable position" in {
       // this is commented out because equality of Generic Records fails in the
       // case of nested records. As Strings they're shown to be equal

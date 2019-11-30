@@ -5,22 +5,21 @@ protocol DecimalsTagged {
     decimal(8, 2) dec;
     union {decimal(8, 2), null} maybeDec;
     decimal(8, 2) decWithDefault = "\u000C\u006C";
-    union {decimal(9, 2), string, boolean} maybeDec2 = "\u000C\u006C";
-
+    union {decimal(8, 2), null} maybeDecWithDefault = "\u000C\u006C";
   }
 
   record LogicalIdlBigPrecision {
     decimal(20, 8) dec;
     union {decimal(20, 8), null} maybeDec;
     decimal(20, 8) decWithDefault = "\u000C\u006C";
-    union {decimal(9, 2), string, boolean} maybeDec2 = "\u000C\u006C";
+    union {decimal(20, 8), null} maybeDecWithDefault = "\u000C\u006C";
   }
 
   record LogicalIdlBigPrecisionAndScale {
     decimal(20, 12) dec;
     union {decimal(20, 12), null} maybeDec;
     decimal(20, 12) decWithDefault = "\u000C\u006C";
-    union {decimal(9, 2), string, boolean} maybeDec2 = "\u000C\u006C";
+    union {decimal(20, 12), null} maybeDecWithDefault = "\u000C\u006C";
   }
 
 }

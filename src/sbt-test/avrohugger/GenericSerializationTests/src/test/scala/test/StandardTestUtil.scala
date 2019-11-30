@@ -40,7 +40,8 @@ object StandardTestUtil extends Specification {
       record = recordIter.next
     }
     dataFileReader.close()
-    sameRecord.must_==(record)
+    sameRecord.equals(record)
+
   }
 
   def verifyWriteAndRead(records: List[GenericRecord]) = {

@@ -26,4 +26,4 @@ libraryDependencies := {
 
 libraryDependencies += "org.apache.avro" % "avro" % "1.9.1"
 
-libraryDependencies += "org.specs2" %% "specs2-core" % "3.8.6"
+libraryDependencies += "org.specs2" %% "specs2-core" % "3.8.6" % Test
