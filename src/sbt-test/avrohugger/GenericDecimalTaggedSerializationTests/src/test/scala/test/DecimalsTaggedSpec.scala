@@ -2,158 +2,146 @@ package test
 
 import java.nio.ByteBuffer
 
-import com.sksamuel.avro4s._
-import com.sksamuel.avro4s.ToSchema._
+import java.nio.ByteBuffer
 import example.idl._
+import org.apache.avro.compiler.idl.Idl
+import org.apache.avro.SchemaBuilder
 import org.apache.avro.Schema.Field
+import org.apache.avro.LogicalTypes.Decimal
+import org.apache.avro.generic.{GenericData, GenericRecord}
 import org.apache.avro.{Conversions, LogicalTypes, Schema}
 import org.specs2.mutable.Specification
 import shapeless._
-import shapeless.ops.nat.ToInt
 import shapeless.tag.@@
 import test._
-
-import scala.math.BigDecimal.RoundingMode
+import collection.JavaConverters._
 
 class DecimalsTaggedSpec extends Specification {
-
-  def toDecimalTag[SP](bigDecimal: BigDecimal): BigDecimal @@ SP =
-    shapeless.tag[SP][BigDecimal](bigDecimal)
-
-  implicit val roundingMode: RoundingMode.RoundingMode = RoundingMode.UNNECESSARY
-
-  def bigDecimalToSchema[A, B](precision: Int, scale: Int): ToSchema[BigDecimal @@ (A, B)] =
-    new ToSchema[BigDecimal @@ (A, B)] {
-      protected val schema: Schema = {
-        val schema = Schema.create(Schema.Type.BYTES)
-        LogicalTypes.decimal(precision, scale).addToSchema(schema)
-        schema
-      }
-    }
-
-  def bigDecimalFromValue[A, B](precision: Int, scale: Int): FromValue[BigDecimal @@ (A, B)] = {
-    new FromValue[BigDecimal @@ (A, B)] {
+  
+    def bigDecimalToBytes(bd: BigDecimal, fieldSchema: Schema): ByteBuffer = {
       val decimalConversion = new Conversions.DecimalConversion
-      val decimalType = LogicalTypes.decimal(precision, scale)
-      override def apply(value: Any, field: Field): BigDecimal @@ (A, B) =
-          toDecimalTag[(A, B)](
-            decimalConversion
-              .fromBytes(value.asInstanceOf[ByteBuffer], null, decimalType))
+      val decimalType = fieldSchema.getLogicalType.asInstanceOf[Decimal]
+      val scaled = bd.bigDecimal.setScale(decimalType.getScale)
+      val bytes = decimalConversion.toBytes(scaled, fieldSchema, fieldSchema.getLogicalType).array
+      ByteBuffer.wrap(bytes)
     }
-  }
+    
+    def maybeBigDecimalToBytes(fieldName: String, schema: Schema, bd: BigDecimal): Option[ByteBuffer] = {
+      schema.getField(fieldName).schema.getTypes.asScala.toList
+        .find(candidateSchema => candidateSchema.getType == Schema.Type.BYTES)
+        .map(decimalSchema => bigDecimalToBytes(bd,decimalSchema))
+    }
 
-  def bigDecimalToValue[A, B](precision: Int, scale: Int)(
-      implicit roundingMode: RoundingMode.RoundingMode)
-    : ToValue[BigDecimal @@ (A, B)] = {
-    val decimalConversion = new Conversions.DecimalConversion
-    val decimalType = LogicalTypes.decimal(precision, scale)
-    new ToValue[BigDecimal @@ (A, B)] {
-      override def apply(value: BigDecimal @@ (A, B)): ByteBuffer = {
-        val scaledValue = value.setScale(scale, roundingMode)
-        decimalConversion.toBytes(scaledValue.bigDecimal, null, decimalType)
+    def toDecimalTag[SP](bigDecimal: BigDecimal): BigDecimal @@ SP =
+      shapeless.tag[SP][BigDecimal](bigDecimal)
+
+    "A case class with `logicalType` fields and default values from .avdl" should {
+      "deserialize correctly" in {
+        val record1 = LogicalIdl(toDecimalTag(BigDecimal(10.6)), Some(toDecimalTag(BigDecimal(10.6))))
+        val record2 = LogicalIdl(toDecimalTag(BigDecimal(14.6)), Some(toDecimalTag(BigDecimal(10.6))))
+        val schemaFile = new java.io.File("src/main/avro/DecimalsTagged.avdl")
+        val schema = (new Idl(schemaFile)).CompilationUnit().getType("example.idl.LogicalIdl")
+        val genericRecord1 = new GenericData.Record(schema)
+        val genericRecord2 = new GenericData.Record(schema)
+        genericRecord1.put("dec", bigDecimalToBytes(record1.dec, schema.getField("dec").schema))
+        genericRecord1.put("maybeDec", record1.maybeDec.flatMap(aDec => maybeBigDecimalToBytes("maybeDec", schema, aDec)).get)
+        genericRecord1.put("decWithDefault", bigDecimalToBytes(record1.decWithDefault, schema.getField("decWithDefault").schema))
+        genericRecord1.put("maybeDecWithDefault", record1.maybeDecWithDefault.flatMap(aDec => maybeBigDecimalToBytes("maybeDecWithDefault",schema,aDec)).get)
+        genericRecord2.put("dec", bigDecimalToBytes(record2.dec, schema.getField("dec").schema))
+        genericRecord2.put("maybeDec", record2.maybeDec.flatMap(aDec => maybeBigDecimalToBytes("maybeDec", schema, aDec)).get)
+        genericRecord2.put("decWithDefault", bigDecimalToBytes(record2.decWithDefault, schema.getField("decWithDefault").schema))
+        genericRecord2.put("maybeDecWithDefault", record2.maybeDecWithDefault.flatMap(aDec => maybeBigDecimalToBytes("maybeDecWithDefault",schema,aDec)).get)
+        val records = List(genericRecord1,genericRecord2)
+        StandardTestUtil.verifyWriteAndRead(records)
       }
     }
-  }
 
-  implicit def bigDecimalToSchemaSimple[A <: Nat, B <: Nat](
-      implicit toIntNA: ToInt[A],
-      toIntNB: ToInt[B]): ToSchema[BigDecimal @@ (A, B)] =
-    bigDecimalToSchema[A, B](Nat.toInt[A], Nat.toInt[B])
-
-  implicit def bigDecimalToSchemaBigPrecision[A <: Nat, B <: Nat, C <: Nat](
-      implicit toIntNA: ToInt[A], toIntNB: ToInt[B], toIntNC: ToInt[C]): ToSchema[BigDecimal @@ ((A, B), C)] =
-    bigDecimalToSchema[(A, B), C](Nat.toInt[A] * 10 + Nat.toInt[B], Nat.toInt[C])
-
-  implicit def bigDecimalToSchemaBigPrecisionScale[A <: Nat, B <: Nat, C <: Nat, D <: Nat](
-      implicit toIntNA: ToInt[A], toIntNB: ToInt[B], toIntNC: ToInt[C], toIntND: ToInt[D]): ToSchema[BigDecimal @@ ((A, B), (C, D))] =
-    bigDecimalToSchema[(A, B), (C, D)](Nat.toInt[A] * 10 + Nat.toInt[B], Nat.toInt[C] * 10 + Nat.toInt[D])
-
-  implicit def bigDecimalFromValueSimple[A <: Nat, B <: Nat](
-      implicit toIntNA: ToInt[A],
-      toIntNB: ToInt[B]): FromValue[BigDecimal @@ (A, B)] =
-    bigDecimalFromValue[A, B](Nat.toInt[A], Nat.toInt[B])
-
-  implicit def bigDecimalFromValueBigPrecision[A <: Nat, B <: Nat, C <: Nat](
-      implicit toIntNA: ToInt[A], toIntNB: ToInt[B], toIntNC: ToInt[C]): FromValue[BigDecimal @@ ((A, B), C)] =
-    bigDecimalFromValue[(A, B), C](Nat.toInt[A] * 10 + Nat.toInt[B], Nat.toInt[C])
-
-  implicit def bigDecimalFromValueBigPrecisionScale[A <: Nat, B <: Nat, C <: Nat, D <: Nat](
-      implicit toIntNA: ToInt[A], toIntNB: ToInt[B], toIntNC: ToInt[C], toIntND: ToInt[D]): FromValue[BigDecimal @@ ((A, B), (C, D))] =
-    bigDecimalFromValue[(A, B), (C, D)](Nat.toInt[A] * 10 + Nat.toInt[B], Nat.toInt[C] * 10 + Nat.toInt[D])
-
-  implicit def bigDecimalToValueSimple[A <: Nat, B <: Nat](
-      implicit toIntNA: ToInt[A],
-      toIntNB: ToInt[B]): ToValue[BigDecimal @@ (A, B)] =
-    bigDecimalToValue[A, B](Nat.toInt[A], Nat.toInt[B])
-
-  implicit def bigDecimalToValueBigPrecision[A <: Nat, B <: Nat, C <: Nat](
-      implicit toIntNA: ToInt[A], toIntNB: ToInt[B], toIntNC: ToInt[C]): ToValue[BigDecimal @@ ((A, B), C)] =
-    bigDecimalToValue[(A, B), C](Nat.toInt[A] * 10 + Nat.toInt[B], Nat.toInt[C])
-
-  implicit def bigDecimalToValueBigPrecisionScale[A <: Nat, B <: Nat, C <: Nat, D <: Nat](
-      implicit toIntNA: ToInt[A], toIntNB: ToInt[B], toIntNC: ToInt[C], toIntND: ToInt[D]): ToValue[BigDecimal @@ ((A, B), (C, D))] =
-    bigDecimalToValue[(A, B), (C, D)](Nat.toInt[A] * 10 + Nat.toInt[B], Nat.toInt[C] * 10 + Nat.toInt[D])
-  
-  
-  "A case class with `logicalType` fields and default values from .avdl" should {
-    "deserialize correctly" in {
-      val record1 = LogicalIdl(toDecimalTag(BigDecimal(10.6)), Some(toDecimalTag(BigDecimal(10.6))))
-      val record2 = LogicalIdl(toDecimalTag(BigDecimal(14.6)), Some(toDecimalTag(BigDecimal(10.6))))
-      val format = RecordFormat[LogicalIdl]
-      val records = List(format.to(record1), format.to(record2))
-      StandardTestUtil.verifyWriteAndRead(records)
+    "A case class with `logicalType` fields, big precision, and explicit values from .avdl" should {
+      "deserialize correctly" in {
+        val record1 = LogicalIdlBigPrecision(toDecimalTag(BigDecimal(10.6)), Some(toDecimalTag(BigDecimal(10.6))))
+        val record2 = LogicalIdlBigPrecision(toDecimalTag(BigDecimal(14.6)), Some(toDecimalTag(BigDecimal(10.6))))
+        val schemaFile = new java.io.File("src/main/avro/DecimalsTagged.avdl")
+        val schema = (new Idl(schemaFile)).CompilationUnit().getType("example.idl.LogicalIdlBigPrecision")
+        val genericRecord1 = new GenericData.Record(schema)
+        val genericRecord2 = new GenericData.Record(schema)
+        genericRecord1.put("dec", bigDecimalToBytes(record1.dec, schema.getField("dec").schema))
+        genericRecord1.put("maybeDec", record1.maybeDec.flatMap(aDec => maybeBigDecimalToBytes("maybeDec", schema, aDec)).get)
+        genericRecord1.put("decWithDefault", bigDecimalToBytes(record1.decWithDefault, schema.getField("decWithDefault").schema))
+        genericRecord1.put("maybeDecWithDefault", record1.maybeDecWithDefault.flatMap(aDec => maybeBigDecimalToBytes("maybeDecWithDefault",schema,aDec)).get)
+        genericRecord2.put("dec", bigDecimalToBytes(record2.dec, schema.getField("dec").schema))
+        genericRecord2.put("maybeDec", record2.maybeDec.flatMap(aDec => maybeBigDecimalToBytes("maybeDec", schema, aDec)).get)
+        genericRecord2.put("decWithDefault", bigDecimalToBytes(record2.decWithDefault, schema.getField("decWithDefault").schema))
+        genericRecord2.put("maybeDecWithDefault", record2.maybeDecWithDefault.flatMap(aDec => maybeBigDecimalToBytes("maybeDecWithDefault",schema,aDec)).get)
+        val records = List(genericRecord1,genericRecord2)
+        StandardTestUtil.verifyWriteAndRead(records)
+      }
     }
-  }
-  
-  "A case class with `logicalType` fields, big precision, and explicit values from .avdl" should {
-    "deserialize correctly" in {
-      val record1 = LogicalIdlBigPrecision(toDecimalTag(BigDecimal(10.6)), Some(toDecimalTag(BigDecimal(10.6))))
-      val record2 = LogicalIdlBigPrecision(toDecimalTag(BigDecimal(14.6)), Some(toDecimalTag(BigDecimal(10.6))))
-      val format = RecordFormat[LogicalIdlBigPrecision]
-      val records = List(format.to(record1), format.to(record2))
-      StandardTestUtil.verifyWriteAndRead(records)
+    
+    "A case class with `logicalType` fields, big precision, big scale, and explicit values from .avdl" should {
+      "deserialize correctly" in {
+        val record1 = LogicalIdlBigPrecisionAndScale(toDecimalTag(BigDecimal(10.6)), Some(toDecimalTag(BigDecimal(10.6))))
+        val record2 = LogicalIdlBigPrecisionAndScale(toDecimalTag(BigDecimal(14.6)), Some(toDecimalTag(BigDecimal(10.6))))
+        val schemaFile = new java.io.File("src/main/avro/DecimalsTagged.avdl")
+        val schema = (new Idl(schemaFile)).CompilationUnit().getType("example.idl.LogicalIdlBigPrecisionAndScale")
+        val genericRecord1 = new GenericData.Record(schema)
+        val genericRecord2 = new GenericData.Record(schema)
+        genericRecord1.put("dec", bigDecimalToBytes(record1.dec, schema.getField("dec").schema))
+        genericRecord1.put("maybeDec", record1.maybeDec.flatMap(aDec => maybeBigDecimalToBytes("maybeDec", schema, aDec)).get)
+        genericRecord1.put("decWithDefault", bigDecimalToBytes(record1.decWithDefault, schema.getField("decWithDefault").schema))
+        genericRecord1.put("maybeDecWithDefault", record1.maybeDecWithDefault.flatMap(aDec => maybeBigDecimalToBytes("maybeDecWithDefault",schema,aDec)).get)
+        genericRecord2.put("dec", bigDecimalToBytes(record2.dec, schema.getField("dec").schema))
+        genericRecord2.put("maybeDec", record2.maybeDec.flatMap(aDec => maybeBigDecimalToBytes("maybeDec", schema, aDec)).get)
+        genericRecord2.put("decWithDefault", bigDecimalToBytes(record2.decWithDefault, schema.getField("decWithDefault").schema))
+        genericRecord2.put("maybeDecWithDefault", record2.maybeDecWithDefault.flatMap(aDec => maybeBigDecimalToBytes("maybeDecWithDefault",schema,aDec)).get)
+        val records = List(genericRecord1,genericRecord2)
+        StandardTestUtil.verifyWriteAndRead(records)
+      }
     }
-  }
-  
-  "A case class with `logicalType` fields, big precision, big scale, and explicit values from .avdl" should {
-    "deserialize correctly" in {
-      val record1 = LogicalIdlBigPrecisionAndScale(toDecimalTag(BigDecimal(10.6)), Some(toDecimalTag(BigDecimal(10.6))))
-      val record2 = LogicalIdlBigPrecisionAndScale(toDecimalTag(BigDecimal(14.6)), Some(toDecimalTag(BigDecimal(10.6))))
-      val format = RecordFormat[LogicalIdlBigPrecisionAndScale]
-      val records = List(format.to(record1), format.to(record2))
-      StandardTestUtil.verifyWriteAndRead(records)
+    
+    "A case class with coproduct `logicalType` fields and default values from .avdl" should {
+      "deserialize correctly" in {
+        val s = toDecimalTag(BigDecimal(10.6))
+        val record1 = LogicalCoproductIdl(Coproduct[@@[scala.math.BigDecimal, (shapeless.Nat._9, shapeless.Nat._2)] :+: String :+: Boolean :+: CNil](shapeless.tag[(shapeless.Nat._9, shapeless.Nat._2)][scala.math.BigDecimal](scala.math.BigDecimal("9999.99"))))
+        val record2 = LogicalCoproductIdl(Coproduct[@@[scala.math.BigDecimal, (shapeless.Nat._9, shapeless.Nat._2)] :+: String :+: Boolean :+: CNil](shapeless.tag[(shapeless.Nat._9, shapeless.Nat._2)][scala.math.BigDecimal](scala.math.BigDecimal("9999.99"))))
+        val schemaFile = new java.io.File("src/main/avro/logical_coproduct.avdl")
+        val schema = (new Idl(schemaFile)).CompilationUnit().getType("example.idl.LogicalCoproductIdl")
+        val genericRecord1 = new GenericData.Record(schema)
+        val genericRecord2 = new GenericData.Record(schema)
+        genericRecord1.put("maybeDec", record1.maybeDec.select[(scala.math.BigDecimal @@ (shapeless.Nat._9, shapeless.Nat._2))].flatMap(aDec => maybeBigDecimalToBytes("maybeDec",schema,aDec)).get)
+        genericRecord2.put("maybeDec", record2.maybeDec.select[(scala.math.BigDecimal @@ (shapeless.Nat._9, shapeless.Nat._2))].flatMap(aDec => maybeBigDecimalToBytes("maybeDec",schema,aDec)).get)
+        val records = List(genericRecord1,genericRecord2)
+        StandardTestUtil.verifyWriteAndRead(records)
+      }
     }
-  }
-  
-  "A case class with coproduct `logicalType` fields and default values from .avdl" should {
-    "deserialize correctly" in {
-      val s = toDecimalTag(BigDecimal(10.6))
-      val record1 = LogicalCoproductIdl(Coproduct[@@[scala.math.BigDecimal, (shapeless.Nat._9, shapeless.Nat._2)] :+: String :+: Boolean :+: CNil](shapeless.tag[(shapeless.Nat._9, shapeless.Nat._2)][scala.math.BigDecimal](scala.math.BigDecimal("9999.99"))))
-      val record2 = LogicalCoproductIdl(Coproduct[@@[scala.math.BigDecimal, (shapeless.Nat._9, shapeless.Nat._2)] :+: String :+: Boolean :+: CNil](shapeless.tag[(shapeless.Nat._9, shapeless.Nat._2)][scala.math.BigDecimal](scala.math.BigDecimal("9999.99"))))
-      val format = RecordFormat[LogicalCoproductIdl]
-      val records = List(format.to(record1), format.to(record2))
-      StandardTestUtil.verifyWriteAndRead(records)
+    
+    "A case class with either `logicalType` fields and default values from .avdl" should {
+      "deserialize correctly" in {
+        val record1 = LogicalEitherIdl(Left(toDecimalTag(BigDecimal(10.6))))
+        val record2 = LogicalEitherIdl(Left(toDecimalTag(BigDecimal(10.6))))
+        val schemaFile = new java.io.File("src/main/avro/logical_either.avdl")
+        val schema = (new Idl(schemaFile)).CompilationUnit().getType("example.idl.LogicalEitherIdl")
+        val genericRecord1 = new GenericData.Record(schema)
+        val genericRecord2 = new GenericData.Record(schema)
+        genericRecord1.put("maybeDec", record1.maybeDec.swap.toOption.flatMap(aDec => maybeBigDecimalToBytes("maybeDec",schema,aDec)).get)
+        genericRecord2.put("maybeDec", record2.maybeDec.swap.toOption.flatMap(aDec => maybeBigDecimalToBytes("maybeDec",schema,aDec)).get)
+        val records = List(genericRecord1,genericRecord2)
+        StandardTestUtil.verifyWriteAndRead(records)
+      }
     }
-  }
-  
-  "A case class with either `logicalType` fields and default values from .avdl" should {
-    "deserialize correctly" in {
-      val record1 = LogicalEitherIdl(Left(toDecimalTag(BigDecimal(10.6))))
-      val record2 = LogicalEitherIdl(Left(toDecimalTag(BigDecimal(10.6))))
-      val format = RecordFormat[LogicalEitherIdl]
-      val records = List(format.to(record1), format.to(record2))
-      StandardTestUtil.verifyWriteAndRead(records)
+    
+    "A case class with optional `logicalType` fields and default values from .avdl" should {
+      "deserialize correctly" in {
+        val record1 = LogicalOptionalIdl(Some(toDecimalTag(BigDecimal(10.6))))
+        val record2 = LogicalOptionalIdl(Some(toDecimalTag(BigDecimal(10.6))))
+        val schemaFile = new java.io.File("src/main/avro/logical_optional.avdl")
+        val schema = (new Idl(schemaFile)).CompilationUnit().getType("example.idl.LogicalOptionalIdl")
+        val genericRecord1 = new GenericData.Record(schema)
+        val genericRecord2 = new GenericData.Record(schema)
+        genericRecord1.put("maybeDec", record1.maybeDec.flatMap(aDec => maybeBigDecimalToBytes("maybeDec",schema,aDec)).get)
+        genericRecord2.put("maybeDec", record2.maybeDec.flatMap(aDec => maybeBigDecimalToBytes("maybeDec",schema,aDec)).get)
+        val records = List(genericRecord1,genericRecord2)
+        StandardTestUtil.verifyWriteAndRead(records)
+      }
     }
-  }
-  
-  "A case class with optional `logicalType` fields and default values from .avdl" should {
-    "deserialize correctly" in {
-      val record1 = LogicalOptionalIdl(Some(toDecimalTag(BigDecimal(10.6))))
-      val record2 = LogicalOptionalIdl(Some(toDecimalTag(BigDecimal(10.6))))
-      val format = RecordFormat[LogicalOptionalIdl]
-      val records = List(format.to(record1), format.to(record2))
-      StandardTestUtil.verifyWriteAndRead(records)
-    }
-  }
 
 }

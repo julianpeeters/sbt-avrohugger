@@ -12,9 +12,9 @@ scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Ywarn-value-di
 
 libraryDependencies += "com.sksamuel.avro4s" %% "avro4s-core" % "1.8.0"
 
-libraryDependencies += "org.apache.avro" % "avro" % "1.7.7"
+libraryDependencies += "org.apache.avro" % "avro" % "1.9.1"
 
-libraryDependencies += "org.specs2" %% "specs2-core" % "3.8.6"
+libraryDependencies += "org.specs2" %% "specs2-core" % "3.8.6" % Test
 
 avroScalaCustomTypes in Compile := {
   avrohugger.format.Standard.defaultTypes.copy(
