@@ -10,6 +10,10 @@ crossScalaVersions := Seq("2.10.6", "2.11.11", "2.12.4")
 
 scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Ywarn-value-discard")
 
+avroScalaSpecificCustomTypes in Compile := {
+  avrohugger.format.SpecificRecord.defaultTypes.copy(decimal = avrohugger.types.ScalaBigDecimal(Some(BigDecimal.RoundingMode.HALF_EVEN)))
+}
+
 libraryDependencies += "org.apache.avro" % "avro" % "1.9.1"
 
 libraryDependencies += "org.apache.avro" % "avro-ipc-netty" % "1.9.1"

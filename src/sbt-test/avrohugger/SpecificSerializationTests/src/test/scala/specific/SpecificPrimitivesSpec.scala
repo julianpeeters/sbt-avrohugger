@@ -9,7 +9,9 @@ class SpecificPrimitivesSpec extends Specification {
   private val zone: ZoneId = ZoneId.of("UTC")
   val instant = LocalDateTime.of(2018, 6, 12, 18, 0).atZone(zone).toInstant
   val clock = Clock.fixed(instant, zone)
-  private val bigDecimal = BigDecimal(10.0).setScale(8)
+  private val bigDecimal1 = BigDecimal(10.0)
+  private val bigDecimal2 = BigDecimal(10.000000001)
+
   // java.time.Instant.MAX is a datetime so large that, expressed in milliseconds,
   // it exceeds the maximum Long Value available.
   private val topMillisInstant: Instant = Instant.ofEpochMilli(Long.MaxValue)
@@ -79,8 +81,8 @@ class SpecificPrimitivesSpec extends Specification {
 
   "A case class with `logicalType` fields and explicit values from .avdl" should {
     "deserialize correctly" in {
-      val record1 = LogicalIdl(bigDecimal, Some(bigDecimal), topMillisInstant, LocalDate.now(clock))
-      val record2 = LogicalIdl(bigDecimal, Some(bigDecimal), topMillisInstant, LocalDate.now(clock))
+      val record1 = LogicalIdl(bigDecimal1, Some(bigDecimal1), topMillisInstant, LocalDate.now(clock))
+      val record2 = LogicalIdl(bigDecimal2, Some(bigDecimal2), topMillisInstant, LocalDate.now(clock))
       val records = List(record1, record2)
       SpecificTestUtil.verifyWriteAndRead(records)
     }
@@ -88,8 +90,8 @@ class SpecificPrimitivesSpec extends Specification {
 
   "A case class with a `logicalType` fields from .avsc" should {
     "deserialize correctly" in {
-      val record1 = LogicalSc(bigDecimal, topMillisInstant, LocalDate.now(clock), UUID.randomUUID())
-      val record2 = LogicalSc(bigDecimal, topMillisInstant, LocalDate.now(clock), UUID.randomUUID())
+      val record1 = LogicalSc(bigDecimal1, topMillisInstant, LocalDate.now(clock), UUID.randomUUID())
+      val record2 = LogicalSc(bigDecimal2, topMillisInstant, LocalDate.now(clock), UUID.randomUUID())
       val records = List(record1, record2)
       SpecificTestUtil.verifyWriteAndRead(records)
     }
