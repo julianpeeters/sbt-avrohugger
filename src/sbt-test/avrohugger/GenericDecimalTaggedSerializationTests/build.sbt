@@ -20,5 +20,5 @@ libraryDependencies += "org.specs2" %% "specs2-core" % "3.8.6" % Test
 
 avroScalaCustomTypes in Compile := {
   avrohugger.format.Standard.defaultTypes.copy(
-    decimal = avrohugger.types.ScalaBigDecimalWithPrecision)
+    decimal = avrohugger.types.ScalaBigDecimalWithPrecision(None))
 }

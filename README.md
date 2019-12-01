@@ -15,7 +15,7 @@ Install the plugin (compatible with sbt 1.x)
 Add the following lines to the file ``myproject/project/plugins.sbt`` in your
 project directory:
 
-    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "2.0.0-RC19")
+    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "2.0.0-RC20")
     
     
 _NOTE:_ On **Nexus**, please set nexus proxy layout to `permissive` in to resolve artifacts with a sbt-version suffixes
@@ -121,7 +121,7 @@ avroScalaSpecificCustomTypes in Compile := {
 * `date` logical type can be assigned to `JavaTimeLocalDate` and `JavaSqlDate`
 * `timestamp-millis` logical type can be assigned to `JavaTimeInstant` and `JavaSqlTimestamp`
 * `uuid` logical type can be assigned to `UUID`
-* `decimal` logical type can be assigned to `ScalaBigDecimal` and `ScalaBigDecimalWithPrecision`
+* `decimal` can be assigned to e.g. `ScalaBigDecimal(Some(BigDecimal.RoundingMode.HALF_EVEN))` and `ScalaBigDecimalWithPrecision(None)` (via Shapeless Tagged Types)
 * `protocol` can be assigned to `ScalaADT` and `NoTypeGenerated` (see [Protocol Support](https://github.com/julianpeeters/avrohugger#protocol-support))
 
 Datatypes
