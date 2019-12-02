@@ -6,7 +6,7 @@ import org.specs2.mutable.Specification
 import com.sksamuel.avro4s.RecordFormat
 
 class Standard2ArityHomoNestedSpec extends Specification {
-
+  skipAll
   "A case class with more than one `List[List[String]]` field" should {
     "serialize and deserialize correctly" in {
 

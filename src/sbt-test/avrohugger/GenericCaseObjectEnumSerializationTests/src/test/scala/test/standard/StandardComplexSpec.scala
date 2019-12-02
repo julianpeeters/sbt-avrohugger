@@ -3,7 +3,7 @@ import org.specs2.mutable.Specification
 import com.sksamuel.avro4s.RecordFormat
 
 class StandardComplexTest extends Specification {
-
+skipAll
   "A case class with an empty `Option[String]` field" should {
     "serialize and deserialize correctly" in {
       val record1 = AvroTypeProviderTest07(None)

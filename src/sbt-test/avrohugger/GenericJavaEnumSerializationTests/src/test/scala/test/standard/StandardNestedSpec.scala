@@ -4,7 +4,7 @@ import org.specs2.mutable.Specification
 import com.sksamuel.avro4s.RecordFormat
 
 class StandardNestedSpec extends Specification {
-
+skipAll
   "A case class with a `List[List[String]]` field" should {
     "serialize and deserialize correctly" in {
       val record1 = AvroTypeProviderTest28(List(List("blackbird.grackle")))

@@ -4,7 +4,7 @@ import org.specs2.mutable.Specification
 import com.sksamuel.avro4s.RecordFormat
 
 class Standard2ArityHeteroSpec extends Specification {
-
+  skipAll
   "A case class with an `Int` field coexisting with a non-`Int` field" should {
     "serialize and deserialize correctly" in {
       val record1 = AvroTypeProviderTest48(1, "bonjour")

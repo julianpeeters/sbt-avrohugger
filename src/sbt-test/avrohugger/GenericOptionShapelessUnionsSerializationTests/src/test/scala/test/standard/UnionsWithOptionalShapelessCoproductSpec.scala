@@ -6,7 +6,7 @@ import com.sksamuel.avro4s.RecordFormat
 import shapeless._
 
 class AllUnionsWithShapelessCoproductSpec extends Specification {
-
+  skipAll
   "Unions" should {
     "Not override `Option[A]` standard derivation with just `shapeless.Coproduct`" in {
       val record1 = ShouldRenderAsOptional(Option(Event1()))

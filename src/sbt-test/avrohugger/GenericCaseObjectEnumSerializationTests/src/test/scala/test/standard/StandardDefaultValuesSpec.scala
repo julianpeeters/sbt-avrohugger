@@ -4,7 +4,7 @@ import com.sksamuel.avro4s.RecordFormat
 import shapeless.Inl
 
 class StandardDefaultValuesSpec extends Specification {
-
+skipAll
   "A case class with default values" should {
     "deserialize correctly" in {
     

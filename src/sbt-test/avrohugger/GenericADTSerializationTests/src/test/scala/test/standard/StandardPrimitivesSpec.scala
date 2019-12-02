@@ -3,7 +3,7 @@ import org.specs2.mutable.Specification
 import com.sksamuel.avro4s.RecordFormat
 
 class StandardPrimitivesSpec extends Specification {
-
+  skipAll
   "A case class with an `Int` field" should {
     "deserialize correctly" in {
       val record1 = AvroTypeProviderTest00(1)

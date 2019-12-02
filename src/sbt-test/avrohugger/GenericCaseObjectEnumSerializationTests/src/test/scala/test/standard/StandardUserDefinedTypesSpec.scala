@@ -6,7 +6,7 @@ import org.specs2.mutable.Specification
 import com.sksamuel.avro4s.RecordFormat
 
 class StandardUserDefinedTypesSpec extends Specification {
-
+skipAll
   "A case class with another record as a field" should {
     "serialize and deserialize correctly" in {
       val record1 = AvroTypeProviderTest58(AvroTypeProviderTest00(1))

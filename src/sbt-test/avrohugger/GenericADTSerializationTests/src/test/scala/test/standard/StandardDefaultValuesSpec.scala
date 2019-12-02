@@ -8,7 +8,7 @@ import org.apache.avro.file._
 import org.apache.avro.generic._
 import org.apache.avro._
 class StandardDefaultValuesSpec extends Specification {
-
+  skipAll
   "A case class with default values" should {
     "deserialize correctly" in {
       val record = DefaultTest()
