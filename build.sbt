@@ -17,8 +17,8 @@ crossSbtVersions := Seq(sbtVersion.value)
 scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Ywarn-value-discard")
 
 libraryDependencies ++= Seq(
-  "com.julianpeeters" %% "avrohugger-core" % "1.0.0-RC22-SNAPSHOT",
-  "com.julianpeeters" %% "avrohugger-filesorter" % "1.0.0-RC22-SNAPSHOT",
+  "com.julianpeeters" %% "avrohugger-core" % "1.0.0-RC22",
+  "com.julianpeeters" %% "avrohugger-filesorter" % "1.0.0-RC22",
   "io.spray" %% "spray-json" % "1.3.2",
   "org.specs2" %% "specs2-core" % "3.8.6" % "test")
 
