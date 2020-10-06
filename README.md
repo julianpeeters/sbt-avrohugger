@@ -141,7 +141,7 @@ in `src/sbt-test` with `^ scripted sbt-avrohugger/*`, or, e.g. `scripted sbt-avr
 Credits
 -------
 
-`sbt-avrohugger` is based on [sbt-avro](https://github.com/cavorite/sbt-avro) by [Juan Manuel Caicedo](http://cavorite.com/), and depends on [avrohugger](https://github.com/julianpeeters/avrohugger).
+`sbt-avrohugger` is based on [sbt-avro](https://github.com/sbt/sbt-avro) originally developed by [Juan Manuel Caicedo](http://cavorite.com/), and depends on [avrohugger](https://github.com/julianpeeters/avrohugger).
 
 
 Contributors
