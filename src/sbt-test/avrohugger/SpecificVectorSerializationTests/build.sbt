@@ -12,7 +12,7 @@ name := "datatype-specific-vector-serializaton-tests"
 
 version := "0.4-SNAPSHOT"
 
-crossScalaVersions := Seq("2.11.12", "2.12.8", "2.13.1")
+crossScalaVersions := Seq("2.12.8", "2.13.1")
 
 scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Ywarn-value-discard")
 
