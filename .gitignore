@@ -17,3 +17,10 @@ project/plugins/project/
 .worksheet
 
 .idea/
+
+# Metals
+.metals
+.bsp
+.bloop
+.vscode
+*metals.sbt
