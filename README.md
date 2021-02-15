@@ -166,6 +166,7 @@ Contributors
 - [Andrew Gustafson](https://github.com/agustafson)
 - [Fede Fernández](https://github.com/fedefernandez)
 - [sullis](https://github.com/sullis)
+- [Jonas Grabber](https://github.com/jobegrabber)
 
 #### Fork away, just make sure the tests pass before you send a pull request.
 
