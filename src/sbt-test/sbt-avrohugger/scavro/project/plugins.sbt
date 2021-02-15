@@ -6,6 +6,4 @@
   else addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % pluginVersion)
 }
 
-resolvers += "sbt-plugin-releases" at "http://repo.scala-sbt.org/scalasbt/sbt-plugin-releases"
-
 addSbtPlugin("com.cavorite" % "sbt-avro-1-8" % "1.1.4")

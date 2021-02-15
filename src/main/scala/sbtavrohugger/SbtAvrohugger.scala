@@ -70,13 +70,10 @@ object SbtAvrohugger extends AutoPlugin {
       val scalaV = scalaVersion.value
       val customTypes = avroScalaCustomTypes.value
       val customNamespace = avroScalaCustomNamespace.value
-      val classPath = (unmanagedResources in Compile).value
-      val cl = ClasspathUtilities.makeLoader(
-        classPath,
-        (scalaInstance in Compile).value)
-      val newPathURL = classPath.map(_.toURI().toURL()).toArray
-      val classLoader = new URLClassLoader(newPathURL, cl)
-
+      val res = (resourceDirectory in Compile).value
+      val old = (scalaInstance in (Compile, compile)).value
+      val classLoader = new java.net.URLClassLoader(Array(res.toURI().toURL()), old.loader)
+      
       val cachedCompile = FileFunction.cached(
         cache / "avro",
         inStyle = FilesInfo.lastModified,
@@ -111,11 +108,10 @@ object SbtAvrohugger extends AutoPlugin {
       val scalaV = scalaVersion.value
       val scavroCustomTypes = avroScalaScavroCustomTypes.value
       val scavroCustomNamespace = avroScalaScavroCustomNamespace.value
-      val classPath = (unmanagedResources in Compile).value
-      val classLoader = ClasspathUtilities.makeLoader(
-        classPath,
-        (scalaInstance in Compile).value)
-
+      val res = (resourceDirectory in Compile).value
+      val old = (scalaInstance in (Compile, compile)).value
+      val classLoader = new java.net.URLClassLoader(Array(res.toURI().toURL()), old.loader)
+      
       val cachedCompile = FileFunction.cached(cache / "avro",
         inStyle = FilesInfo.lastModified,
         outStyle = FilesInfo.exists) { (in: Set[File]) =>
@@ -147,11 +143,10 @@ object SbtAvrohugger extends AutoPlugin {
       val scalaV = scalaVersion.value
       val specificCustomTypes = avroScalaSpecificCustomTypes.value
       val specificCustomNamespace = avroScalaSpecificCustomNamespace.value
-      val classPath = (unmanagedResources in Compile).value
-      val classLoader = ClasspathUtilities.makeLoader(
-        classPath,
-        (scalaInstance in Compile).value)
-
+      val res = (resourceDirectory in Compile).value
+      val old = (scalaInstance in (Compile, compile)).value
+      val classLoader = new java.net.URLClassLoader(Array(res.toURI().toURL()), old.loader)
+      
       val cachedCompile = FileFunction.cached(cache / "avro",
         inStyle = FilesInfo.lastModified,
         outStyle = FilesInfo.exists) { (in: Set[File]) =>
