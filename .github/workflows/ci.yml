@@ -22,4 +22,6 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
       - name: Run tests
+        run: sbt ++${{ matrix.scala }} test
+      - name: Run scripted tests
         run: sbt ++${{ matrix.scala }} scripted
