@@ -38,7 +38,7 @@ object StandardTestUtil extends Specification {
     val recordIter = records.iterator
     while (dataFileReader.hasNext) {
       sameRecord = dataFileReader.next(sameRecord)
-      record = recordIter.next
+      record = recordIter.next()
     }
     dataFileReader.close()
     sameRecord must ===(record)
