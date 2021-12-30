@@ -72,5 +72,40 @@ class StandardDefaultValuesSpec extends Specification {
       sameRecord.get("defaultEither") === 2
       sameRecord.get("defaultCoproduct") === 3
     }
+
+    "use full name when the field accessor is the same name as the field type" in {
+      val record = example.Room()
+      val recordSchemaString = """{"namespace":"example","name": "Room","type":"record","fields":[{"name":"door","default":"NORTH","type":{"name":"door","namespace":"example.types","type":"enum","symbols":["NORTH","SOUTH","EAST","WEST"]}}]}"""
+      val recordSchema = new Schema.Parser().parse(recordSchemaString)
+
+      val enumSchemaString = """{"type":"enum","name":"door","symbols":["NORTH","SOUTH","EAST","WEST"]}"""
+      val enumSchema = new Schema.Parser().parse(enumSchemaString)
+      val genericEnum = new GenericData.EnumSymbol(enumSchema, record.door.toString)
+      val genericRecord = new GenericData.Record(recordSchema)
+      genericRecord.put("door", genericEnum)
+    	
+      val records = List(genericRecord)
+      
+      val fileName = s"${records.head.getClass.getName}"
+      val fileEnding = "avro"
+      val file = File.createTempFile(fileName, fileEnding)
+      file.deleteOnExit()
+      StandardTestUtil.write(file, records)
+
+      var dummyRecord = new GenericDatumReader[GenericRecord]
+      val schema = new DataFileReader(file, dummyRecord).getSchema
+      val userDatumReader = new GenericDatumReader[GenericRecord](schema)
+      val dataFileReader = new DataFileReader[GenericRecord](file, userDatumReader)
+      // Adapted from: https://github.com/tackley/avrohugger-list-issue/blob/master/src/main/scala/net/tackley/Reader.scala
+      // This isn't great scala, but represents how org.apache.avro.mapred.AvroInputFormat
+      // (via org.apache.avro.file.DataFileStream) interacts with the StandardDatumReader.
+      var sameRecord: GenericRecord = null.asInstanceOf[GenericRecord]
+      while (dataFileReader.hasNext) {
+        sameRecord = dataFileReader.next(sameRecord)
+      }
+      dataFileReader.close()
+
+      sameRecord.get("door").toString === example.types.door.NORTH.toString
+    }
   }
 }

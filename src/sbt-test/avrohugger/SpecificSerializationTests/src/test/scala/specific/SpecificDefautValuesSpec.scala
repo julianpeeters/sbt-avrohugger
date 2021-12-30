@@ -41,6 +41,26 @@ class SpecificDefaultValuesSpec extends Specification {
       sameRecord.defaultMap === Map("Hello" -> "world", "Merry" -> "Christmas")
       sameRecord.byt === "\u00FF".getBytes
     }
+
+    "use full name when the field accessor is the same name as the field type" in {
+      val record = example.Room()
+      val records = List(record)
+      
+      val fileName = s"${records.head.getClass.getName}"
+      val fileEnding = "avro"
+      val file = File.createTempFile(fileName, fileEnding)
+      file.deleteOnExit()
+      SpecificTestUtil.write(file, records)
+      
+      val dummyRecord = new GenericDatumReader[GenericRecord]
+      val schema = new DataFileReader(file, dummyRecord).getSchema
+      val userDatumReader = new SpecificDatumReader[example.Room](schema)
+      val dataFileReader = new DataFileReader[example.Room](file, userDatumReader)
+      val sameRecord = dataFileReader.next
+
+      sameRecord.door === example.types.door.NORTH
+    }
+
   }
 
 }
