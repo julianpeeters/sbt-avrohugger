@@ -1,4 +1,4 @@
-sourceGenerators in Compile += (avroScalaGenerate in Compile).taskValue
+Compile / sourceGenerators += (Compile / avroScalaGenerate).taskValue
 
 organization := "com.julianpeeters"
 

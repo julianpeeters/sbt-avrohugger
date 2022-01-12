@@ -1,4 +1,4 @@
-sourceGenerators in Compile += (avroScalaGenerateSpecific in Compile).taskValue
+Compile / sourceGenerators += (Compile / avroScalaGenerateSpecific).taskValue
 
 organization := "com.julianpeeters"
 
@@ -10,7 +10,7 @@ crossScalaVersions := Seq("2.12.15", "2.13.8")
 
 scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Ywarn-value-discard")
 
-avroScalaSpecificCustomTypes in Compile := {
+Compile / avroScalaSpecificCustomTypes := {
   avrohugger.format.SpecificRecord.defaultTypes.copy(
     decimal = avrohugger.types.ScalaBigDecimal(Some(BigDecimal.RoundingMode.HALF_EVEN)))
 }

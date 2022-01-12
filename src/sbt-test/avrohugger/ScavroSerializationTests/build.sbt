@@ -8,16 +8,16 @@ crossScalaVersions := Seq("2.10.6", "2.11.11")
 
 scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Ywarn-value-discard")
 
-scalacOptions in Test ++= Seq("-Yrangepos")
+Test / scalacOptions ++= Seq("-Yrangepos")
 
-sourceGenerators in Compile += (avroScalaGenerateScavro in Compile).taskValue
+Compile / sourceGenerators += (Compile / avroScalaGenerateScavro).taskValue
 
-avroScalaScavroCustomTypes in Compile := {
+Compile / avroScalaScavroCustomTypes := {
   avrohugger.format.Scavro.defaultTypes.copy(
     array = avrohugger.types.ScalaList)
 }
 
-avroScalaScavroCustomNamespace in Compile := Map("model.v2" -> "scavromodelv2", "model" -> "scavromodel", "test" -> "scavrotest")
+Compile / avroScalaScavroCustomNamespace := Map("model.v2" -> "scavromodelv2", "model" -> "scavromodel", "test" -> "scavrotest")
 
 libraryDependencies ++= Seq(
   "org.oedura" %% "scavro" % "1.0.3",

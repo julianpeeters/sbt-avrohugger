@@ -1,6 +1,6 @@
 name := "specific-generation-test"
 
-sourceGenerators in Compile += (avroScalaGenerateSpecific in Compile).taskValue
+Compile / sourceGenerators += (Compile / avroScalaGenerateSpecific).taskValue
 
 scalaVersion := "2.12.15"
 

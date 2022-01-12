@@ -6,20 +6,20 @@ scalaVersion := "2.12.15"
 
 version := "0.1-SNAPSHOT"
 
-sourceGenerators in Compile += (avroScalaGenerate in Compile).taskValue
-sourceGenerators in Test += (avroScalaGenerate in Test).taskValue
+Compile / sourceGenerators += (Compile / avroScalaGenerate).taskValue
+Test / sourceGenerators += (Test / avroScalaGenerate).taskValue
 
-(avroScalaSource in Compile) := new java.io.File(s"${baseDirectory.value}/myoutputdir")
-(avroScalaSource in Test) := new java.io.File(s"${baseDirectory.value}/mytestoutputdir")
+(Compile / avroScalaSource) := new java.io.File(s"${baseDirectory.value}/myoutputdir")
+(Test / avroScalaSource) := new java.io.File(s"${baseDirectory.value}/mytestoutputdir")
 
-(avroSourceDirectories in Compile) += new java.io.File(s"${baseDirectory.value}/src/main/myavro")
-(avroSourceDirectories in Compile) += new java.io.File(s"${baseDirectory.value}/src/main/myavro2")
+(Compile / avroSourceDirectories) += new java.io.File(s"${baseDirectory.value}/src/main/myavro")
+(Compile / avroSourceDirectories) += new java.io.File(s"${baseDirectory.value}/src/main/myavro2")
 
-(avroSourceDirectories in Test) += new java.io.File(s"${baseDirectory.value}/src/test/avro2")
+(Test / avroSourceDirectories) += new java.io.File(s"${baseDirectory.value}/src/test/avro2")
 
-(avroScalaCustomNamespace in Compile) := Map("example"->"overridden", "example2"->"overridden2")
+(Compile / avroScalaCustomNamespace) := Map("example"->"overridden", "example2"->"overridden2")
 
-avroScalaCustomTypes in Compile := {
+Compile / avroScalaCustomTypes := {
   avrohugger.format.Standard.defaultTypes.copy(
     array = avrohugger.types.ScalaVector,
     union = avrohugger.types.OptionalShapelessCoproduct)

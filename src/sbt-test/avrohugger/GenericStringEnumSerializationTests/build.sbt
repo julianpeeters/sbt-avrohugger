@@ -1,6 +1,6 @@
-sourceGenerators in Compile += (avroScalaGenerate in Compile).taskValue
+Compile / sourceGenerators += (Compile / avroScalaGenerate).taskValue
 
-avroScalaCustomTypes in Compile := {
+Compile / avroScalaCustomTypes := {
   avrohugger.format.Standard.defaultTypes.copy(
     enum = avrohugger.types.EnumAsScalaString)
 }

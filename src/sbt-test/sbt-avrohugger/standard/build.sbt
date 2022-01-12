@@ -5,6 +5,6 @@ scalaVersion := "2.12.15"
 
 // exportJars := true
 
-sourceGenerators in Compile += (avroScalaGenerate in Compile).taskValue
+Compile / sourceGenerators += (Compile / avroScalaGenerate).taskValue
 
-avroSourceDirectories in Compile += (sourceDirectory in Compile).value / "avro2"
+Compile / avroSourceDirectories += (Compile / sourceDirectory).value / "avro2"

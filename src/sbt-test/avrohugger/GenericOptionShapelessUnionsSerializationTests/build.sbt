@@ -1,4 +1,4 @@
-sourceGenerators in Compile += (avroScalaGenerate in Compile).taskValue
+Compile / sourceGenerators += (Compile / avroScalaGenerate).taskValue
 
 organization := "com.julianpeeters"
 
@@ -16,7 +16,7 @@ libraryDependencies += "org.apache.avro" % "avro" % "1.9.1"
 
 libraryDependencies += "org.specs2" %% "specs2-core" % "4.6.0" % Test
 
-avroScalaCustomTypes in Compile := {
+Compile / avroScalaCustomTypes := {
   avrohugger.format.Standard.defaultTypes.copy(
     union = avrohugger.types.OptionShapelessCoproduct)
 }

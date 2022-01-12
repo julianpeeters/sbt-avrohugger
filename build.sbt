@@ -6,11 +6,11 @@ version := "2.0.0-RC25-SHAPSHOT"
 
 enablePlugins(SbtPlugin)
 
-(fork in run) := true
+(run / fork) := true
 
-(connectInput in run) := true
+(run / connectInput) := true
 
-(outputStrategy in run) := Some(StdoutOutput)
+(run / outputStrategy) := Some(StdoutOutput)
 
 scalaVersion := "2.12.15"
 crossSbtVersions := Seq(sbtVersion.value)
@@ -23,7 +23,7 @@ libraryDependencies ++= Seq(
   "org.specs2" %% "specs2-core" % "3.8.6" % "test")
 
 publishMavenStyle := true
-publishArtifact in Test := false
+Test / publishArtifact := false
 publishTo := {
   val nexus = "https://oss.sonatype.org/"
   if (version.value.trim.endsWith("SNAPSHOT"))

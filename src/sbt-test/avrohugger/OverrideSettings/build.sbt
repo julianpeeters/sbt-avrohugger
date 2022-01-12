@@ -1,8 +1,8 @@
-sourceGenerators in Compile += (avroScalaGenerateSpecific in Compile).taskValue
+Compile / sourceGenerators += (Compile / avroScalaGenerateSpecific).taskValue
 
-avroSpecificScalaSource in Compile := new java.io.File(s"${baseDirectory.value}/myoutputdir")
+Compile / avroSpecificScalaSource := new java.io.File(s"${baseDirectory.value}/myoutputdir")
 
-avroScalaSpecificCustomNamespace in Compile := Map("example"->"overridden")
+Compile / avroScalaSpecificCustomNamespace := Map("example"->"overridden")
 
 organization := "com.julianpeeters"
 

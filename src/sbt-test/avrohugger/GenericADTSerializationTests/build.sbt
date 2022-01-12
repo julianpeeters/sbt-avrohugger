@@ -1,4 +1,4 @@
-sourceGenerators in Compile += (avroScalaGenerate in Compile).taskValue
+Compile / sourceGenerators += (Compile / avroScalaGenerate).taskValue
 
 organization := "com.julianpeeters"
 
@@ -10,7 +10,7 @@ crossScalaVersions := Seq("2.12.15", "2.13.8")
 
 scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Ywarn-value-discard")
 
-avroScalaCustomTypes in Compile := {
+Compile / avroScalaCustomTypes := {
   avrohugger.format.Standard.defaultTypes.copy(
     protocol = avrohugger.types.ScalaADT)
 }

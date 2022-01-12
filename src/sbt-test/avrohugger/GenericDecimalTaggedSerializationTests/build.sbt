@@ -1,4 +1,4 @@
-sourceGenerators in Compile += (avroScalaGenerate in Compile).taskValue
+Compile / sourceGenerators += (Compile / avroScalaGenerate).taskValue
 
 organization := "com.julianpeeters"
 
@@ -18,7 +18,7 @@ libraryDependencies += "com.chuusai" %% "shapeless" % "2.3.3"
 
 libraryDependencies += "org.specs2" %% "specs2-core" % "4.6.0" % Test
 
-avroScalaCustomTypes in Compile := {
+Compile / avroScalaCustomTypes := {
   avrohugger.format.Standard.defaultTypes.copy(
     decimal = avrohugger.types.ScalaBigDecimalWithPrecision(None))
 }

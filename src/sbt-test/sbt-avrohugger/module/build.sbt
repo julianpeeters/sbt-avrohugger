@@ -1,7 +1,7 @@
 
 
 
-// sourceGenerators in Compile += (avroScalaGenerate in Compile).taskValue
+// Compile / sourceGenerators += (Compile / avroScalaGenerate).taskValue
 
 lazy val module = (project in file("."))
   .settings(

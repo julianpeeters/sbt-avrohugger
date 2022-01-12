@@ -38,7 +38,7 @@ The following tasks and settings are automatically imported to your build:
 
 Wire the tasks into `compile` in your `build.sbt`:
 
-e.g.: `sourceGenerators in Compile += (avroScalaGenerate in Compile).taskValue`
+e.g.: `Compile / sourceGenerators += (Compile / avroScalaGenerate).taskValue`
 
 By [default](https://github.com/julianpeeters/sbt-avrohugger#settings), the plugin looks Avro files in `src/main/avro` and generates Scala files in `$sourceManaged`, e.g., `target/scala-2.12/src_managed/main/compiled_avro/` (to choose different locations, please see [Changing Settings](https://github.com/julianpeeters/sbt-avrohugger#changing-settings)).
 
@@ -46,7 +46,7 @@ By [default](https://github.com/julianpeeters/sbt-avrohugger#settings), the plug
 
 And/Or wire the tasks into the `Test` config, putting Avro files in `src/test/avro`:
 
-e.g. `sourceGenerators in Test += (avroScalaGenerate in Test).taskValue`
+e.g. `Test / sourceGenerators += (Test / avroScalaGenerate).taskValue`
 
 #### Manually
 
@@ -57,7 +57,7 @@ To run the tasks manually, please see [Changing Settings](https://github.com/jul
 
 To enable file-watching for avro files, e.g. in `~compile`, use:
 
-e.g.: `watchSources ++= ((avroSourceDirectory in Compile).value ** "*.avdl").get`
+e.g.: `watchSources ++= ((Compile / avroSourceDirectory).value ** "*.avdl").get`
 
 
 ### Settings:
@@ -101,13 +101,13 @@ Settings for each format's task can be extended/overridden by adding lines to yo
 E.g., to change how classes of `SpecificRecords` format are generated, use:
 
 ```scala    
-avroSpecificSourceDirectories in Compile += (sourceDirectory in Compile).value / "myavro"
+Compile / avroSpecificSourceDirectories += (Compile / sourceDirectory).value / "myavro"
 
-avroSpecificScalaSource in Compile := new java.io.File("myScalaSource")
+Compile / avroSpecificScalaSource := new java.io.File("myScalaSource")
 
-avroScalaSpecificCustomNamespace in Compile := Map("example"->"overridden")
+Compile / avroScalaSpecificCustomNamespace := Map("example"->"overridden")
 
-avroScalaSpecificCustomTypes in Compile := {
+Compile / avroScalaSpecificCustomTypes := {
   avrohugger.format.SpecificRecord.defaultTypes.copy(
     array = avrohugger.types.ScalaVector)
 }

@@ -1,6 +1,6 @@
-sourceGenerators in Compile += (avroScalaGenerateSpecific in Compile).taskValue
+Compile / sourceGenerators += (Compile / avroScalaGenerateSpecific).taskValue
 
-avroScalaSpecificCustomTypes in Compile := {
+Compile / avroScalaSpecificCustomTypes := {
   avrohugger.format.SpecificRecord.defaultTypes.copy(
     array = avrohugger.types.ScalaVector,
     date = avrohugger.types.JavaSqlDate,
