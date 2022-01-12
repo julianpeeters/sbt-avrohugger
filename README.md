@@ -105,7 +105,7 @@ Compile / avroSpecificSourceDirectories += (Compile / sourceDirectory).value / "
 
 Compile / avroSpecificScalaSource := new java.io.File("myScalaSource")
 
-Compile / avroScalaSpecificCustomNamespace := Map("example"->"overridden")
+Compile / avroScalaSpecificCustomNamespace := Map("example"->"overridden", "test.*" -> "wildcarded")
 
 Compile / avroScalaSpecificCustomTypes := {
   avrohugger.format.SpecificRecord.defaultTypes.copy(
@@ -167,6 +167,7 @@ Contributors
 - [Fede Fernández](https://github.com/fedefernandez)
 - [sullis](https://github.com/sullis)
 - [Jonas Grabber](https://github.com/jobegrabber)
+- [natefitzgerald](https://github.com/natefitzgerald)
 
 #### Fork away, just make sure the tests pass before you send a pull request.
 
