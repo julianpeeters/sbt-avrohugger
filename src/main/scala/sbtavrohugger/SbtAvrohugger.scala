@@ -67,27 +67,31 @@ object SbtAvrohugger extends AutoPlugin {
       val targetDir = avroScalaSource.value
     
       val out = streams.value
-      val scalaV = scalaVersion.value
+      val scalaV = scalaVersion.value match {
+        case x if x.startsWith("2.11") => "2.11"
+        case x if x.startsWith("2.12") => "2.12"
+        case x if x.startsWith("2.13") => "2.13"
+        case x if x.startsWith("3.0") => "3.0"
+        case x if x.startsWith("3.1") => "3.1"
+      }
       val customTypes = avroScalaCustomTypes.value
       val customNamespace = avroScalaCustomNamespace.value
       val res = (resourceDirectory in Compile).value
       val old = (scalaInstance in (Compile, compile)).value
       val classLoader = new java.net.URLClassLoader(Array(res.toURI().toURL()), old.loader)
-      
+      val isNumberOfFieldsRestricted = scalaV == "2.10"
+      val gen = new Generator(
+        format = Standard,
+        avroScalaCustomTypes = Some(customTypes),
+        avroScalaCustomNamespace = customNamespace,
+        restrictedFieldNumber = isNumberOfFieldsRestricted,
+        classLoader,
+        scalaV)
       val cachedCompile = FileFunction.cached(
         cache / "avro",
         inStyle = FilesInfo.lastModified,
         outStyle = FilesInfo.exists
-      ) { (in: Set[File]) =>
-          val isNumberOfFieldsRestricted = scalaV == "2.10"
-          val gen = new Generator(
-            format = Standard,
-            avroScalaCustomTypes = Some(customTypes),
-            avroScalaCustomNamespace = customNamespace,
-            restrictedFieldNumber = isNumberOfFieldsRestricted,
-            classLoader)
-          FileWriter.generateCaseClasses(gen, srcDirs, targetDir, out.log)
-        }
+      ) { (in: Set[File]) => FileWriter.generateCaseClasses(gen, srcDirs, targetDir, out.log) }
         
       cachedCompile((srcDirs ** "*.av*").get.toSet).toSeq
     }
@@ -105,25 +109,29 @@ object SbtAvrohugger extends AutoPlugin {
       val srcDirs = avroScavroSourceDirectories.value
       val targetDir = avroScavroScalaSource.value
       val out = streams.value
-      val scalaV = scalaVersion.value
+      val scalaV = scalaVersion.value match {
+        case x if x.startsWith("2.11") => "2.11"
+        case x if x.startsWith("2.12") => "2.12"
+        case x if x.startsWith("2.13") => "2.13"
+        case x if x.startsWith("3.0") => "3.0"
+        case x if x.startsWith("3.1") => "3.1"
+      }
       val scavroCustomTypes = avroScalaScavroCustomTypes.value
       val scavroCustomNamespace = avroScalaScavroCustomNamespace.value
       val res = (resourceDirectory in Compile).value
       val old = (scalaInstance in (Compile, compile)).value
       val classLoader = new java.net.URLClassLoader(Array(res.toURI().toURL()), old.loader)
-      
+      val isNumberOfFieldsRestricted = scalaV == "2.10"
+      val gen = new Generator(
+        Scavro,
+        Some(scavroCustomTypes),
+        scavroCustomNamespace,
+        isNumberOfFieldsRestricted,
+        classLoader,
+        scalaV)
       val cachedCompile = FileFunction.cached(cache / "avro",
         inStyle = FilesInfo.lastModified,
-        outStyle = FilesInfo.exists) { (in: Set[File]) =>
-          val isNumberOfFieldsRestricted = scalaV == "2.10"
-          val gen = new Generator(
-            Scavro,
-            Some(scavroCustomTypes),
-            scavroCustomNamespace,
-            isNumberOfFieldsRestricted,
-            classLoader)
-          FileWriter.generateCaseClasses(gen, srcDirs, targetDir, out.log)
-        }
+        outStyle = FilesInfo.exists) { (in: Set[File]) => FileWriter.generateCaseClasses(gen, srcDirs, targetDir, out.log) }
       cachedCompile((srcDirs ** "*.av*").get.toSet).toSeq
     }
   )
@@ -140,25 +148,29 @@ object SbtAvrohugger extends AutoPlugin {
       val srcDirs = avroSpecificSourceDirectories.value
       val targetDir = avroSpecificScalaSource.value
       val out = streams.value
-      val scalaV = scalaVersion.value
+      val scalaV = scalaVersion.value match {
+        case x if x.startsWith("2.11") => "2.11"
+        case x if x.startsWith("2.12") => "2.12"
+        case x if x.startsWith("2.13") => "2.13"
+        case x if x.startsWith("3.0") => "3.0"
+        case x if x.startsWith("3.1") => "3.1"
+      }
       val specificCustomTypes = avroScalaSpecificCustomTypes.value
       val specificCustomNamespace = avroScalaSpecificCustomNamespace.value
       val res = (resourceDirectory in Compile).value
       val old = (scalaInstance in (Compile, compile)).value
       val classLoader = new java.net.URLClassLoader(Array(res.toURI().toURL()), old.loader)
-      
+      val isNumberOfFieldsRestricted = scalaV == "2.10"
+      val gen = new Generator(
+        SpecificRecord,
+        Some(specificCustomTypes),
+        specificCustomNamespace,
+        isNumberOfFieldsRestricted,
+        classLoader,
+        scalaV)
       val cachedCompile = FileFunction.cached(cache / "avro",
         inStyle = FilesInfo.lastModified,
-        outStyle = FilesInfo.exists) { (in: Set[File]) =>
-          val isNumberOfFieldsRestricted = scalaV == "2.10"
-          val gen = new Generator(
-            SpecificRecord,
-            Some(specificCustomTypes),
-            specificCustomNamespace,
-            isNumberOfFieldsRestricted,
-            classLoader)
-          FileWriter.generateCaseClasses(gen, srcDirs, targetDir, out.log)
-        }
+        outStyle = FilesInfo.exists) { (in: Set[File]) => FileWriter.generateCaseClasses(gen, srcDirs, targetDir, out.log) }
       cachedCompile((srcDirs ** "*.av*").get.toSet).toSeq
     }
   )
