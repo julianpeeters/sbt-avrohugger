@@ -19,7 +19,7 @@ scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Ywarn-value-di
 libraryDependencies ++= Seq(
   "com.julianpeeters" %% "avrohugger-core" % "1.0.0-RC26-SNAPSHOT",
   "com.julianpeeters" %% "avrohugger-filesorter" % "1.0.0-RC26-SNAPSHOT",
-  "io.spray" %% "spray-json" % "1.3.2",
+  "io.spray" %% "spray-json" % "1.3.6",
   "org.specs2" %% "specs2-core" % "3.8.6" % "test")
 
 publishMavenStyle := true
