@@ -22,7 +22,11 @@ class StandardDefaultValuesSpec extends Specification {
       val embeddedGenericRecord = new GenericData.Record(embeddedSchema)
       embeddedGenericRecord.put("inner", record.embedded.inner)
 
-      val recordSchemaString = """{"type":"record","name":"DefaultTest","namespace":"test","fields":[{"name":"suit","type":{"type":"enum","name":"DefaultEnum","symbols":["SPADES","DIAMONDS","CLUBS","HEARTS"]},"default":"SPADES"},{"name":"number","type":"int","default":0},{"name":"str","type":"string","default":"str"},{"name":"optionString","type":["null","string"],"default":null},{"name":"optionStringValue","type":["string","null"],"default":"default"},{"name":"embedded","type":{"type":"record","name":"Embedded","fields":[{"name":"inner","type":"int"}]},"default":{"inner":1}},{"name":"defaultArray","type":{"type":"array","items":"int"},"default":[1,3,4,5]},{"name":"optionalEnum","type":["null","DefaultEnum"],"default":null},{"name":"defaultMap","type":{"type":"map","values":"string"},"default":{"Hello":"world","Merry":"Christmas"}},{"name":"byt","type":"bytes","default":"ÿ"}, {"name":"defaultEither","type": ["int", "string"],"default":2}, {"name":"defaultCoproduct","type": ["int", "string", "boolean"],"default":3}]}"""
+      val fixedSchemaString = """{"type":"fixed","name":"fix1","size":2},"default":"ÿ"}"""
+      val fixedSchema = new Schema.Parser().parse(fixedSchemaString)
+      val genericFixed = new GenericData.Fixed(fixedSchema, "ÿ".getBytes)
+
+      val recordSchemaString = """{"type":"record","name":"DefaultTest","namespace":"test","fields":[{"name":"suit","type":{"type":"enum","name":"DefaultEnum","symbols":["SPADES","DIAMONDS","CLUBS","HEARTS"]},"default":"SPADES"},{"name":"number","type":"int","default":0},{"name":"str","type":"string","default":"str"},{"name":"optionString","type":["null","string"],"default":null},{"name":"optionStringValue","type":["string","null"],"default":"default"},{"name":"embedded","type":{"type":"record","name":"Embedded","fields":[{"name":"inner","type":"int"}]},"default":{"inner":1}},{"name":"defaultArray","type":{"type":"array","items":"int"},"default":[1,3,4,5]},{"name":"optionalEnum","type":["null","DefaultEnum"],"default":null},{"name":"defaultMap","type":{"type":"map","values":"string"},"default":{"Hello":"world","Merry":"Christmas"}},{"name":"byt","type":"bytes","default":"ÿ"},{"name":"fx", "type":{"type":"fixed","name":"fix1","size":2},"default":"ÿ"}, {"name":"defaultEither","type": ["int", "string"],"default":2}, {"name":"defaultCoproduct","type": ["int", "string", "boolean"],"default":3}]}"""
       val recordSchema = new Schema.Parser().parse(recordSchemaString)
       
       val genericRecord = new GenericData.Record(recordSchema)
@@ -36,6 +40,7 @@ class StandardDefaultValuesSpec extends Specification {
       genericRecord.put("optionalEnum", record.optionalEnum.getOrElse(null))
       genericRecord.put("defaultMap", record.defaultMap.asJava)
       genericRecord.put("byt", java.nio.ByteBuffer.wrap(record.byt))
+      genericRecord.put("fx", genericFixed)
       genericRecord.put("defaultEither", record.defaultEither.fold(identity, identity))
       genericRecord.put("defaultCoproduct", record.defaultCoproduct.select[Int].getOrElse(0))
       val records = List(genericRecord)
@@ -69,6 +74,7 @@ class StandardDefaultValuesSpec extends Specification {
       sameRecord.get("optionalEnum") === null
       sameRecord.get("defaultMap").toString === "{Hello=world, Merry=Christmas}"
       sameRecord.get("byt") === java.nio.ByteBuffer.wrap("ÿ".getBytes)
+      sameRecord.get("fx").asInstanceOf[GenericData.Fixed].bytes === "ÿ".getBytes
       sameRecord.get("defaultEither") === 2
       sameRecord.get("defaultCoproduct") === 3
     }
