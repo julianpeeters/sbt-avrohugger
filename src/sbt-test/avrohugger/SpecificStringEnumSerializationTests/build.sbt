@@ -16,7 +16,7 @@ Compile / avroScalaSpecificCustomTypes := {
     array = avrohugger.types.ScalaArray)
 }
 
-libraryDependencies += "org.apache.avro" % "avro" % "1.9.1"
+libraryDependencies += "org.apache.avro" % "avro" % "1.11.0"
 
 libraryDependencies += "org.apache.avro" % "avro-ipc-netty" % "1.9.1"
 
