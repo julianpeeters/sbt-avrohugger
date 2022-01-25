@@ -11,6 +11,8 @@ class SpecificPrimitivesSpec extends Specification {
   val clock = Clock.fixed(instant, zone)
   private val bigDecimal1 = BigDecimal(10.0)
   private val bigDecimal2 = BigDecimal(10.000000001)
+  private val bigDecimal3 = BigDecimal(0.1)  
+  private val bigDecimal4 = BigDecimal(0.2)  
 
   // java.time.Instant.MAX is a datetime so large that, expressed in milliseconds,
   // it exceeds the maximum Long Value available.
@@ -90,8 +92,8 @@ class SpecificPrimitivesSpec extends Specification {
 
   "A case class with a `logicalType` fields from .avsc" should {
     "deserialize correctly" in {
-      val record1 = LogicalSc(bigDecimal1, topMillisInstant, LocalDate.now(clock), UUID.randomUUID())
-      val record2 = LogicalSc(bigDecimal2, topMillisInstant, LocalDate.now(clock), UUID.randomUUID())
+      val record1 = LogicalSc(bigDecimal1, test.fxType(bigDecimal3), topMillisInstant, LocalDate.now(clock), UUID.randomUUID())
+      val record2 = LogicalSc(bigDecimal2, test.fxType(bigDecimal4), topMillisInstant, LocalDate.now(clock), UUID.randomUUID())
       val records = List(record1, record2)
       SpecificTestUtil.verifyWriteAndRead(records)
     }

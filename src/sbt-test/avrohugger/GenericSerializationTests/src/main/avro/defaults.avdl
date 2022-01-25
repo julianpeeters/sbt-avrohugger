@@ -10,7 +10,7 @@ protocol Defaults {
     int inner;
   }
 
-  fixed fix1(16);
+  fixed fix1(1);
 
   record DefaultTest {
     DefaultEnum suit = "SPADES";

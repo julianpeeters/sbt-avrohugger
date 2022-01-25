@@ -10,6 +10,8 @@ protocol Defaults {
     int inner;
   }
 
+  fixed fix1(2);
+
   record DefaultTest {
     DefaultEnum suit = "SPADES";
     int number = 0;
@@ -21,5 +23,6 @@ protocol Defaults {
     union {null, DefaultEnum} optionalEnum = null;
     map<string> defaultMap = {"Hello" : "world", "Merry" : "Christmas"};
     bytes byt = "\u00FF";
+    fix1 fx;
   }
 }

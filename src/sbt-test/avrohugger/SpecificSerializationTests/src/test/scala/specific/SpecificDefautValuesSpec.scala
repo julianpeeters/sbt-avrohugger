@@ -15,7 +15,9 @@ class SpecificDefaultValuesSpec extends Specification {
 
   "A case class with default values" should {
     "deserialize correctly" in {
-      val record = DefaultTest()
+      val fxValue = fix1()
+      fxValue.bytes("\u00FF".getBytes)
+      val record = DefaultTest(fx = fxValue)
       val records = List(record)
       
       val fileName = s"${records.head.getClass.getName}"
@@ -40,6 +42,7 @@ class SpecificDefaultValuesSpec extends Specification {
       sameRecord.optionalEnum === None
       sameRecord.defaultMap === Map("Hello" -> "world", "Merry" -> "Christmas")
       sameRecord.byt === "\u00FF".getBytes
+      sameRecord.fx.bytes === "\u00FF".getBytes
     }
 
     "use full name when the field accessor is the same name as the field type" in {

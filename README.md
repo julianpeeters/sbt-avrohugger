@@ -116,6 +116,7 @@ Compile / avroScalaSpecificCustomTypes := {
 * `record` can be assigned to `ScalaCaseClass` and `ScalaCaseClassWithSchema` (with schema in a companion object)
 * `array` can be assigned to `ScalaSeq`, `ScalaArray`, `ScalaList`, and `ScalaVector`
 * `enum` can be assigned to `JavaEnum`, `ScalaCaseObjectEnum`, `EnumAsScalaString`, and `ScalaEnumeration`
+* `fixed` can be assigned to , `ScalaCaseClassWrapper` and `ScalaCaseClassWrapperWithSchema`(with schema in a companion object)
 * `union` can be assigned to `OptionEitherShapelessCoproduct` and `OptionalShapelessCoproduct`
 * `int`, `long`, `float`, `double` can be assigned to `ScalaInt`, `ScalaLong`, `ScalaFloat`, `ScalaDouble`
 * `date` logical type can be assigned to `JavaTimeLocalDate` and `JavaSqlDate`

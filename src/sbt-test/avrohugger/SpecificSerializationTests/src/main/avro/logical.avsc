@@ -13,6 +13,18 @@
       }
     },
     {
+      "name": "fxField",
+      "type": {
+        "type": "fixed",
+        "namespace": "test",
+        "name": "fxType",
+        "size": 2,
+        "logicalType": "decimal",
+        "precision": 2,
+        "scale": 1
+      }
+    },
+    {
       "name": "ts",
       "type": {
         "type": "long",
