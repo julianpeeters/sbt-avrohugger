@@ -1,0 +1,1 @@
+{"type":"record","name":"BinarySc","namespace":"test","fields":[{"name":"data","type":"bytes"}]}

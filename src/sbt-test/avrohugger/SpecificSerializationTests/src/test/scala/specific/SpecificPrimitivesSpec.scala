@@ -1,3 +1,4 @@
+import java.io.{ByteArrayInputStream, ByteArrayOutputStream, ObjectInputStream, ObjectOutputStream}
 import java.time._
 import java.util.UUID
 
@@ -105,6 +106,24 @@ class SpecificPrimitivesSpec extends Specification {
       val record2 = AvroTypeProviderTest69("hello galaxy".getBytes)
       val records = List(record1, record2)
       SpecificTestUtil.verifyWriteAndRead(records)
+    }
+  }
+
+  "A Specific Generator" should {
+    "generate classes that are truly Externalizable" in {
+      val record = BinarySc(Array(1.toByte, 2.toByte, 3.toByte, 4.toByte))
+
+      val baos = new ByteArrayOutputStream()
+      val oos = new ObjectOutputStream(baos)
+      oos.writeObject(record)
+      oos.close()
+
+      val bais = new ByteArrayInputStream(baos.toByteArray)
+      val ois = new ObjectInputStream(bais)
+      val deserializedRecord = ois.readObject()
+      ois.close()
+
+      record === deserializedRecord
     }
   }
   
