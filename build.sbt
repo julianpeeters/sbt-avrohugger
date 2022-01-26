@@ -1,40 +1,36 @@
-name := "sbt-avrohugger"
-organization := "com.julianpeeters"
-description := "Sbt plugin for compiling Avro to Scala"
-
-version := "2.0.0-RC27"
+ThisBuild / organization := "com.julianpeeters"
+ThisBuild / description := "Sbt plugin for compiling Avro to Scala"
+ThisBuild / version := "2.0.0-RC29"
 
 enablePlugins(SbtPlugin)
 
-(run / fork) := true
+(Global / run / fork) := true
+(Global / run / connectInput) := true
+(Global / run / outputStrategy) := Some(StdoutOutput)
 
-(run / connectInput) := true
+ThisBuild / scalaVersion := "2.12.15"
+ThisBuild / crossSbtVersions := Seq(sbtVersion.value)
+ThisBuild / scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Ywarn-value-discard")
 
-(run / outputStrategy) := Some(StdoutOutput)
-
-scalaVersion := "2.12.15"
-crossSbtVersions := Seq(sbtVersion.value)
-scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Ywarn-value-discard")
-
-libraryDependencies ++= Seq(
-  "com.julianpeeters" %% "avrohugger-core" % "1.0.0-RC27",
-  "com.julianpeeters" %% "avrohugger-filesorter" % "1.0.0-RC27",
+ThisBuild / libraryDependencies ++= Seq(
+  "com.julianpeeters" %% "avrohugger-core" % "1.0.0-RC29",
+  "com.julianpeeters" %% "avrohugger-filesorter" % "1.0.0-RC29",
   "io.spray" %% "spray-json" % "1.3.6",
   "org.specs2" %% "specs2-core" % "3.8.6" % "test")
 
-publishMavenStyle := true
+ThisBuild / publishMavenStyle := true
 Test / publishArtifact := false
-publishTo := {
+ThisBuild / publishTo := {
   val nexus = "https://oss.sonatype.org/"
   if (version.value.trim.endsWith("SNAPSHOT"))
     Some("snapshots" at nexus + "content/repositories/snapshots")
   else
     Some("releases" at nexus + "service/local/staging/deploy/maven2")
 }
-pomIncludeRepository := { _ => false }
-licenses := Seq("Apache 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0"))
-homepage := Some(url("https://github.com/julianpeeters/sbt-avrohugger"))
-pomExtra := (
+ThisBuild / pomIncludeRepository := { _ => false }
+ThisBuild / licenses := Seq("Apache 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0"))
+ThisBuild / homepage := Some(url(s"https://github.com/julianpeeters/${name.value}"))
+ThisBuild / pomExtra := (
   <scm>
     <url>git://github.com/julianpeeters/sbt-avrohugger.git</url>
     <connection>scm:git://github.com/julianpeeters/sbt-avrohugger.git</connection>
@@ -47,7 +43,7 @@ pomExtra := (
     </developer>
   </developers>)
 
-scriptedLaunchOpts := { scriptedLaunchOpts.value ++
+ThisBuild / scriptedLaunchOpts := { scriptedLaunchOpts.value ++
   Seq("-Xmx1024M", "-Dplugin.version=" + version.value)
 }
-scriptedBufferLog := false
+ThisBuild / scriptedBufferLog := false
