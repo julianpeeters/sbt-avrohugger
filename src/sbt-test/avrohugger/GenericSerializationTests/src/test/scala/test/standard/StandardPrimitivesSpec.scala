@@ -95,6 +95,22 @@ class StandardPrimitivesSpec extends Specification {
     }
   }
 
+  "A case class with a reserved word for a field name" should {
+    "serialize correctly" in {
+      val format = RecordFormat[Test]
+
+      val schema = format.to(Test(true, true)).getSchema
+      val record1 = new GenericData.Record(schema)
+      record1.put("public", true)
+      record1.put("protected", true)
+      val record2 = new GenericData.Record(schema)
+      record2.put("public", false)
+      record2.put("protected", false)
+
+      StandardTestUtil.verifyWriteAndRead(List(record1, record2))
+    }
+  }
+
   // java.time.Instant.MAX is a datetime so large that, expressed in milliseconds,
   // it exceeds the maximum Long Value available.
   private val topMillisInstant: Instant = Instant.ofEpochMilli(Long.MaxValue)
