@@ -15,7 +15,7 @@ Install the plugin (compatible with sbt 1.3+)
 Add the following lines to the file ``myproject/project/plugins.sbt`` in your
 project directory:
 
-    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "2.0.0-RC30")
+    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "2.0.0-RC31")
     
     
 _NOTE:_ On **Nexus**, please set nexus proxy layout to `permissive` in to resolve artifacts with a sbt-version suffixes
@@ -170,6 +170,7 @@ Contributors
 - [Jonas Grabber](https://github.com/jobegrabber)
 - [natefitzgerald](https://github.com/natefitzgerald)
 - [Alexandre Bertails](https://github.com/betehess)
+- [mcenkar](https://github.com/mcenkar)
 
 #### Fork away, just make sure the tests pass before you send a pull request.
 
