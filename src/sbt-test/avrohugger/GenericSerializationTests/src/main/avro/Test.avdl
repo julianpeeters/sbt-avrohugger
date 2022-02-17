@@ -1,5 +1,6 @@
 protocol test {
   record Test {
     boolean `public`;
+    boolean protected;
   }
 }
