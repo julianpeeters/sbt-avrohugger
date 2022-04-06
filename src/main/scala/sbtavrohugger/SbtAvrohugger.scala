@@ -62,7 +62,7 @@ object SbtAvrohugger extends AutoPlugin {
     avroScalaCustomTypes          := Standard.defaultTypes,
     avroScalaGenerate / logLevel := (logLevel?? Level.Info).value,
     avroScalaGenerate := {
-      val cache = target.value
+      val cache = crossTarget.value
       val srcDirs = avroSourceDirectories.value
       val targetDir = avroScalaSource.value
     
@@ -105,7 +105,7 @@ object SbtAvrohugger extends AutoPlugin {
     avroScalaScavroCustomNamespace := Map.empty[String, String],
     avroScalaGenerateScavro / logLevel  := (logLevel?? Level.Info).value,
     avroScalaGenerateScavro := {
-      val cache = target.value
+      val cache = crossTarget.value
       val srcDirs = avroScavroSourceDirectories.value
       val targetDir = avroScavroScalaSource.value
       val out = streams.value
@@ -146,7 +146,7 @@ object SbtAvrohugger extends AutoPlugin {
     avroScalaSpecificCustomNamespace := Map.empty[String, String],
     avroScalaGenerateSpecific / logLevel := (logLevel?? Level.Info).value,
     avroScalaGenerateSpecific := {
-      val cache = target.value
+      val cache = crossTarget.value
       val srcDirs = avroSpecificSourceDirectories.value
       val targetDir = avroSpecificScalaSource.value
       val out = streams.value
