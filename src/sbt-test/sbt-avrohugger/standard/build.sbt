@@ -1,7 +1,7 @@
 
 name := "standard-generation-test"
 
-scalaVersion := "2.12.16"
+scalaVersion := "2.12.17"
 
 // exportJars := true
 

@@ -52,8 +52,10 @@ object SbtAvrohugger extends AutoPlugin {
     
   override lazy val projectSettings: Seq[Def.Setting[_]] =
     inConfig(Compile)(baseSettings) ++
-    inConfig(Test)(baseSettings) 
-    
+    inConfig(Test)(baseSettings)
+
+  val majMinV = """(\d+.\d+).*""".r
+
   // Standard Format
   lazy val avroSettings: Seq[Def.Setting[_]] = Seq(
     avroScalaSource               := sourceManaged.value / "compiled_avro",
@@ -65,15 +67,8 @@ object SbtAvrohugger extends AutoPlugin {
       val cache = crossTarget.value
       val srcDirs = avroSourceDirectories.value
       val targetDir = avroScalaSource.value
-    
       val out = streams.value
-      val scalaV = scalaVersion.value match {
-        case x if x.startsWith("2.11") => "2.11"
-        case x if x.startsWith("2.12") => "2.12"
-        case x if x.startsWith("2.13") => "2.13"
-        case x if x.startsWith("3.0") => "3.0"
-        case x if x.startsWith("3.1") => "3.1"
-      }
+      val majMinV(scalaV) = scalaVersion.value
       val customTypes = avroScalaCustomTypes.value
       val customNamespace = avroScalaCustomNamespace.value
       val res = (Compile / resourceDirectory).value
@@ -109,13 +104,7 @@ object SbtAvrohugger extends AutoPlugin {
       val srcDirs = avroScavroSourceDirectories.value
       val targetDir = avroScavroScalaSource.value
       val out = streams.value
-      val scalaV = scalaVersion.value match {
-        case x if x.startsWith("2.11") => "2.11"
-        case x if x.startsWith("2.12") => "2.12"
-        case x if x.startsWith("2.13") => "2.13"
-        case x if x.startsWith("3.0") => "3.0"
-        case x if x.startsWith("3.1") => "3.1"
-      }
+      val majMinV(scalaV) = scalaVersion.value
       val scavroCustomTypes = avroScalaScavroCustomTypes.value
       val scavroCustomNamespace = avroScalaScavroCustomNamespace.value
       val res = (Compile / resourceDirectory).value
@@ -150,13 +139,7 @@ object SbtAvrohugger extends AutoPlugin {
       val srcDirs = avroSpecificSourceDirectories.value
       val targetDir = avroSpecificScalaSource.value
       val out = streams.value
-      val scalaV = scalaVersion.value match {
-        case x if x.startsWith("2.11") => "2.11"
-        case x if x.startsWith("2.12") => "2.12"
-        case x if x.startsWith("2.13") => "2.13"
-        case x if x.startsWith("3.0") => "3.0"
-        case x if x.startsWith("3.1") => "3.1"
-      }
+      val majMinV(scalaV) = scalaVersion.value
       val specificCustomTypes = avroScalaSpecificCustomTypes.value
       val specificCustomNamespace = avroScalaSpecificCustomNamespace.value
       val res = (Compile / resourceDirectory).value
