@@ -1,6 +1,6 @@
 ThisBuild / organization := "com.julianpeeters"
 ThisBuild / description := "Sbt plugin for compiling Avro to Scala"
-ThisBuild / version := "2.3.0-SNAPSHOT"
+ThisBuild / version := "2.3.0"
 
 enablePlugins(SbtPlugin)
 

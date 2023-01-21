@@ -15,7 +15,7 @@ Install the plugin (compatible with sbt 1.3+)
 Add the following lines to the file ``myproject/project/plugins.sbt`` in your
 project directory:
 
-    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "2.2.1")
+    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "2.3.0")
     
     
 _NOTE:_ On **Nexus**, please set nexus proxy layout to `permissive` in to resolve artifacts with a sbt-version suffixes
