@@ -1,6 +1,7 @@
 ThisBuild / organization := "com.julianpeeters"
 ThisBuild / description := "Sbt plugin for compiling Avro to Scala"
 ThisBuild / version := "2.5.0"
+ThisBuild / versionScheme := Some("semver-spec")
 
 enablePlugins(SbtPlugin)
 
