@@ -2,7 +2,6 @@
 
 
 [![Scala CI](https://github.com/julianpeeters/sbt-avrohugger/workflows/Scala%20CI/badge.svg)](https://github.com/julianpeeters/sbt-avrohugger/actions?query=workflow%3A%22Scala+CI%22)
-[![Join the chat at https://gitter.im/julianpeeters/avrohugger](https://badges.gitter.im/julianpeeters/avrohugger.svg)](https://gitter.im/julianpeeters/avrohugger?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.julianpeeters/sbt-avrohugger/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.julianpeeters/sbt-avrohugger)
 
 
@@ -28,11 +27,11 @@ The following tasks and settings are automatically imported to your build:
 
 ### Tasks:
 
-| Name                        | Description                                                                     |
-| --------------------------- | -------------------------------------------------------------------------------:|
-| `avroScalaGenerate`         |  Compiles the Avro files into Scala case classes.                               |
-| `avroScalaGenerateScavro`   |  Compiles the Avro files into Scala case class Scavro wrapper classes.          |
-| `avroScalaGenerateSpecific` |  Compiles the Avro files into Scala case classes implementing `SpecificRecord`. |
+| Name                        | Description                                                                            |
+| --------------------------- | --------------------------------------------------------------------------------------:|
+| `avroScalaGenerate`         |  Compiles the Avro files into Scala case classes.                                      |
+| `avroScalaGenerateScavro`   |  Compiles the Avro files into Scala case class Scavro wrapper classes (`@deprecated`). |
+| `avroScalaGenerateSpecific` |  Compiles the Avro files into Scala case classes implementing `SpecificRecord`.        |
 
 #### Compile
 
@@ -72,7 +71,7 @@ _**Standard Settings**_
 | `avroScalaCustomNamespace` | ``Map.empty[String, String]``         | Map for reassigning namespaces.|
 
 
-_**Scavro Settings**_
+_**Scavro Settings (@deprecated)**_
 
 | Name                             | Default                               | Description                   |
 | -------------------------------- | -------------------------------------:| -----------------------------:|

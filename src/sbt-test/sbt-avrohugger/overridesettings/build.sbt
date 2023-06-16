@@ -2,7 +2,7 @@ organization := "com.julianpeeters"
 
 name := "override-settings"
 
-scalaVersion := "2.12.17"
+scalaVersion := "2.12.18"
 
 version := "0.1-SNAPSHOT"
 

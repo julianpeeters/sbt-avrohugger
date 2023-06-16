@@ -19,9 +19,10 @@ object SbtAvrohugger extends AutoPlugin {
   object autoImport {
     
     // sbt tasks:
-    lazy val avroScalaGenerateScavro   = taskKey[Seq[File]]("Generate Scala sources for Scavro")
     lazy val avroScalaGenerateSpecific = taskKey[Seq[File]]("Generate Scala sources implementing SpecificRecord")
     lazy val avroScalaGenerate         = taskKey[Seq[File]]("Generate Scala sources from avro files")
+    @deprecated("Scavro format will no longer be supported", "sbt-avrohugger 2.5.0")
+    lazy val avroScalaGenerateScavro   = taskKey[Seq[File]]("Generate Scala sources for Scavro")
 
     // sbt settings
       // Scavro Format
@@ -93,6 +94,7 @@ object SbtAvrohugger extends AutoPlugin {
   )
   
   // Scavro Format
+  @deprecated("Scavro format will no longer be supported", "sbt-avrohugger 2.5.0")
   lazy val scavroSettings: Seq[Def.Setting[_]] = Seq(
     avroScavroScalaSource          := sourceManaged.value / "compiled_avro",
     avroScavroSourceDirectories    := Seq(sourceDirectory.value / "avro"),

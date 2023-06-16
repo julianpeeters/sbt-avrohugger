@@ -1,6 +1,6 @@
 name := "scavro-generation-test"
 
-scalaVersion := "2.12.17"
+scalaVersion := "2.12.18"
 
 Compile / sourceGenerators += (Compile / avroScalaGenerateScavro).taskValue
 
