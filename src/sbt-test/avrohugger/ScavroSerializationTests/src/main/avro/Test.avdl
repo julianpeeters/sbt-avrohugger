@@ -1,6 +1,0 @@
-@namespace("test")
-protocol test {
-  record Test {
-    boolean `public`;
-  }
-}
