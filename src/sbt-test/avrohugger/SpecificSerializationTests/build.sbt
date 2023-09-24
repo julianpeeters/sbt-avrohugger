@@ -6,7 +6,7 @@ name := "datatype-specific-serializaton-tests"
 
 version := "0.4-SNAPSHOT"
 
-crossScalaVersions := Seq("2.12.18", "2.13.11", "3.3.0")
+crossScalaVersions := Seq("2.12.18", "2.13.11")
 
 scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Ywarn-value-discard")
 
@@ -14,6 +14,8 @@ Compile / avroScalaSpecificCustomTypes := {
   avrohugger.format.SpecificRecord.defaultTypes.copy(
     decimal = avrohugger.types.ScalaBigDecimal(Some(BigDecimal.RoundingMode.HALF_EVEN)))
 }
+
+libraryDependencies += "com.chuusai" %% "shapeless" % "2.4.0-M1"
 
 libraryDependencies += "org.apache.avro" % "avro" % "1.11.1"
 
