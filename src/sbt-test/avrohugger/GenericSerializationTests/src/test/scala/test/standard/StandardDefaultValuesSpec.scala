@@ -17,12 +17,12 @@ class StandardDefaultValuesSpec extends Specification {
       val enumSchema = new Schema.Parser().parse(enumSchemaString)
       val genericEnum = new GenericData.EnumSymbol(enumSchema, record.suit.toString)
       
-      val embeddedSchemaString = """{"type":"record","name":"Embedded","fields":[{"name":"inner","type":"int"}]},"default":{"inner":1}}"""
+      val embeddedSchemaString = """{"type":"record","name":"Embedded","fields":[{"name":"inner","type":"int"}]}"""
       val embeddedSchema = new Schema.Parser().parse(embeddedSchemaString)
       val embeddedGenericRecord = new GenericData.Record(embeddedSchema)
       embeddedGenericRecord.put("inner", record.embedded.inner)
 
-      val fixedSchemaString = """{"type":"fixed","name":"fix1","size":2},"default":"ÿ"}"""
+      val fixedSchemaString = """{"type":"fixed","name":"fix1","size":2}"""
       val fixedSchema = new Schema.Parser().parse(fixedSchemaString)
       val genericFixed = new GenericData.Fixed(fixedSchema, "ÿ".getBytes)
 
