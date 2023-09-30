@@ -12,5 +12,5 @@ version := "0.1-SNAPSHOT"
 
 crossScalaVersions := Seq("2.12.18", "2.13.12", "3.3.0")
 
-libraryDependencies += "org.apache.avro" % "avro" % "1.11.2"
+libraryDependencies += "org.apache.avro" % "avro" % "1.11.3"
 
