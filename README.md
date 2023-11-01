@@ -9,10 +9,8 @@ Install the plugin (compatible with sbt 1.3+)
 Add the following lines to the file ``myproject/project/plugins.sbt`` in your
 project directory:
 
-    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "2.7.0")
+    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "2.8.0")
     
-    
-_NOTE:_ On **Nexus**, please set nexus proxy layout to `permissive` in to resolve artifacts with a sbt-version suffixes
 
 
 Usage
@@ -25,7 +23,6 @@ The following tasks and settings are automatically imported to your build:
 | Name                       | Description                                                                                     |
 | -------------------------- | -----------------------------------------------------------------------------------------------:|
 | `avroScalaGenerate`        |  Compiles the Avro files into Scala case classes.                                               |
-| `avroScalaGenerateScavro`  |  (`@deprecated`) Compiles the Avro files into Scala case class Scavro wrapper classes.          |
 | `avroScalaGenerateSpecific`|  Compiles the Avro files into Scala case classes implementing `SpecificRecord`.                 |
 
 #### Compile
@@ -34,7 +31,7 @@ Wire the tasks into `compile` in your `build.sbt`:
 
 e.g.: `Compile / sourceGenerators += (Compile / avroScalaGenerate).taskValue`
 
-By [default](https://github.com/julianpeeters/sbt-avrohugger#settings), the plugin looks Avro files in `src/main/avro` and generates Scala files in `$sourceManaged`, e.g., `target/scala-2.13/src_managed/main/compiled_avro/` (to choose different locations, please see [Changing Settings](https://github.com/julianpeeters/sbt-avrohugger#changing-settings)).
+By [default](https://github.com/julianpeeters/sbt-avrohugger#settings), the plugin looks Avro files in `src/main/avro` and generates Scala files in `$sourceManaged`, e.g., `target/scala-3.3.1/src_managed/main/compiled_avro/` (to choose different locations, please see [Changing Settings](https://github.com/julianpeeters/sbt-avrohugger#changing-settings)).
 
 #### Test
 
@@ -64,16 +61,6 @@ _**Standard Settings**_
 | `avroScalaSource`          | ``$sourceManaged/main/compiled_avro`` | Path for the generated ``*.scala`` or ``*.java``  files.|
 | `avroScalaCustomTypes`     | ``Standard.defaultTypes``             | Customizable Type Mapping.|
 | `avroScalaCustomNamespace` | ``Map.empty[String, String]``         | Map for reassigning namespaces.|
-
-
-_**Scavro Settings (@deprecated)**_
-
-| Name                             | Default                               | Description                   |
-| -------------------------------- | -------------------------------------:| -----------------------------:|
-| `avroScavroSourceDirectories`    | ``Seq("src/main/avro")``              | List of paths containing ``*.avsc``, ``*.avdl``, and/or ``*.avro`` files. |
-| `avroScavroScalaSource`          | ``$sourceManaged/main/compiled_avro`` | Path for the generated ``*.scala`` or ``*.java``  files.         |
-| `avroScalaScavroCustomTypes`     | ``Scavro.defaultTypes``               | Customizable Type Mapping.|
-| `avroScalaScavroCustomNamespace` | ``Map.empty[String, String]``         | Map for reassigning namespaces.                                  |
 
 
 _**SpecificRecord Settings**_

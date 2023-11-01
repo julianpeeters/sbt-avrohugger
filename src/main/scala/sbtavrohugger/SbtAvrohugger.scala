@@ -1,7 +1,7 @@
 package sbtavrohugger
 
 import avrohugger.Generator
-import avrohugger.format.{Scavro, SpecificRecord, Standard}
+import avrohugger.format.{SpecificRecord, Standard}
 import avrohugger.types.AvroScalaTypes
 import java.io.File
 
@@ -21,21 +21,14 @@ object SbtAvrohugger extends AutoPlugin {
     // sbt tasks:
     lazy val avroScalaGenerateSpecific = taskKey[Seq[File]]("Generate Scala sources implementing SpecificRecord")
     lazy val avroScalaGenerate         = taskKey[Seq[File]]("Generate Scala sources from avro files")
-    @deprecated("Scavro format will no longer be supported", "sbt-avrohugger 2.5.0")
-    lazy val avroScalaGenerateScavro   = taskKey[Seq[File]]("Generate Scala sources for Scavro")
 
     // sbt settings
-      // Scavro Format
-    lazy val avroScavroSourceDirectories    = settingKey[Seq[File]]("Avro schema directory for generating Scavro Scala")
-    lazy val avroScavroScalaSource          = settingKey[File]("Scavro Scala source directory for compiled avro")
-    lazy val avroScalaScavroCustomTypes     = settingKey[AvroScalaTypes]("Customize Avro to Scala type map by type")
-    lazy val avroScalaScavroCustomNamespace = settingKey[Map[String, String]]("Custom namespace of generated Scavro Scala code")
-      // SpecificRecord Format
+    // SpecificRecord Format
     lazy val avroSpecificSourceDirectories    = settingKey[Seq[File]]("Avro schema directory for generating SpecificRecord")
     lazy val avroSpecificScalaSource          = settingKey[File]("Specific Scala source directory for compiled avro")
     lazy val avroScalaSpecificCustomTypes     = settingKey[AvroScalaTypes]("Custom Avro to Scala type map")
     lazy val avroScalaSpecificCustomNamespace = settingKey[Map[String, String]]("Custom namespace of generated Specific Scala code")
-      // Standard Format
+    // Standard Format
     lazy val avroSourceDirectories    = settingKey[Seq[File]]("Avro schema directory for Scala code generation")
     lazy val avroScalaSource          = settingKey[File]("Scala source directory for compiled avro")
     lazy val avroScalaCustomTypes     = settingKey[AvroScalaTypes]("Custom Scala types of generated Scala code")
@@ -48,7 +41,6 @@ object SbtAvrohugger extends AutoPlugin {
   
   lazy val baseSettings = 
     avroSettings ++
-    scavroSettings ++
     specificAvroSettings
     
   override lazy val projectSettings: Seq[Def.Setting[_]] =
@@ -89,42 +81,6 @@ object SbtAvrohugger extends AutoPlugin {
         outStyle = FilesInfo.exists
       ) { (in: Set[File]) => FileWriter.generateCaseClasses(gen, srcDirs, targetDir, out.log) }
         
-      cachedCompile((srcDirs ** "*.av*").get.toSet).toSeq
-    }
-  )
-  
-  // Scavro Format
-  @deprecated("Scavro format will no longer be supported", "sbt-avrohugger 2.5.0")
-  lazy val scavroSettings: Seq[Def.Setting[_]] = Seq(
-    avroScavroScalaSource          := sourceManaged.value / "compiled_avro",
-    avroScavroSourceDirectories    := Seq(sourceDirectory.value / "avro"),
-    avroScalaScavroCustomTypes     := Scavro.defaultTypes,
-    avroScalaScavroCustomNamespace := Map.empty[String, String],
-    avroScalaGenerateScavro / logLevel  := (logLevel?? Level.Info).value,
-    avroScalaGenerateScavro := {
-      val cache = crossTarget.value
-      val srcDirs = avroScavroSourceDirectories.value
-      val targetDir = avroScavroScalaSource.value
-      val out = streams.value
-      val majMinV(scalaV) = scalaVersion.value
-      val scavroCustomTypes = avroScalaScavroCustomTypes.value
-      val scavroCustomNamespace = avroScalaScavroCustomNamespace.value
-      val res = (Compile / resourceDirectory).value
-      val old = (Compile / scalaInstance).value
-      val classLoader = new java.net.URLClassLoader(Array(res.toURI().toURL()), old.loader)
-      val isNumberOfFieldsRestricted = scalaV == "2.10"
-      val gen = new Generator(
-        Scavro,
-        Some(scavroCustomTypes),
-        scavroCustomNamespace,
-        isNumberOfFieldsRestricted,
-        classLoader,
-        scalaV)
-      val cachedCompile = FileFunction.cached(
-        cache / "avro",
-        inStyle = FilesInfo.lastModified,
-        outStyle = FilesInfo.exists
-      ) { (in: Set[File]) => FileWriter.generateCaseClasses(gen, srcDirs, targetDir, out.log) }
       cachedCompile((srcDirs ** "*.av*").get.toSet).toSeq
     }
   )
