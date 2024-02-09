@@ -111,12 +111,16 @@ object SbtAvrohugger extends AutoPlugin {
         isNumberOfFieldsRestricted,
         classLoader,
         scalaV)
-      val cachedCompile = FileFunction.cached(
+
+      val in = (srcDirs ** "*.av*").get.toSet
+      FileWriter.generateCaseClasses(gen, in.toSeq, targetDir, out.log).toSeq
+      /*val cachedCompile = FileFunction.cached(
         cache / "avro",
-        inStyle = FilesInfo.lastModified,
+        inStyle = FilesInfo.hash,
         outStyle = FilesInfo.exists
-      ) { (in: Set[File]) => FileWriter.generateCaseClasses(gen, srcDirs, targetDir, out.log) }
-      cachedCompile((srcDirs ** "*.av*").get.toSet).toSeq
+      ) { (_: Set[File]) =>
+        FileWriter.generateCaseClasses(gen, in.toSeq, targetDir, out.log) }
+      cachedCompile((srcDirs ** "*.av*").get.toSet).toSeq*/
     }
   )
 }

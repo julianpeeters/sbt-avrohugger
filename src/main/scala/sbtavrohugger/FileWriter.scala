@@ -26,7 +26,7 @@ object FileWriter {
       generator.fileToFile(inFile, target.getPath)
     }
 
-   for (idlFile <- AvdlFileSorter.sortSchemaFiles(getSrcFiles(srcDirs, "avdl"))) {
+   for (idlFile <-getSrcFiles(srcDirs, "avdl")) {
       log.info("Compiling Avro IDL %s".format(idlFile))
       generator.fileToFile(idlFile, target.getPath)
     }
