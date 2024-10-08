@@ -13,11 +13,11 @@ name := "datatype-specific-vector-serializaton-tests"
 
 version := "0.4-SNAPSHOT"
 
-crossScalaVersions := Seq("2.12.18", "2.13.12", "3.3.0")
+crossScalaVersions := Seq("2.12.20", "2.13.15", "3.3.4")
 
 scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Ywarn-value-discard")
 
-libraryDependencies += "org.apache.avro" % "avro" % "1.11.3"
+libraryDependencies += "org.apache.avro" % "avro" % "1.11.4"
 
 libraryDependencies += "com.sksamuel.avro4s" %% "avro4s-core" % "3.0.4"
 

@@ -6,11 +6,11 @@ name := "datatype-avro-serializaton-tests"
 
 version := "0.4-SNAPSHOT"
 
-crossScalaVersions := Seq("2.12.18","2.13.12")
+crossScalaVersions := Seq("2.12.20","2.13.15")
 
 scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Ywarn-value-discard")
 
-libraryDependencies += "org.apache.avro" % "avro" % "1.11.3"
+libraryDependencies += "org.apache.avro" % "avro" % "1.11.4"
 
 libraryDependencies += "org.apache.avro" % "avro-compiler" % "1.9.1"
 
