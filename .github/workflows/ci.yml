@@ -17,12 +17,16 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Java
-        uses: actions/setup-java@v3.13.0
+      - name: Setup JDK
+        uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
+          distribution: temurin
           java-version: ${{ matrix.java }}
+          cache: sbt
+      - uses: sbt/setup-sbt@v1
       - name: Run tests
+        shell: bash
         run: sbt ++${{ matrix.scala }} test
       - name: Run scripted tests
+        shell: bash
         run: sbt ++${{ matrix.scala }} scripted
