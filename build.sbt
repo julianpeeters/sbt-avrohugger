@@ -1,6 +1,6 @@
 ThisBuild / organization := "com.julianpeeters"
 ThisBuild / description := "Sbt plugin for compiling Avro to Scala"
-ThisBuild / version := "2.8.4"
+ThisBuild / version := "2.9.0-M2"
 ThisBuild / versionScheme := Some("semver-spec")
 
 enablePlugins(SbtPlugin)
@@ -9,7 +9,15 @@ enablePlugins(SbtPlugin)
 (Global / run / connectInput) := true
 (Global / run / outputStrategy) := Some(StdoutOutput)
 
-ThisBuild / scalaVersion := "2.12.20"
+ThisBuild /  crossScalaVersions := Seq("2.12.20", "3.3.4")
+ThisBuild / pluginCrossBuild / sbtVersion := {
+  scalaBinaryVersion.value match {
+    case "2.12" =>
+      (pluginCrossBuild / sbtVersion).value
+    case _ =>
+      "2.0.0-M2"
+  }
+}
 ThisBuild / crossSbtVersions := Seq(sbtVersion.value)
 ThisBuild / scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Ywarn-value-discard")
 
