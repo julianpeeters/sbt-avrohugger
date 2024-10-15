@@ -18,7 +18,7 @@ object FileWriter {
     log.info("Considering source directories %s".format(srcDirs.mkString(",")))
     def getSrcFiles(dirs: Seq[File], fileExtension: String) = for {
       srcDir <- dirs
-      srcFile <- (srcDir ** s"*.$fileExtension").get
+      srcFile <- (srcDir ** s"*.$fileExtension").get()
     } yield srcFile
     
     for (inFile <- AvscFileSorter.sortSchemaFiles(getSrcFiles(srcDirs, "avsc"))) {
@@ -26,7 +26,7 @@ object FileWriter {
       generator.fileToFile(inFile, target.getPath)
     }
 
-   for (idlFile <- AvdlFileSorter.sortSchemaFiles(getSrcFiles(srcDirs, "avdl"))) {
+    for (idlFile <- AvdlFileSorter.sortSchemaFiles(getSrcFiles(srcDirs, "avdl"))) {
       log.info("Compiling Avro IDL %s".format(idlFile))
       generator.fileToFile(idlFile, target.getPath)
     }
@@ -41,7 +41,7 @@ object FileWriter {
       generator.fileToFile(protocol, target.getPath)
     }
 
-    (target ** ("*.java"|"*.scala")).get.toSet
+    (target ** ("*.java"|"*.scala")).get().toSet
   }
 
 }

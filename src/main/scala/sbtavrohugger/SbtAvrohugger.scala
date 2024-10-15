@@ -61,11 +61,11 @@ object SbtAvrohugger extends AutoPlugin {
       val srcDirs = avroSourceDirectories.value
       val targetDir = avroScalaSource.value
       val out = streams.value
-      val majMinV(scalaV) = scalaVersion.value
+      val majMinV(scalaV) = scalaVersion.value: @unchecked
       val customTypes = avroScalaCustomTypes.value
       val customNamespace = avroScalaCustomNamespace.value
-      val res = (Compile / resourceDirectory).value
-      val old = (Compile/ scalaInstance).value
+      val res = resourceDirectory.value
+      val old = scalaInstance.value
       val classLoader = new java.net.URLClassLoader(Array(res.toURI().toURL()), old.loader)
       val isNumberOfFieldsRestricted = scalaV == "2.10"
       val gen = new Generator(
@@ -81,7 +81,7 @@ object SbtAvrohugger extends AutoPlugin {
         outStyle = FilesInfo.exists
       ) { (in: Set[File]) => FileWriter.generateCaseClasses(gen, srcDirs, targetDir, out.log) }
         
-      cachedCompile((srcDirs ** "*.av*").get.toSet).toSeq
+      cachedCompile((srcDirs ** "*.av*").get().toSet).toSeq
     }
   )
   
@@ -97,11 +97,11 @@ object SbtAvrohugger extends AutoPlugin {
       val srcDirs = avroSpecificSourceDirectories.value
       val targetDir = avroSpecificScalaSource.value
       val out = streams.value
-      val majMinV(scalaV) = scalaVersion.value
+      val majMinV(scalaV) = scalaVersion.value: @unchecked
       val specificCustomTypes = avroScalaSpecificCustomTypes.value
       val specificCustomNamespace = avroScalaSpecificCustomNamespace.value
-      val res = (Compile / resourceDirectory).value
-      val old = (Compile / scalaInstance).value
+      val res = resourceDirectory.value
+      val old = scalaInstance.value
       val classLoader = new java.net.URLClassLoader(Array(res.toURI().toURL()), old.loader)
       val isNumberOfFieldsRestricted = scalaV == "2.10"
       val gen = new Generator(
@@ -116,7 +116,7 @@ object SbtAvrohugger extends AutoPlugin {
         inStyle = FilesInfo.lastModified,
         outStyle = FilesInfo.exists
       ) { (in: Set[File]) => FileWriter.generateCaseClasses(gen, srcDirs, targetDir, out.log) }
-      cachedCompile((srcDirs ** "*.av*").get.toSet).toSeq
+      cachedCompile((srcDirs ** "*.av*").get().toSet).toSeq
     }
   )
 }
