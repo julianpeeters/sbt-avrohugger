@@ -26,20 +26,27 @@ object FileWriter {
       generator.fileToFile(inFile, target.getPath)
     }
 
+    generator.clear()
+
    for (idlFile <- AvdlFileSorter.sortSchemaFiles(getSrcFiles(srcDirs, "avdl"))) {
       log.info("Compiling Avro IDL %s".format(idlFile))
       generator.fileToFile(idlFile, target.getPath)
     }
 
+    generator.clear()
     for (inFile <- getSrcFiles(srcDirs, "avro")) {
       log.info("Compiling Avro datafile %s".format(inFile))
       generator.fileToFile(inFile, target.getPath)
     }
 
+    generator.clear()
+
     for (protocol <- getSrcFiles(srcDirs, "avpr")) {
       log.info("Compiling Avro protocol %s".format(protocol))
       generator.fileToFile(protocol, target.getPath)
     }
+
+    generator.clear()
 
     (target ** ("*.java"|"*.scala")).get.toSet
   }
