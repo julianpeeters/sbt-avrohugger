@@ -9,7 +9,7 @@ Install the plugin (compatible with sbt 1.3+)
 Add the following lines to the file ``myproject/project/plugins.sbt`` in your
 project directory:
 
-    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "2.8.4")
+    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "2.9.0")
     
 
 
@@ -98,7 +98,7 @@ Compile / avroScalaSpecificCustomTypes := {
 * `array` can be assigned to `ScalaSeq`, `ScalaArray`, `ScalaList`, and `ScalaVector`
 * `enum` can be assigned to `JavaEnum`, `ScalaCaseObjectEnum`, `EnumAsScalaString`, and `ScalaEnumeration`
 * `fixed` can be assigned to , `ScalaCaseClassWrapper` and `ScalaCaseClassWrapperWithSchema`(with schema in a companion object)
-* `union` can be assigned to `OptionEitherShapelessCoproduct` and `OptionalShapelessCoproduct`
+* `union` can be assigned to `OptionEitherShapelessCoproduct` (incompatible with `Specific`), `OptionalShapelessCoproduct` and `OptionScala3UnionType` (incompatible with `Standard`)
 * `int`, `long`, `float`, `double` can be assigned to `ScalaInt`, `ScalaLong`, `ScalaFloat`, `ScalaDouble`
 * `date` logical type can be assigned to `JavaTimeLocalDate` and `JavaSqlDate`
 * `timestamp-millis` logical type can be assigned to `JavaTimeInstant` and `JavaSqlTimestamp`
