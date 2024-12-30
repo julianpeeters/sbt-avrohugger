@@ -22,13 +22,13 @@ object FileWriter {
       srcFile <- (srcDir ** s"*.$fileExtension").get
     } yield srcFile
 
-    val avscFiles = getSrcFiles(srcDirs, "avsc").toList
+    val avscFiles = AvdlFileSorter.sortSchemaFiles(getSrcFiles(srcDirs, "avsc")).toList
     if (avscFiles.nonEmpty) {
       log.info("Compiling AVSC files \n%s".format(avscFiles.mkString("\n")))
       generator.filesToFiles(avscFiles, target.getPath)
     }
 
-    val avdlFiles = getSrcFiles(srcDirs, "avdl").toList
+    val avdlFiles = AvdlFileSorter.sortSchemaFiles(getSrcFiles(srcDirs, "avdl")).toList
     if (avdlFiles.nonEmpty) {
       log.info("Compiling Avro IDL files \n%s".format(avdlFiles.mkString("\n")))
       generator.filesToFiles(avdlFiles, target.getPath)
