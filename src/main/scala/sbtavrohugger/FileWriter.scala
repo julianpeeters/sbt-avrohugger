@@ -22,7 +22,7 @@ object FileWriter {
       srcFile <- (srcDir ** s"*.$fileExtension").get
     } yield srcFile
 
-    val avscFiles = AvdlFileSorter.sortSchemaFiles(getSrcFiles(srcDirs, "avsc")).toList
+    val avscFiles = AvscFileSorter.sortSchemaFiles(getSrcFiles(srcDirs, "avsc")).toList
     if (avscFiles.nonEmpty) {
       log.info("Compiling AVSC files \n%s".format(avscFiles.mkString("\n")))
       generator.filesToFiles(avscFiles, target.getPath)
