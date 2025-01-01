@@ -11,37 +11,42 @@ import sbt.Path._
 object FileWriter {
 
   private[sbtavrohugger] def generateCaseClasses(
-    generator: Generator,
-    srcDirs: Seq[File],
-    target: File,
-    log: Logger): Set[java.io.File] = {
+                                                  generator: Generator,
+                                                  srcDirs: Seq[File],
+                                                  target: File,
+                                                  log: Logger): Set[java.io.File] = {
     log.info("Considering source directories %s".format(srcDirs.mkString(",")))
+
     def getSrcFiles(dirs: Seq[File], fileExtension: String) = for {
       srcDir <- dirs
       srcFile <- (srcDir ** s"*.$fileExtension").get
     } yield srcFile
-    
-    for (inFile <- AvscFileSorter.sortSchemaFiles(getSrcFiles(srcDirs, "avsc"))) {
-      log.info("Compiling AVSC %s to %s".format(inFile, target.getPath))
-      generator.fileToFile(inFile, target.getPath)
+
+    val avscFiles = AvscFileSorter.sortSchemaFiles(getSrcFiles(srcDirs, "avsc")).toList
+    if (avscFiles.nonEmpty) {
+      log.info("Compiling AVSC files \n%s".format(avscFiles.mkString("\n")))
+      generator.filesToFiles(avscFiles, target.getPath)
     }
 
-   for (idlFile <- AvdlFileSorter.sortSchemaFiles(getSrcFiles(srcDirs, "avdl"))) {
-      log.info("Compiling Avro IDL %s".format(idlFile))
-      generator.fileToFile(idlFile, target.getPath)
+    val avdlFiles = AvdlFileSorter.sortSchemaFiles(getSrcFiles(srcDirs, "avdl")).toList
+    if (avdlFiles.nonEmpty) {
+      log.info("Compiling Avro IDL files \n%s".format(avdlFiles.mkString("\n")))
+      generator.filesToFiles(avdlFiles, target.getPath)
     }
 
-    for (inFile <- getSrcFiles(srcDirs, "avro")) {
-      log.info("Compiling Avro datafile %s".format(inFile))
-      generator.fileToFile(inFile, target.getPath)
+    val avroFiles = getSrcFiles(srcDirs, "avro").toList
+    if (avroFiles.nonEmpty) {
+      log.info("Compiling Avro datafiles \n%s".format(avroFiles.mkString("\n")))
+      generator.filesToFiles(avroFiles, target.getPath)
     }
 
-    for (protocol <- getSrcFiles(srcDirs, "avpr")) {
-      log.info("Compiling Avro protocol %s".format(protocol))
-      generator.fileToFile(protocol, target.getPath)
+    val avprFiles = getSrcFiles(srcDirs, "avpr").toList
+    if (avprFiles.nonEmpty) {
+      log.info("Compiling Avro protocols \n%s".format(avprFiles.mkString("\n")))
+      generator.filesToFiles(avprFiles, target.getPath)
     }
 
-    (target ** ("*.java"|"*.scala")).get.toSet
+    (target ** ("*.java" | "*.scala")).get.toSet
   }
 
 }
