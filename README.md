@@ -9,7 +9,7 @@ Install the plugin (compatible with sbt 1.3+)
 Add the following lines to the file ``myproject/project/plugins.sbt`` in your
 project directory:
 
-    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "2.11.2-SNAPSHOT")
+    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "2.11.1")
     
 
 
