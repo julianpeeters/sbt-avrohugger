@@ -11,16 +11,19 @@ jobs:
     name: Build and Test
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
+        os: [macos-latest, ubuntu-latest]
         scala: [2.12.20]
-        java: [zulu@1.11, zulu@1.17]
+        java: ['17', '21']
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v3.0.2
-      - name: Set up Java
-        uses: olafurpg/setup-scala@v13
+      - uses: actions/checkout@v4
+      - name: Setup JDK
+        uses: actions/setup-java@v4
         with:
+          distribution: temurin
           java-version: ${{ matrix.java }}
+          cache: sbt
+      - uses: sbt/setup-sbt@v1
       - name: Run tests
         run: sbt ++${{ matrix.scala }} test
       - name: Run scripted tests
