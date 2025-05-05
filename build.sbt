@@ -1,6 +1,6 @@
 ThisBuild / organization := "com.julianpeeters"
 ThisBuild / description := "Sbt plugin for compiling Avro to Scala"
-ThisBuild / version := "2.12.0"
+ThisBuild / version := "2.13.0"
 ThisBuild / versionScheme := Some("semver-spec")
 
 enablePlugins(SbtPlugin)
@@ -14,21 +14,15 @@ ThisBuild / crossSbtVersions := Seq(sbtVersion.value)
 ThisBuild / scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Ywarn-value-discard")
 
 ThisBuild / libraryDependencies ++= Seq(
-  "com.julianpeeters" %% "avrohugger-core" % "2.12.0",
-  "com.julianpeeters" %% "avrohugger-filesorter" % "2.12.0",
+  "com.julianpeeters" %% "avrohugger-core" % "2.13.0",
+  "com.julianpeeters" %% "avrohugger-filesorter" % "2.13.0",
   "io.spray" %% "spray-json" % "1.3.6",
   "org.specs2" %% "specs2-core" % "4.20.2" % "test")
 
-ThisBuild / publishMavenStyle := true
+ThisBuild / sbtPluginPublishLegacyMavenStyle := false
 Test / publishArtifact := false
-ThisBuild / publishTo := {
-  val nexus = "https://oss.sonatype.org/"
-  if (version.value.trim.endsWith("SNAPSHOT"))
-    Some("snapshots" at nexus + "content/repositories/snapshots")
-  else
-    Some("releases" at nexus + "service/local/staging/deploy/maven2")
-}
-ThisBuild / pomIncludeRepository := { _ => false }
+ThisBuild / sonatypeCredentialHost := xerial.sbt.Sonatype.sonatypeCentralHost
+ThisBuild / publishTo := sonatypePublishToBundle.value
 ThisBuild / licenses := Seq("Apache 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0"))
 ThisBuild / homepage := Some(url(s"https://github.com/julianpeeters/${name.value}"))
 ThisBuild / pomExtra := (
