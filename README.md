@@ -9,7 +9,7 @@ Install the plugin (compatible with sbt 1.3+)
 Add the following lines to the file ``myproject/project/plugins.sbt`` in your
 project directory:
 
-    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "2.13.0")
+    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "2.14.0")
     
 
 
@@ -31,7 +31,7 @@ Wire the tasks into `compile` in your `build.sbt`:
 
 e.g.: `Compile / sourceGenerators += (Compile / avroScalaGenerate).taskValue`
 
-By [default](https://github.com/julianpeeters/sbt-avrohugger#settings), the plugin looks Avro files in `src/main/avro` and generates Scala files in `$sourceManaged`, e.g., `target/scala-3.3.5/src_managed/main/compiled_avro/` (to choose different locations, please see [Changing Settings](https://github.com/julianpeeters/sbt-avrohugger#changing-settings)).
+By [default](https://github.com/julianpeeters/sbt-avrohugger#settings), the plugin looks for Avro files in `src/main/avro` and generates Scala files in `$sourceManaged`, e.g., `target/scala-3.3.6/src_managed/main/compiled_avro/` (to choose different locations, please see [Changing Settings](https://github.com/julianpeeters/sbt-avrohugger#changing-settings)).
 
 #### Test
 
@@ -96,7 +96,7 @@ Compile / avroScalaSpecificCustomTypes := {
 
 * `record` can be assigned to `ScalaCaseClass` and `ScalaCaseClassWithSchema` (with schema in a companion object)
 * `array` can be assigned to `ScalaSeq`, `ScalaArray`, `ScalaList`, and `ScalaVector`
-* `enum` can be assigned to `JavaEnum`, `ScalaCaseObjectEnum`, `EnumAsScalaString`, and `ScalaEnumeration`
+* `enum` can be assigned to `JavaEnum`, `Scala3Enum`, `ScalaCaseObjectEnum`, `EnumAsScalaString`, and `ScalaEnumeration`
 * `fixed` can be assigned to , `ScalaCaseClassWrapper` and `ScalaCaseClassWrapperWithSchema`(with schema in a companion object)
 * `union` can be assigned to `OptionEitherShapelessCoproduct` (incompatible with `Specific`), `OptionalShapelessCoproduct` and `OptionScala3UnionType` (incompatible with `Standard`)
 * `int`, `long`, `float`, `double` can be assigned to `ScalaInt`, `ScalaLong`, `ScalaFloat`, `ScalaDouble`
