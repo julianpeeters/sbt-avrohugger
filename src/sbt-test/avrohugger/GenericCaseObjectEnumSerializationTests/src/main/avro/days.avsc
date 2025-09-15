@@ -1,0 +1,36 @@
+{
+  "name": "something",
+  "type": "record",
+  "namespace": "a.b.c",
+  "fields": [
+    {
+      "name": "schedule",
+      "type": {
+        "name": "SomeName",
+        "type": "record",
+        "fields": [
+          {
+            "name": "day_of_week",
+            "type": {
+              "name": "DAYOFWEEK",
+              "type": "enum",
+              "symbols": [
+                "MONDAY",
+                "TUESDAY",
+                "WEDNESDAY",
+                "THURSDAY",
+                "FRIDAY",
+                "SATURDAY",
+                "SUNDAY"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "other_schedule",
+      "type": "SomeName"
+    }
+  ]
+}

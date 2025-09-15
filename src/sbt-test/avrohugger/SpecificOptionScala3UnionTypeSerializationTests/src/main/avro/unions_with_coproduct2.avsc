@@ -1,0 +1,33 @@
+[
+  {
+    "namespace": "com.example.avrohugger",
+    "name": "NonNullUnion",
+    "type": "record",
+    "fields": [
+      {
+        "name": "r6",
+        "type": [
+          "boolean",
+          "int",
+          "string"
+        ]
+      }
+    ]
+  },
+  {
+    "namespace": "com.example.avrohugger",
+    "name": "NullableUnion",
+    "type": "record",
+    "fields": [
+      {
+        "name": "r7",
+        "type": [
+          "null",
+          "boolean",
+          "int",
+          "string"
+        ]
+      }
+    ]
+  }
+]

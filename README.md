@@ -9,7 +9,11 @@ Install the plugin (compatible with sbt 1.3+ and sbt 2.0+)
 Add the following lines to the file ``myproject/project/plugins.sbt`` in your
 project directory:
 
+<<<<<<< HEAD
     addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "2.9.0-M2")
+=======
+    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "2.14.0")
+>>>>>>> 5cc349be2d0d3f8311a6d47077b1adb26e1f4452
     
 
 
@@ -31,7 +35,7 @@ Wire the tasks into `compile` in your `build.sbt`:
 
 e.g.: `Compile / sourceGenerators += (Compile / avroScalaGenerate).taskValue`
 
-By [default](https://github.com/julianpeeters/sbt-avrohugger#settings), the plugin looks Avro files in `src/main/avro` and generates Scala files in `$sourceManaged`, e.g., `target/scala-3.3.1/src_managed/main/compiled_avro/` (to choose different locations, please see [Changing Settings](https://github.com/julianpeeters/sbt-avrohugger#changing-settings)).
+By [default](https://github.com/julianpeeters/sbt-avrohugger#settings), the plugin looks for Avro files in `src/main/avro` and generates Scala files in `$sourceManaged`, e.g., `target/scala-3.3.6/src_managed/main/compiled_avro/` (to choose different locations, please see [Changing Settings](https://github.com/julianpeeters/sbt-avrohugger#changing-settings)).
 
 #### Test
 
@@ -96,9 +100,9 @@ Compile / avroScalaSpecificCustomTypes := {
 
 * `record` can be assigned to `ScalaCaseClass` and `ScalaCaseClassWithSchema` (with schema in a companion object)
 * `array` can be assigned to `ScalaSeq`, `ScalaArray`, `ScalaList`, and `ScalaVector`
-* `enum` can be assigned to `JavaEnum`, `ScalaCaseObjectEnum`, `EnumAsScalaString`, and `ScalaEnumeration`
+* `enum` can be assigned to `JavaEnum`, `Scala3Enum`, `ScalaCaseObjectEnum`, `EnumAsScalaString`, and `ScalaEnumeration`
 * `fixed` can be assigned to , `ScalaCaseClassWrapper` and `ScalaCaseClassWrapperWithSchema`(with schema in a companion object)
-* `union` can be assigned to `OptionEitherShapelessCoproduct` and `OptionalShapelessCoproduct`
+* `union` can be assigned to `OptionEitherShapelessCoproduct` (incompatible with `Specific`), `OptionalShapelessCoproduct` and `OptionScala3UnionType` (incompatible with `Standard`)
 * `int`, `long`, `float`, `double` can be assigned to `ScalaInt`, `ScalaLong`, `ScalaFloat`, `ScalaDouble`
 * `date` logical type can be assigned to `JavaTimeLocalDate` and `JavaSqlDate`
 * `timestamp-millis` logical type can be assigned to `JavaTimeInstant` and `JavaSqlTimestamp`
@@ -131,7 +135,7 @@ Contributors
 
 | | | |
 | :---         |     :---      |          :--- |
-| [Marius Soutier](https://github.com/mariussoutier) </br> [Vince Tse](https://github.com/vtonehundred) </br> [Saket](https://github.com/skate056) </br> [Raúl Raja Martínez](https://github.com/raulraja) </br> [Marco Stefani](https://github.com/inafets) </br> [Sacha Barber](https://github.com/sachabarber) </br> [sullis](https://github.com/sullis) </br> [Alexandre Bertails](https://github.com/betehess) </br> [Alexander Khotyanov](https://github.com/aksharp) | [Brennan Saeta](https://github.com/saeta) </br> [Jerome Wacongne](https://github.com/ch4mpy) </br> [Jon Morra](https://github.com/jon-morra-zefr) </br> [Paul Snively](https://github.com/PaulAtBanno) </br> [Diego E. Alonso Blas](https://github.com/diesalbla) </br> [Andrew Gustafson](https://github.com/agustafson) </br> [Jonas Grabber](https://github.com/jobegrabber) </br> [mcenkar](https://github.com/mcenkar) | [Daniel Lundin](https://github.com/dln) </br> [Ryan Koval](http://github.ryankoval.com) </br> [Simonas Gelazevicius](https://github.com/simsasg) </br> [Zach Cox](https://github.com/zcox) </br> [Chris Albright](https://github.com/chrisalbright) </br> [Fede Fernández](https://github.com/fedefernandez) </br> [natefitzgerald](https://github.com/natefitzgerald) </br> [Angel Sanadinov](https://github.com/sndnv)
+| [Marius Soutier](https://github.com/mariussoutier) </br> [Vince Tse](https://github.com/vtonehundred) </br> [Saket](https://github.com/skate056) </br> [Raúl Raja Martínez](https://github.com/raulraja) </br> [Marco Stefani](https://github.com/inafets) </br> [Sacha Barber](https://github.com/sachabarber) </br> [sullis](https://github.com/sullis) </br> [Alexandre Bertails](https://github.com/betehess) </br> [Alexander Khotyanov](https://github.com/aksharp) | [Brennan Saeta](https://github.com/saeta) </br> [Jerome Wacongne](https://github.com/ch4mpy) </br> [Jon Morra](https://github.com/jon-morra-zefr) </br> [Paul Snively](https://github.com/PaulAtBanno) </br> [Diego E. Alonso Blas](https://github.com/diesalbla) </br> [Andrew Gustafson](https://github.com/agustafson) </br> [Jonas Grabber](https://github.com/jobegrabber) </br> [mcenkar](https://github.com/mcenkar) </br> [Andrzej Ressel](https://github.com/andrzejressel) | [Daniel Lundin](https://github.com/dln) </br> [Ryan Koval](http://github.ryankoval.com) </br> [Simonas Gelazevicius](https://github.com/simsasg) </br> [Zach Cox](https://github.com/zcox) </br> [Chris Albright](https://github.com/chrisalbright) </br> [Fede Fernández](https://github.com/fedefernandez) </br> [natefitzgerald](https://github.com/natefitzgerald) </br> [Angel Sanadinov](https://github.com/sndnv) </br> [Mikołaj Jakubowski](https://github.com/mkljakubowski)
 
 #### Fork away, just make sure the tests pass before you send a pull request.
 
