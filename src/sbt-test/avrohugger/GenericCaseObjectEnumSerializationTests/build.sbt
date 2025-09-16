@@ -2,7 +2,7 @@ Compile / sourceGenerators += (Compile / avroScalaGenerate).taskValue
 
 Compile / avroScalaCustomTypes := {
   avrohugger.format.Standard.defaultTypes.copy(
-    enum = avrohugger.types.ScalaCaseObjectEnum)
+    `enum` = avrohugger.types.ScalaCaseObjectEnum)
 }
 
 organization := "com.julianpeeters"

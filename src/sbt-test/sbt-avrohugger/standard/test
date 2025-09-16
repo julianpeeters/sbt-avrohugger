@@ -1,21 +1,22 @@
 > compile
 
-$ exists target/scala-2.12/src_managed/main/compiled_avro/example/TestAVDL.scala
-$ exists target/scala-2.12/classes/example/TestAVDL.class
-$ exists target/scala-2.12/src_managed/main/compiled_avro/example2/TestAVDL2.scala
-$ exists target/scala-2.12/classes/example2/TestAVDL2.class
+$ exists target/out/jvm/scala-2.12.20/standard-generation-test/src_managed/main/compiled_avro/example/TestAVDL.scala
+$ exists target/out/jvm/scala-2.12.20/standard-generation-test/backend/example/TestAVDL.class
 
-$ exists target/scala-2.12/src_managed/main/compiled_avro/example/TestAVSC.scala
-$ exists target/scala-2.12/classes/example/TestAVSC.class
-$ exists target/scala-2.12/src_managed/main/compiled_avro/example2/TestAVSC2.scala
-$ exists target/scala-2.12/classes/example2/TestAVSC2.class
+$ exists target/out/jvm/scala-2.12.20/standard-generation-test/src_managed/main/compiled_avro/example2/TestAVDL2.scala
+$ exists target/out/jvm/scala-2.12.20/standard-generation-test/backend/example2/TestAVDL2.class
 
-$ exists target/scala-2.12/src_managed/main/compiled_avro/example4/TestAVDL4.scala
-$ exists target/scala-2.12/classes/example4/TestAVDL4.class
-$ exists target/scala-2.12/src_managed/main/compiled_avro/example5/TestAVDL5.scala
-$ exists target/scala-2.12/classes/example5/TestAVDL5.class
+$ exists target/out/jvm/scala-2.12.20/standard-generation-test/src_managed/main/compiled_avro/example/TestAVSC.scala
+$ exists target/out/jvm/scala-2.12.20/standard-generation-test/backend/example/TestAVSC.class
+$ exists target/out/jvm/scala-2.12.20/standard-generation-test/src_managed/main/compiled_avro/example2/TestAVSC2.scala
+$ exists target/out/jvm/scala-2.12.20/standard-generation-test/backend/example2/TestAVSC2.class
 
-$ exists target/scala-2.12/src_managed/main/compiled_avro/test/example6/TestAVDL6.scala
-$ exists target/scala-2.12/classes/test/example6/TestAVDL6.class
+$ exists target/out/jvm/scala-2.12.20/standard-generation-test/src_managed/main/compiled_avro/example4/TestAVDL4.scala
+$ exists target/out/jvm/scala-2.12.20/standard-generation-test/backend/example4/TestAVDL4.class
+$ exists target/out/jvm/scala-2.12.20/standard-generation-test/src_managed/main/compiled_avro/example5/TestAVDL5.scala
+$ exists target/out/jvm/scala-2.12.20/standard-generation-test/backend/example5/TestAVDL5.class
+
+$ exists target/out/jvm/scala-2.12.20/standard-generation-test/src_managed/main/compiled_avro/test/example6/TestAVDL6.scala
+$ exists target/out/jvm/scala-2.12.20/standard-generation-test/backend/test/example6/TestAVDL6.class
 
 > clean

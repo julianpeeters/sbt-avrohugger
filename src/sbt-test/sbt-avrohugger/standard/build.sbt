@@ -3,6 +3,8 @@ name := "standard-generation-test"
 
 scalaVersion := "2.12.20"
 
+version := "0.1-SNAPSHOT"
+
 // exportJars := true
 
 Compile / sourceGenerators += (Compile / avroScalaGenerate).taskValue

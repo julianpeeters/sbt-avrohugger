@@ -1,0 +1,7 @@
+@namespace( "example5" )
+protocol Protocol {
+
+    record TestAVDL5 {
+        union { null, string } name1 = null;
+    }
+}

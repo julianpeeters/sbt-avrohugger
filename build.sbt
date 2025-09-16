@@ -1,6 +1,6 @@
 ThisBuild / organization := "com.julianpeeters"
 ThisBuild / description := "Sbt plugin for compiling Avro to Scala"
-ThisBuild / version := "2.14.0"
+ThisBuild / version := "2.15.0-SNAPSHOT"
 ThisBuild / versionScheme := Some("semver-spec")
 
 enablePlugins(SbtPlugin)
@@ -9,9 +9,22 @@ enablePlugins(SbtPlugin)
 (Global / run / connectInput) := true
 (Global / run / outputStrategy) := Some(StdoutOutput)
 
-ThisBuild / scalaVersion := "2.12.20"
+ThisBuild /  crossScalaVersions := Seq("2.12.20", "3.7.3")
+ThisBuild / pluginCrossBuild / sbtVersion := {
+  scalaBinaryVersion.value match {
+    case "2.12" =>
+      (pluginCrossBuild / sbtVersion).value
+    case _ =>
+      "2.0.0-RC4"
+  }
+}
 ThisBuild / crossSbtVersions := Seq(sbtVersion.value)
-ThisBuild / scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Ywarn-value-discard")
+ThisBuild / scalacOptions ++= Seq(
+  "-unchecked",
+  "-deprecation",
+  "-feature",
+  "-Werror"
+)
 
 ThisBuild / libraryDependencies ++= Seq(
   "com.julianpeeters" %% "avrohugger-core" % "2.14.0",
@@ -21,8 +34,7 @@ ThisBuild / libraryDependencies ++= Seq(
 
 ThisBuild / sbtPluginPublishLegacyMavenStyle := false
 Test / publishArtifact := false
-ThisBuild / sonatypeCredentialHost := xerial.sbt.Sonatype.sonatypeCentralHost
-ThisBuild / publishTo := sonatypePublishToBundle.value
+ThisBuild / publishTo := localStaging.value
 ThisBuild / licenses := Seq("Apache 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0"))
 ThisBuild / homepage := Some(url(s"https://github.com/julianpeeters/${name.value}"))
 ThisBuild / pomExtra := (

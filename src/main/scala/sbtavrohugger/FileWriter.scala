@@ -19,7 +19,7 @@ object FileWriter {
 
     def getSrcFiles(dirs: Seq[File], fileExtension: String) = for {
       srcDir <- dirs
-      srcFile <- (srcDir ** s"*.$fileExtension").get
+      srcFile <- (srcDir ** s"*.$fileExtension").get()
     } yield srcFile
 
     val avscFiles = AvscFileSorter.sortSchemaFiles(getSrcFiles(srcDirs, "avsc")).toList
@@ -28,10 +28,9 @@ object FileWriter {
       generator.filesToFiles(avscFiles, target.getPath)
     }
 
-    val avdlFiles = AvdlFileSorter.sortSchemaFiles(getSrcFiles(srcDirs, "avdl")).toList
-    if (avdlFiles.nonEmpty) {
-      log.info("Compiling Avro IDL files \n%s".format(avdlFiles.mkString("\n")))
-      generator.filesToFiles(avdlFiles, target.getPath)
+    for (idlFile <- AvdlFileSorter.sortSchemaFiles(getSrcFiles(srcDirs, "avdl"))) {
+      log.info("Compiling Avro IDL %s".format(idlFile))
+      generator.fileToFile(idlFile, target.getPath)
     }
 
     val avroFiles = getSrcFiles(srcDirs, "avro").toList
@@ -46,7 +45,7 @@ object FileWriter {
       generator.filesToFiles(avprFiles, target.getPath)
     }
 
-    (target ** ("*.java" | "*.scala")).get.toSet
+    (target ** ("*.java"|"*.scala")).get().toSet
   }
 
 }
