@@ -6,14 +6,10 @@ sbt plugin for generating Scala case classes and ADTs from Apache Avro schemas, 
 Install the plugin (compatible with sbt 1.3+ and sbt 2.0+)
 ---------------------------------------
 
-Add the following lines to the file ``myproject/project/plugins.sbt`` in your
+Add the following lines to the file `myproject/project/plugins.sbt` in your
 project directory:
 
-<<<<<<< HEAD
-    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "2.9.0-M2")
-=======
-    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "2.14.0")
->>>>>>> 5cc349be2d0d3f8311a6d47077b1adb26e1f4452
+    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "2.15.0-SNAPSHOT")
     
 
 
@@ -61,20 +57,20 @@ _**Standard Settings**_
 
 | Name                       | Default                               | Description                              |
 | -------------------------- | -------------------------------------:| ----------------------------------------:|
-| `avroSourceDirectories`    | ``Seq("src/main/avro")``              | List of paths containing ``*.avsc``, ``*.avdl``, and/or ``*.avro`` files.|
-| `avroScalaSource`          | ``$sourceManaged/main/compiled_avro`` | Path for the generated ``*.scala`` or ``*.java``  files.|
-| `avroScalaCustomTypes`     | ``Standard.defaultTypes``             | Customizable Type Mapping.|
-| `avroScalaCustomNamespace` | ``Map.empty[String, String]``         | Map for reassigning namespaces.|
+| `avroSourceDirectories`    | `Seq("src/main/avro")`              | List of paths containing `*.avsc`, `*.avdl`, and/or `*.avro` files.|
+| `avroScalaSource`          | `$sourceManaged/main/compiled_avro` | Path for the generated `*.scala` or `*.java`  files.|
+| `avroScalaCustomTypes`     | `Standard.defaultTypes`             | Customizable Type Mapping.|
+| `avroScalaCustomNamespace` | `Map.empty[String, String]`         | Map for reassigning namespaces.|
 
 
 _**SpecificRecord Settings**_
 
 | Name                               | Default                               | Description                                                      |
 | ---------------------------------- | -------------------------------------:| ----------------------------------------------------------------:|
-| `avroSpecificSourceDirectories`    | ``Seq("src/main/avro")``              | Path containing ``*.avsc``, ``*.avdl``, and/or ``*.avro`` files. |
-| `avroSpecificScalaSource`          | ``$sourceManaged/main/compiled_avro`` | Path for the generated ``*.scala`` or ``*.java``  files.         |
-| `avroScalaSpecificCustomTypes`     | ``SpecificRecord.defaultTypes``             | Customizable Type Mapping.|
-| `avroScalaSpecificCustomNamespace` | ``Map.empty[String, String]``         | Map for reassigning namespaces.                                  |
+| `avroSpecificSourceDirectories`    | `Seq("src/main/avro")`              | Path containing `*.avsc`, `*.avdl`, and/or `*.avro` files. |
+| `avroSpecificScalaSource`          | `$sourceManaged/main/compiled_avro` | Path for the generated `*.scala` or `*.java`  files.         |
+| `avroScalaSpecificCustomTypes`     | `SpecificRecord.defaultTypes`             | Customizable Type Mapping.|
+| `avroScalaSpecificCustomNamespace` | `Map.empty[String, String]`         | Map for reassigning namespaces.                                  |
 
 
 Changing Settings
@@ -120,8 +116,8 @@ datatypes: see [avrohugger docs - supported datatypes](https://github.com/julian
 Testing
 -------
 
-Please run unit tests in `src/test/scala` with `^ test`, and integration tests
-in `src/sbt-test` with `^ scripted sbt-avrohugger/*`, or, e.g. `scripted sbt-avrohugger/specific`.
+Please run unit tests in `src/test/scala` with `+test`, and integration tests
+in `src/sbt-test` with `+scripted sbt-avrohugger/*`, or, e.g. `+scripted sbt-avrohugger/specific`.
 
 
 Credits

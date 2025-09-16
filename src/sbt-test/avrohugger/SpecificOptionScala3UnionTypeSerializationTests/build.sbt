@@ -8,7 +8,7 @@ name := "datatype-avro-serializaton-tests"
 
 version := "0.4-SNAPSHOT"
 
-scalaVersion := "3.3.4"
+scalaVersion := "3.3.6"
 
 scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature")
 

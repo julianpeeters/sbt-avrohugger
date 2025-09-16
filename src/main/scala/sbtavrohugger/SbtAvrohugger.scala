@@ -5,8 +5,8 @@ import avrohugger.format.{SpecificRecord, Standard}
 import avrohugger.types.AvroScalaTypes
 import java.io.File
 
-import sbt.Keys._
-import sbt._
+import sbt.Keys.*
+import sbt.*
 import sbt.internal.inc.classpath.ClasspathUtilities
 import java.net.URLClassLoader
 import java.net.URL
@@ -19,8 +19,8 @@ object SbtAvrohugger extends AutoPlugin {
   object autoImport {
     
     // sbt tasks:
-    lazy val avroScalaGenerateSpecific = taskKey[Seq[File]]("Generate Scala sources implementing SpecificRecord")
-    lazy val avroScalaGenerate         = taskKey[Seq[File]]("Generate Scala sources from avro files")
+    @transient lazy val avroScalaGenerateSpecific = taskKey[Seq[File]]("Generate Scala sources implementing SpecificRecord")
+    @transient lazy val avroScalaGenerate         = taskKey[Seq[File]]("Generate Scala sources from avro files")
 
     // sbt settings
     // SpecificRecord Format
@@ -43,14 +43,14 @@ object SbtAvrohugger extends AutoPlugin {
     avroSettings ++
     specificAvroSettings
     
-  override lazy val projectSettings: Seq[Def.Setting[_]] =
+  override lazy val projectSettings: Seq[Def.Setting[?]] =
     inConfig(Compile)(baseSettings) ++
     inConfig(Test)(baseSettings)
 
   val majMinV = """(\d+.\d+).*""".r
 
   // Standard Format
-  lazy val avroSettings: Seq[Def.Setting[_]] = Seq(
+  lazy val avroSettings: Seq[Def.Setting[?]] = Seq(
     avroScalaSource               := sourceManaged.value / "compiled_avro",
     avroSourceDirectories         := Seq(sourceDirectory.value / "avro"),
     avroScalaCustomNamespace      := Map.empty[String, String],
@@ -86,7 +86,7 @@ object SbtAvrohugger extends AutoPlugin {
   )
   
   // SpecificRecord Format
-  lazy val specificAvroSettings: Seq[Def.Setting[_]] = Seq(
+  lazy val specificAvroSettings: Seq[Def.Setting[?]] = Seq(
     avroSpecificScalaSource := sourceManaged.value / "compiled_avro",
     avroSpecificSourceDirectories := Seq(sourceDirectory.value / "avro"),
     avroScalaSpecificCustomTypes := SpecificRecord.defaultTypes,

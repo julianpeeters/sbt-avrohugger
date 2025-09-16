@@ -6,11 +6,7 @@ name := "datatype-specific-serializaton-tests"
 
 version := "0.4-SNAPSHOT"
 
-<<<<<<< HEAD
-crossScalaVersions := Seq("2.12.20", "3.3.4")
-=======
-crossScalaVersions := Seq("2.12.20", "2.13.16")
->>>>>>> 5cc349be2d0d3f8311a6d47077b1adb26e1f4452
+crossScalaVersions := Seq("2.12.20", "3.3.6")
 
 scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Ywarn-value-discard")
 

@@ -12,7 +12,7 @@ scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Ywarn-value-di
 
 Compile / avroScalaSpecificCustomTypes := {
   avrohugger.format.SpecificRecord.defaultTypes.copy(
-    enum = avrohugger.types.EnumAsScalaString,
+    `enum` = avrohugger.types.EnumAsScalaString,
     array = avrohugger.types.ScalaArray)
 }
 

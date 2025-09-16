@@ -1,0 +1,11 @@
+@namespace( "example4" )
+protocol Protocol {
+
+  
+    import idl "example5/testAVDL5.avdl";
+    
+    record TestAVDL4 {
+        union { null, string } name1 = null;
+        union { null, example5.TestAVDL5 } name3 = null;
+    }
+}
