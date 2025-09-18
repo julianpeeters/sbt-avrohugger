@@ -28,9 +28,10 @@ object FileWriter {
       generator.filesToFiles(avscFiles, target.getPath)
     }
 
-    for (idlFile <- AvdlFileSorter.sortSchemaFiles(getSrcFiles(srcDirs, "avdl"))) {
-      log.info("Compiling Avro IDL %s".format(idlFile))
-      generator.fileToFile(idlFile, target.getPath)
+    val avdlFiles = AvdlFileSorter.sortSchemaFiles(getSrcFiles(srcDirs, "avdl")).toList
+    if (avdlFiles.nonEmpty) {
+      log.info("Compiling AVDL files \n%s".format(avdlFiles.mkString("\n")))
+      generator.filesToFiles(avdlFiles, target.getPath)
     }
 
     val avroFiles = getSrcFiles(srcDirs, "avro").toList
