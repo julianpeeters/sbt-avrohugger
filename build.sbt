@@ -6,19 +6,9 @@ ThisBuild / versionScheme := Some("semver-spec")
 enablePlugins(SbtPlugin)
 
 (Global / run / fork) := true
-(Global / run / connectInput) := true
 (Global / run / outputStrategy) := Some(StdoutOutput)
 
 ThisBuild /  crossScalaVersions := Seq("2.12.20", "3.7.3")
-ThisBuild / pluginCrossBuild / sbtVersion := {
-  scalaBinaryVersion.value match {
-    case "2.12" =>
-      (pluginCrossBuild / sbtVersion).value
-    case _ =>
-      "2.0.0-RC4"
-  }
-}
-ThisBuild / crossSbtVersions := Seq(sbtVersion.value)
 ThisBuild / scalacOptions ++= Seq(
   "-unchecked",
   "-deprecation",
@@ -33,7 +23,6 @@ ThisBuild / libraryDependencies ++= Seq(
   "org.specs2" %% "specs2-core" % "4.20.2" % "test")
 
 ThisBuild / sbtPluginPublishLegacyMavenStyle := false
-Test / publishArtifact := false
 ThisBuild / publishTo := localStaging.value
 ThisBuild / licenses := Seq("Apache 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0"))
 ThisBuild / homepage := Some(url(s"https://github.com/julianpeeters/${name.value}"))
