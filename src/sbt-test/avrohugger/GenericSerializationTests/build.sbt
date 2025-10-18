@@ -6,13 +6,13 @@ name := "datatype-avro-serializaton-tests"
 
 version := "0.4-SNAPSHOT"
 
-crossScalaVersions := Seq("2.12.20", "2.13.16")
+crossScalaVersions := Seq("2.12.20", "2.13.17")
 
 scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Ywarn-value-discard")
 
 libraryDependencies += "com.sksamuel.avro4s" %% "avro4s-core" % "3.0.4"
 
-libraryDependencies += "org.apache.avro" % "avro" % "1.11.4"
+libraryDependencies += "org.apache.avro" % "avro" % "1.11.5"
 
 libraryDependencies += "com.chuusai" %% "shapeless" % "2.3.3"
 
