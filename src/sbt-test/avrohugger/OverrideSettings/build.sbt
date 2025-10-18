@@ -10,7 +10,7 @@ name := "override-settings"
 
 version := "0.1-SNAPSHOT"
 
-crossScalaVersions := Seq("2.12.20", "2.13.16", "3.7.3")
+crossScalaVersions := Seq("2.12.20", "2.13.17", "3.7.3")
 
-libraryDependencies += "org.apache.avro" % "avro" % "1.11.4"
+libraryDependencies += "org.apache.avro" % "avro" % "1.11.5"
 
