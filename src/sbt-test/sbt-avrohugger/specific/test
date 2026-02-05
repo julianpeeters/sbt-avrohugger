@@ -1,9 +1,9 @@
 > compile
 
-$ exists target/out/jvm/scala-2.12.20/specific-generation-test/src_managed/main/compiled_avro/example/TestAVDL.scala
-$ exists target/out/jvm/scala-2.12.20/specific-generation-test/backend/example/TestAVDL.class
+$ exists target/out/jvm/scala-2.12.21/specific-generation-test/src_managed/main/compiled_avro/example/TestAVDL.scala
+$ exists target/out/jvm/scala-2.12.21/specific-generation-test/classes/example/TestAVDL.class
 
-$ exists target/out/jvm/scala-2.12.20/specific-generation-test/src_managed/main/compiled_avro/example/TestAVSC.scala
-$ exists target/out/jvm/scala-2.12.20/specific-generation-test/backend/example/TestAVSC.class
+$ exists target/out/jvm/scala-2.12.21/specific-generation-test/src_managed/main/compiled_avro/example/TestAVSC.scala
+$ exists target/out/jvm/scala-2.12.21/specific-generation-test/classes/example/TestAVSC.class
 
 > clean

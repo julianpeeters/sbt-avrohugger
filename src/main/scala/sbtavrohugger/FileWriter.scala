@@ -11,10 +11,11 @@ import sbt.Path._
 object FileWriter {
 
   private[sbtavrohugger] def generateCaseClasses(
-                                                  generator: Generator,
-                                                  srcDirs: Seq[File],
-                                                  target: File,
-                                                  log: Logger): Set[java.io.File] = {
+    generator: Generator,
+    srcDirs: Seq[File],
+    target: File,
+    log: Logger
+  ): Set[java.io.File] = {
     log.info("Considering source directories %s".format(srcDirs.mkString(",")))
 
     def getSrcFiles(dirs: Seq[File], fileExtension: String) = for {

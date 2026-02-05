@@ -116,7 +116,7 @@ object SbtAvrohugger extends AutoPlugin {
         inStyle = FilesInfo.lastModified,
         outStyle = FilesInfo.exists
       ) { (in: Set[File]) => FileWriter.generateCaseClasses(gen, srcDirs, targetDir, out.log) }
-      cachedCompile((srcDirs ** "*.av*").get().toSet).toSeq
+      cachedCompile((srcDirs.globRecursive("*.av*")).get().toSet).toSeq
     }
   )
 }

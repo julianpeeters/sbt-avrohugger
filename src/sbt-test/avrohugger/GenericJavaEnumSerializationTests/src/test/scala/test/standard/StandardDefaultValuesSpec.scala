@@ -27,7 +27,7 @@ skipAll
       // sameRecord.embedded === Embedded(1)
       sameRecord.defaultArray === List(1,3,4,5)
       sameRecord.optionalEnum === None
-      sameRecord.defaultMap === Map("Hello" -> "world", "Merry" -> "Christmas")
+      sameRecord.defaultMap === Map("Merry" -> "Christmas", "Hello" -> "world")
       sameRecord.byt === "\u00FF".getBytes
       // sameRecord.defaultEither === Left(2)
       // sameRecord.defaultCoproduct === Inl(3)

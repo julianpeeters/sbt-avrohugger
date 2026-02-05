@@ -2,6 +2,6 @@ name := "specific-generation-test"
 
 Compile / sourceGenerators += (Compile / avroScalaGenerateSpecific).taskValue
 
-scalaVersion := "2.12.20"
+scalaVersion := "2.12.21"
 
-libraryDependencies += "org.apache.avro" % "avro" % "1.11.5"
+libraryDependencies += "org.apache.avro" % "avro" % "1.12.1"

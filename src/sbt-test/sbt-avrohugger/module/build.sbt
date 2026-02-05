@@ -16,8 +16,8 @@ lazy val `submodule` = (project in file("submodule"))
   )
   
 lazy val commonSettings = Seq(
-  scalaVersion := "2.12.20",
-  libraryDependencies += "org.apache.avro" % "avro" % "1.11.5",
+  scalaVersion := "2.12.21",
+  libraryDependencies += "org.apache.avro" % "avro" % "1.12.1",
   libraryDependencies += "org.specs2" %% "specs2-core" % "4.20.2" % Test,
   libraryDependencies += "org.specs2" %% "specs2-scalacheck" % "4.6.0" % Test
 )

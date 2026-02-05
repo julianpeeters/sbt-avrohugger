@@ -72,7 +72,7 @@ class StandardDefaultValuesSpec extends Specification {
       sameRecord.get("embedded").asInstanceOf[GenericRecord].get("inner") === 1
       sameRecord.get("defaultArray") === List(1,3,4,5).asJava
       sameRecord.get("optionalEnum") === null
-      sameRecord.get("defaultMap").toString === "{Hello=world, Merry=Christmas}"
+      sameRecord.get("defaultMap").toString === "{Merry=Christmas, Hello=world}"
       sameRecord.get("byt") === java.nio.ByteBuffer.wrap("ÿ".getBytes)
       sameRecord.get("fx").asInstanceOf[GenericData.Fixed].bytes === "ÿ".getBytes
       sameRecord.get("defaultEither") === 2
