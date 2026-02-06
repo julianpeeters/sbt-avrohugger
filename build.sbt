@@ -8,7 +8,7 @@ enablePlugins(SbtPlugin)
 (run / fork) := true
 (run / outputStrategy) := Some(StdoutOutput)
 
-crossScalaVersions := Seq("2.12.21", "3.8.1")
+crossScalaVersions := Seq("2.12.21", "3.7.4")
 scalacOptions ++= Seq(
   "-unchecked",
   "-deprecation",
