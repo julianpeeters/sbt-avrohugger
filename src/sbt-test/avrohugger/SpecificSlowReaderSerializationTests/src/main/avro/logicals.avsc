@@ -1,0 +1,78 @@
+{
+  "namespace": "test.logicals",
+  "type": "record",
+  "name": "LogicalSc",
+  "fields": [
+    {
+      "name": "data",
+      "type": {
+        "type": "bytes",
+        "logicalType": "decimal",
+        "precision": 20,
+        "scale": 8
+      }
+    },
+    {
+      "name": "fxField",
+      "type": {
+        "type": "fixed",
+        "namespace": "test",
+        "name": "fxType",
+        "size": 2,
+        "logicalType": "decimal",
+        "precision": 2,
+        "scale": 1
+      }
+    },
+    {
+      "name": "ts",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      }
+    },
+    {
+      "name": "dt",
+      "type": {
+        "type": "int",
+        "logicalType": "date"
+      }
+    },
+    {
+      "name": "uuid",
+      "type": {
+        "type": "string",
+        "logicalType": "uuid"
+      }
+    },
+    {
+      "name": "timeMicros",
+      "type": {
+        "type": "long",
+        "logicalType": "time-micros"
+      }
+    },
+    {
+      "name": "timestampMicros",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-micros"
+      }
+    },
+    {
+      "name": "localTimestampMicros",
+      "type": {
+        "type": "long",
+        "logicalType": "local-timestamp-micros"
+      }
+    },
+    {
+      "name": "localTimestampMillis",
+      "type": {
+        "type": "long",
+        "logicalType": "local-timestamp-millis"
+      }
+    }
+    
+  ]
+}

@@ -1,0 +1,12 @@
+@namespace("test")
+
+protocol LogicalIDL {
+
+  record LogicalIdl {
+    decimal(20, 8) dec = "\u000C\u006C";
+    union {null, decimal(20, 8)} maybeDec = null;
+    timestamp_ms ts = 1526573732000; //ms from the unix epoch
+    date dt = 600; //days from the unix epock, no time precission
+  }
+
+}
