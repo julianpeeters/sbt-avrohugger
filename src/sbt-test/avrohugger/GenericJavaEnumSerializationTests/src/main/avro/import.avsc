@@ -1,0 +1,12 @@
+{
+  "namespace": "other.ns",
+  "name": "EnumWithDefaults",
+  "type": "record",
+  "fields": [
+    {
+      "name": "suit",
+      "type": "Suit",
+      "default": "SPADES"
+    }
+  ]
+}
