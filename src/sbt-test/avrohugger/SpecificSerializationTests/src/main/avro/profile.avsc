@@ -1,0 +1,45 @@
+{
+  "namespace": "com.example.models",
+  "name": "UserProfile",
+  "type": "record",
+  "fields": [
+    {
+      "name": "profileType",
+      "type": "string"
+    },
+    {
+      "name": "location",
+      "type": "com.example.models.Coords"
+    },
+    {
+      "name": "userAttributes",
+      "type": {
+        "name": "UserAttributes",
+        "type": "record",
+        "fields": [
+          { "name": "creationDate", "type": "long" },
+          { "name": "lastLogin", "type": ["null", "long"] },
+          { "name": "subscriptionEndDate", "type": ["null", "long"] },
+          { "name": "accountStatus", "type": "string", "default": "" },
+          { "name": "userId", "type": ["null", "string"], "default": null },
+          { "name": "userRating", "type": ["null", "double"], "default": null },
+          { "name": "isDeactivated", "type": ["null", "boolean"], "default": null },
+          { "name": "userBio", "type": ["null", "string"], "default": null },
+          { "name": "profileLastUpdated", "type": ["null", "long"], "default": null },
+          {
+            "name": "lastKnownLocation",
+            "type": [
+              "null",
+              {
+                "name": "Coordinates",
+                "type": "array",
+                "items": "double"
+              }
+            ],
+            "default": null
+          }
+        ]
+      }
+    }
+  ]
+}
