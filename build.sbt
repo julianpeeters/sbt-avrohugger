@@ -1,6 +1,6 @@
 organization := "com.julianpeeters"
 description := "Sbt plugin for compiling Avro to Scala"
-version := "2.16.3"
+version := "2.16.3-SNAPSHOT"
 versionScheme := Some("semver-spec")
 
 enablePlugins(SbtPlugin)
@@ -40,3 +40,10 @@ pomExtra := (
   </developers>)
 
 scriptedBufferLog := false
+
+scriptedSbt := {
+  scalaBinaryVersion.value match {
+    case "2.12" => "1.12.4"
+    case _      => "2.0.0-RC9"
+  }
+}
