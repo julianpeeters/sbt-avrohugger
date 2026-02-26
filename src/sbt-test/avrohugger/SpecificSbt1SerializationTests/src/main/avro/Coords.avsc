@@ -1,0 +1,19 @@
+{
+  "namespace": "com.example.models",
+  "name": "Coords",
+  "type": "record",
+  "fields": [
+    {
+      "name": "type",
+      "type": "string"
+    },
+    {
+      "name": "coordinates",
+      "type": {
+        "name": "PointCoordinate",
+        "type": "array",
+        "items": "double"
+      }
+    }
+  ]
+}
