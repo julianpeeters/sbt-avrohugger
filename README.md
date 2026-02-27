@@ -9,7 +9,7 @@ Install the plugin (compatible with sbt 1.3+ and sbt 2.0+)
 Add the following lines to the file `myproject/project/plugins.sbt` in your
 project directory:
 
-    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "2.16.2")
+    addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "2.16.3")
     
 
 
@@ -131,7 +131,7 @@ Contributors
 
 | | | |
 | :---         |     :---      |          :--- |
-| [Marius Soutier](https://github.com/mariussoutier) </br> [Vince Tse](https://github.com/vtonehundred) </br> [Saket](https://github.com/skate056) </br> [Raúl Raja Martínez](https://github.com/raulraja) </br> [Marco Stefani](https://github.com/inafets) </br> [Sacha Barber](https://github.com/sachabarber) </br> [sullis](https://github.com/sullis) </br> [Alexandre Bertails](https://github.com/betehess) </br> [Alexander Khotyanov](https://github.com/aksharp) | [Brennan Saeta](https://github.com/saeta) </br> [Jerome Wacongne](https://github.com/ch4mpy) </br> [Jon Morra](https://github.com/jon-morra-zefr) </br> [Paul Snively](https://github.com/PaulAtBanno) </br> [Diego E. Alonso Blas](https://github.com/diesalbla) </br> [Andrew Gustafson](https://github.com/agustafson) </br> [Jonas Grabber](https://github.com/jobegrabber) </br> [mcenkar](https://github.com/mcenkar) </br> [Andrzej Ressel](https://github.com/andrzejressel) | [Daniel Lundin](https://github.com/dln) </br> [Ryan Koval](http://github.ryankoval.com) </br> [Simonas Gelazevicius](https://github.com/simsasg) </br> [Zach Cox](https://github.com/zcox) </br> [Chris Albright](https://github.com/chrisalbright) </br> [Fede Fernández](https://github.com/fedefernandez) </br> [natefitzgerald](https://github.com/natefitzgerald) </br> [Angel Sanadinov](https://github.com/sndnv) </br> [Mikołaj Jakubowski](https://github.com/mkljakubowski)
+| [Marius Soutier](https://github.com/mariussoutier) </br> [Vince Tse](https://github.com/vtonehundred) </br> [Saket](https://github.com/skate056) </br> [Raúl Raja Martínez](https://github.com/raulraja) </br> [Marco Stefani](https://github.com/inafets) </br> [Sacha Barber](https://github.com/sachabarber) </br> [sullis](https://github.com/sullis) </br> [Alexandre Bertails](https://github.com/betehess) </br> [Alexander Khotyanov](https://github.com/aksharp) </br> [Kevin](https://github.com/kewitschka) | [Brennan Saeta](https://github.com/saeta) </br> [Jerome Wacongne](https://github.com/ch4mpy) </br> [Jon Morra](https://github.com/jon-morra-zefr) </br> [Paul Snively](https://github.com/PaulAtBanno) </br> [Diego E. Alonso Blas](https://github.com/diesalbla) </br> [Andrew Gustafson](https://github.com/agustafson) </br> [Jonas Grabber](https://github.com/jobegrabber) </br> [mcenkar](https://github.com/mcenkar) </br> [Andrzej Ressel](https://github.com/andrzejressel) | [Daniel Lundin](https://github.com/dln) </br> [Ryan Koval](http://github.ryankoval.com) </br> [Simonas Gelazevicius](https://github.com/simsasg) </br> [Zach Cox](https://github.com/zcox) </br> [Chris Albright](https://github.com/chrisalbright) </br> [Fede Fernández](https://github.com/fedefernandez) </br> [natefitzgerald](https://github.com/natefitzgerald) </br> [Angel Sanadinov](https://github.com/sndnv) </br> [Mikołaj Jakubowski](https://github.com/mkljakubowski)
 
 #### Fork away, just make sure the tests pass before you send a pull request.
 
