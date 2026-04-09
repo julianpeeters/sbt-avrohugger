@@ -2,11 +2,7 @@ import test._
 import org.specs2.mutable.Specification
 import java.io.File
 import org.apache.avro.generic.{ GenericDatumReader, GenericRecord}
-import org.apache.avro.specific.{
-  SpecificDatumReader,
-  SpecificDatumWriter,
-  SpecificRecordBase
-}
+import org.apache.avro.specific.SpecificDatumReader
 import org.apache.avro.file.DataFileReader
 
 import DefaultEnum._

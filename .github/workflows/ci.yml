@@ -12,8 +12,8 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest]
-        scala: [2.12.21, 3.8.1]
-        java: ['21', '25']
+        scala: [2.12.21, 3.8.2]
+        java: ['17', '25']
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v5

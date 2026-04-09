@@ -1,0 +1,45 @@
+{
+    "type": "record",
+    "name": "Order",
+    "namespace": "com.example.order",
+    "fields": [
+        {
+            "name": "details",
+            "type": {
+                "type": "record",
+                "name": "Container",
+                "namespace": "com.example.model",
+                "fields": [
+                    {
+                        "name": "id",
+                        "type": "string"
+                    },
+                    {
+                        "name": "label",
+                        "type": "string"
+                    },
+                    {
+                        "name": "entries",
+                        "type": {
+                            "type": "record",
+                            "name": "Item",
+                            "fields": [
+                              {
+                                  "name": "name",
+                                  "type": "string"
+                              }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "all_items",
+            "type": {
+                "type": "array",
+                "items": "com.example.model.Item"
+            }
+        }
+    ]
+}

@@ -6,9 +6,9 @@ name := "datatype-specific-serializaton-tests"
 
 version := "0.4-SNAPSHOT"
 
-crossScalaVersions := Seq("2.12.21", "3.3.7")
+scalaVersion := "3.8.3"
 
-scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Ywarn-value-discard")
+scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Werror", "-Wunused:all")
 
 Compile / avroScalaCustomTypes := {
   avrohugger.format.SpecificRecord.defaultTypes.copy(

@@ -9,7 +9,6 @@ import org.apache.avro.specific.{
   SpecificDatumWriter,
   SpecificRecordBase
 }
-import org.apache.avro.Schema
 import org.apache.avro.file.{ DataFileReader, DataFileWriter }
 
 import org.specs2.mutable.Specification
