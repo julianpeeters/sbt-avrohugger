@@ -1,6 +1,6 @@
 organization := "com.julianpeeters"
 description := "Sbt plugin for compiling Avro to Scala"
-version := "2.16.4"
+version := "2.16.5"
 versionScheme := Some("semver-spec")
 
 enablePlugins(SbtPlugin)
@@ -16,9 +16,16 @@ scalacOptions ++= Seq(
   "-Werror"
 )
 
+credentials += Credentials(
+  "Sonatype Nexus Repository Manager",
+  "central.sonatype.com",
+  "I8vG1bDc",
+  "x6YefhirITu9CJIubBVj3ZOZgj7XlkeIE26AK5PPgpjP"
+)
+
 libraryDependencies ++= Seq(
-  "com.julianpeeters" %% "avrohugger-core" % "2.16.3",
-  "com.julianpeeters" %% "avrohugger-filesorter" % "2.16.3",
+  "com.julianpeeters" %% "avrohugger-core" % "2.16.4",
+  "com.julianpeeters" %% "avrohugger-filesorter" % "2.16.4",
   "io.spray" %% "spray-json" % "1.3.6",
   "org.specs2" %% "specs2-core" % "4.20.2" % "test")
 
@@ -44,6 +51,6 @@ scriptedBufferLog := false
 scriptedSbt := {
   scalaBinaryVersion.value match {
     case "2.12" => "1.12.9"
-    case _      => "2.0.0-RC11"
+    case _      => "2.0.0-RC12"
   }
 }
