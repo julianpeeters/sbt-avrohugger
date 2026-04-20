@@ -1,5 +1,6 @@
 namespace test.ns;
 
+
 schema Message;
 
 record Message {
@@ -9,3 +10,4 @@ record Message {
 }
 
 import idl "imported.avdl";
+
