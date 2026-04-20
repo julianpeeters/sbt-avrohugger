@@ -16,13 +16,6 @@ scalacOptions ++= Seq(
   "-Werror"
 )
 
-credentials += Credentials(
-  "Sonatype Nexus Repository Manager",
-  "central.sonatype.com",
-  "I8vG1bDc",
-  "x6YefhirITu9CJIubBVj3ZOZgj7XlkeIE26AK5PPgpjP"
-)
-
 libraryDependencies ++= Seq(
   "com.julianpeeters" %% "avrohugger-core" % "2.16.4",
   "com.julianpeeters" %% "avrohugger-filesorter" % "2.16.4",
