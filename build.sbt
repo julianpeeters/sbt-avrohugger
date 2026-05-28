@@ -1,6 +1,6 @@
 organization := "com.julianpeeters"
 description := "Sbt plugin for compiling Avro to Scala"
-version := "2.17.0-SNAPSHOT"
+version := "2.17.0"
 versionScheme := Some("semver-spec")
 
 enablePlugins(SbtPlugin)
