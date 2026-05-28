@@ -29,7 +29,7 @@ object FileWriter {
       generator.filesToFiles(avscFiles, target.getPath)
     }
 
-    val avdlFiles = AvdlFileSorter.sortSchemaFiles(getSrcFiles(srcDirs, "avdl")).toList
+    val avdlFiles = getSrcFiles(srcDirs, "avdl").toList
     if (avdlFiles.nonEmpty) {
       log.info("Compiling AVDL files \n%s".format(avdlFiles.mkString("\n")))
       generator.filesToFiles(avdlFiles, target.getPath)
