@@ -1,1 +1,1 @@
-addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "2.17.0")
+addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "2.17.1-SNAPSHOT")
