@@ -1,5 +1,0 @@
-protocol test {
-  record Test {
-    boolean `public`;
-  }
-}

@@ -6,7 +6,7 @@ name := "datatype-specific-serializaton-tests"
 
 version := "0.4-SNAPSHOT"
 
-scalaVersion := "3.8.3"
+scalaVersion := "3.9.0"
 
 scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Werror", "-Wunused:all")
 
@@ -15,7 +15,7 @@ Compile / avroScalaCustomTypes := {
     protocol = avrohugger.types.ScalaADT)
 }
 
-libraryDependencies += "org.apache.avro" % "avro" % "1.12.1"
+libraryDependencies += "org.apache.avro" % "avro" % "1.12.2"
 
 libraryDependencies += "org.apache.avro" % "avro-ipc-netty" % "1.9.1"
 

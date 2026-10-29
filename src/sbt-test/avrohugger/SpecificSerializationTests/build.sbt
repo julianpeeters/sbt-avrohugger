@@ -17,7 +17,7 @@ Compile / avroScalaSpecificCustomTypes := {
 
 libraryDependencies += "com.chuusai" %% "shapeless" % "2.4.0-M1"
 
-libraryDependencies += "org.apache.avro" % "avro" % "1.12.1"
+libraryDependencies += "org.apache.avro" % "avro" % "1.12.2"
 
 libraryDependencies += "org.apache.avro" % "avro-ipc-netty" % "1.9.1"
 

@@ -1,6 +1,0 @@
-@namespace("test.system")
-protocol test_schema_protocol {
-	record test_schema {
-		long test_schema;
-	}
-}

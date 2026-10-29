@@ -73,8 +73,8 @@ object SbtAvrohugger extends AutoPlugin {
         avroScalaCustomTypes = Some(customTypes),
         avroScalaCustomNamespace = customNamespace,
         restrictedFieldNumber = isNumberOfFieldsRestricted,
-        classLoader,
-        scalaV)
+        classLoader = classLoader,
+        targetScalaPartialVersion = scalaV)
       val cachedCompile = FileFunction.cached(
         cache / "avro",
         inStyle = FilesInfo.lastModified,
@@ -100,17 +100,18 @@ object SbtAvrohugger extends AutoPlugin {
       val majMinV(scalaV) = scalaVersion.value: @unchecked
       val specificCustomTypes = avroScalaSpecificCustomTypes.value
       val specificCustomNamespace = avroScalaSpecificCustomNamespace.value
+      val avroV = "1.12.2"
       val res = resourceDirectory.value
       val old = scalaInstance.value
       val classLoader = new java.net.URLClassLoader(Array(res.toURI().toURL()), old.loader)
       val isNumberOfFieldsRestricted = scalaV == "2.10"
       val gen = new Generator(
-        SpecificRecord,
-        Some(specificCustomTypes),
-        specificCustomNamespace,
-        isNumberOfFieldsRestricted,
-        classLoader,
-        scalaV)
+        format = SpecificRecord,
+        avroScalaCustomTypes = Some(specificCustomTypes),
+        avroScalaCustomNamespace = specificCustomNamespace,
+        restrictedFieldNumber = isNumberOfFieldsRestricted,
+        classLoader = classLoader,
+        targetScalaPartialVersion = scalaV)
       val cachedCompile = FileFunction.cached(
         cache / "avro",
         inStyle = FilesInfo.lastModified,

@@ -1,8 +1,0 @@
-@namespace("test")
-
-protocol ArrayIDL {
-
-  record ArrayIdl {
-    array<int> data;
-  }
-}
