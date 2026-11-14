@@ -22,8 +22,8 @@ libraryDependencies ++= Seq(
 
 sbtPluginPublishLegacyMavenStyle := false
 publishTo := localStaging.value
-licenses := Seq("Apache 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0"))
-homepage := Some(url(s"https://github.com/julianpeeters/${name.value}"))
+licenses := Seq("Apache 2.0" -> uri("http://www.apache.org/licenses/LICENSE-2.0"))
+homepage := Some(uri(s"https://github.com/julianpeeters/${name.value}"))
 pomExtra := (
   <scm>
     <url>git://github.com/julianpeeters/sbt-avrohugger.git</url>
