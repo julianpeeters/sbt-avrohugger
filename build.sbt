@@ -1,6 +1,6 @@
 organization := "com.julianpeeters"
 description := "Sbt plugin for compiling Avro to Scala"
-version := "2.18.0"
+version := "2.18.1"
 versionScheme := Some("semver-spec")
 
 enablePlugins(SbtPlugin)
@@ -15,10 +15,9 @@ scalacOptions ++= Seq(
   "-feature",
   "-Werror"
 )
-
 libraryDependencies ++= Seq(
-  "com.julianpeeters" %% "avrohugger-core" % "2.18.0",
-  "com.julianpeeters" %% "avrohugger-filesorter" % "2.18.0",
+  "com.julianpeeters" %% "avrohugger-core" % "2.18.1",
+  "com.julianpeeters" %% "avrohugger-filesorter" % "2.18.1",
   "org.specs2" %% "specs2-core" % "4.20.2" % "test")
 
 sbtPluginPublishLegacyMavenStyle := false
