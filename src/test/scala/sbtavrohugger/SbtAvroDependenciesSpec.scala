@@ -9,14 +9,14 @@ class SbtAvroDependenciesSpec extends Specification {
   val classLoader = getClass.getClassLoader
 
   val tmp = Files.createTempDirectory("dependencies").toFile
-  val a = Files.copy(classLoader.getResourceAsStream("dependencies/ArrayRef.avsc"), java.nio.file.Path.of(tmp.toString(), "ArrayRef.avsc"))
-  val b = Files.copy(classLoader.getResourceAsStream("dependencies/SimpleArrayRef.avsc"), java.nio.file.Path.of(tmp.toString(), "SimpleArrayRef.avsc"))
-  val c = Files.copy(classLoader.getResourceAsStream("dependencies/EnumRef.avsc"), java.nio.file.Path.of(tmp.toString(), "EnumRef.avsc"))
-  val d = Files.copy(classLoader.getResourceAsStream("dependencies/Z.avsc"), java.nio.file.Path.of(tmp.toString(), "Z.avsc"))
-  val e = Files.copy(classLoader.getResourceAsStream("dependencies/A.avsc"), java.nio.file.Path.of(tmp.toString(), "A.avsc"))
-  val f = Files.copy(classLoader.getResourceAsStream("dependencies/MapRef.avsc"), java.nio.file.Path.of(tmp.toString(), "MapRef.avsc"))
-  val g = Files.copy(classLoader.getResourceAsStream("dependencies/UnionRef.avsc"), java.nio.file.Path.of(tmp.toString(), "UnionRef.avsc"))
-  val sourceDir = java.nio.file.Path.of("dependencies").toFile()
+  val a = Files.copy(classLoader.getResourceAsStream("dependencies/ArrayRef.avsc"), tmp.toPath.resolve("ArrayRef.avsc"))
+  val b = Files.copy(classLoader.getResourceAsStream("dependencies/SimpleArrayRef.avsc"), tmp.toPath.resolve("SimpleArrayRef.avsc"))
+  val c = Files.copy(classLoader.getResourceAsStream("dependencies/EnumRef.avsc"), tmp.toPath.resolve("EnumRef.avsc"))
+  val d = Files.copy(classLoader.getResourceAsStream("dependencies/Z.avsc"), tmp.toPath.resolve("Z.avsc"))
+  val e = Files.copy(classLoader.getResourceAsStream("dependencies/A.avsc"), tmp.toPath.resolve("A.avsc"))
+  val f = Files.copy(classLoader.getResourceAsStream("dependencies/MapRef.avsc"), tmp.toPath.resolve("MapRef.avsc"))
+  val g = Files.copy(classLoader.getResourceAsStream("dependencies/UnionRef.avsc"), tmp.toPath.resolve("UnionRef.avsc"))
+  val sourceDir = new File("dependencies")
 
   val targetDir = new File(sourceDir.getParentFile, "generated")
 

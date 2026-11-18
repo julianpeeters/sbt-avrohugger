@@ -15,10 +15,10 @@ class SbtAvroSpec extends Specification {
   val classLoader = getClass.getClassLoader
 
   val tmp = Files.createTempDirectory("avro").toFile
-  val a = Files.copy(classLoader.getResourceAsStream("avro/a.avsc"), java.nio.file.Path.of(tmp.toString(), "a.avsc"))
-  val b = Files.copy(classLoader.getResourceAsStream("avro/b.avsc"), java.nio.file.Path.of(tmp.toString(), "b.avsc"))
-  val c = Files.copy(classLoader.getResourceAsStream("avro/c.avsc"), java.nio.file.Path.of(tmp.toString(), "c.avsc"))
-  val sourceDir = java.nio.file.Path.of("avro").toFile()
+  val a = Files.copy(classLoader.getResourceAsStream("avro/a.avsc"), tmp.toPath.resolve("a.avsc"))
+  val b = Files.copy(classLoader.getResourceAsStream("avro/b.avsc"), tmp.toPath.resolve("b.avsc"))
+  val c = Files.copy(classLoader.getResourceAsStream("avro/c.avsc"), tmp.toPath.resolve("c.avsc"))
+  val sourceDir = new File("avro")
   val targetDir = new File(sourceDir.getParentFile, "generated")
   val sourceFiles = Seq(new File(tmp, "a.avsc"), new File(tmp, "b.avsc"), new File(tmp, "c.avsc"))
 

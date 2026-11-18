@@ -12,8 +12,8 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest]
-        scala: [2.12.21, 3.8.4]
-        java: ['17', '25', '27']
+        scala: [2.12.x, 3.x]
+        java: ['17', '21', '25', '27']
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v6
@@ -29,4 +29,4 @@ jobs:
         run: sbt ++${{ matrix.scala }} test
       - name: Run scripted tests
         shell: bash
-        run: sbt ++${{ matrix.scala }} scripted
+        run: sbt +publishLocal ++${{ matrix.scala }} scripted

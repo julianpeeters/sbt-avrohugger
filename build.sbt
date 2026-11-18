@@ -8,7 +8,15 @@ enablePlugins(SbtPlugin)
 (run / fork) := true
 (run / outputStrategy) := Some(StdoutOutput)
 
-crossScalaVersions := Seq("2.12.21", "3.8.4")
+scalaVersion := "3.9.0"
+pluginCrossBuild / sbtVersion := {
+  if (scalaBinaryVersion.value == "2.12") "1.13.1" else "2.1.0"
+}
+scalacOptions ++= {
+  if (scalaBinaryVersion.value == "2.12") Seq("-Xsource:3", "-release:8") else Nil
+}
+
+crossScalaVersions := Seq("2.12.21", "3.9.0")
 scalacOptions ++= Seq(
   "-unchecked",
   "-deprecation",
@@ -39,12 +47,13 @@ pomExtra := (
 
 scriptedBufferLog := false
 scriptedLaunchOpts ++= Seq(
+  "-Dplugin.version=" + version.value,
   "-Dorg.apache.avro.SERIALIZABLE_PACKAGES=com, example, model, other, test",
   "-Dorg.apache.avro.SERIALIZABLE_CLASSES=AvroTypeProviderTestNoNamespace, Test"
 )
 scriptedSbt := {
   scalaBinaryVersion.value match {
     case "2.12" => "1.13.1"
-    case _      => "2.0.12"
+    case _      => "2.1.0"
   }
 }

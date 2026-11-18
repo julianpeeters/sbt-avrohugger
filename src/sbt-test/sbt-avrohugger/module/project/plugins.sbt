@@ -1,1 +1,1 @@
-addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % "2.18.1")
+addSbtPlugin("com.julianpeeters" % "sbt-avrohugger" % sys.props("plugin.version"))
